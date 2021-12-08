@@ -18,7 +18,7 @@ export default function JustinTestPage({
   console.log('web3Instance:');
   console.log(web3Instance);
   return (
-    <div className="container-fluid pt-5">
+    <div className="container pt-5">
       <div className="row w-100 pt-3">
         <h1 className="pt-1 text-center">Justin&apos;s Test Page</h1>
         <p className="text-center">This page is just for Justin to test stuff.</p>
