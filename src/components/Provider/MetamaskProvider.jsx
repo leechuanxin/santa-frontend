@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 // CUSTOM IMPORTS
 import injected from '../Wallet/Connectors.jsx';
 
-function MetamaskProvider({ children }) {
+function MetamaskProvider({ web3Instance, children }) {
   const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React();
   const [loaded, setLoaded] = useState(false);
   // set default to true, we only switch it back to false
@@ -29,8 +29,15 @@ function MetamaskProvider({ children }) {
       });
   }, [activateNetwork, networkActive, networkError]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (window.ethereum) {
+      let checkedAccounts = [];
+      if (web3Instance) {
+        checkedAccounts = await web3Instance.eth.getAccounts();
+        if (checkedAccounts.length === 0) {
+          setForcedLogout(true);
+        }
+      }
       window.ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length > 0) {
           window.location.reload();
@@ -39,7 +46,7 @@ function MetamaskProvider({ children }) {
         }
       });
     }
-  }, []);
+  }, [web3Instance]);
 
   if (forcedLogout) {
     return <Redirect to="/" />;

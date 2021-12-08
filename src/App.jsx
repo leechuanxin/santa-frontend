@@ -12,6 +12,8 @@ import Web3 from 'web3';
 // CUSTOM IMPORTS
 import './App.css';
 import Navbar from './components/Navbar/Navbar.jsx';
+// CUSTOM IMPORTS
+import contract from './abi/santa.json';
 // Providers
 import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
 // Pages
@@ -23,6 +25,7 @@ import JustinTest from './JustinTestPage.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
+const contractAddress = '0x71964Ed1000B5a08B679107dabb352753F0Df3D5';
 
 // const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 
@@ -53,7 +56,9 @@ function NoNavbarWrapper({
 }
 
 export default function App() {
-  const [hasNavbar, setHasNavbar] = useState(true);
+  const [hasNavbar, setHasNavbar] = useState(false);
+  const [myContract, setMyContract] = useState(null);
+  const [web3Instance, setWeb3Instance] = useState(null);
 
   const handleSetNavbar = () => {
     setHasNavbar(true);
@@ -62,6 +67,16 @@ export default function App() {
   const handleSetNoNavbar = () => {
     setHasNavbar(false);
   };
+
+  useEffect(() => {
+    if (window.ethereum) {
+      const newWeb3Instance = new Web3(window.ethereum);
+      window.web3 = newWeb3Instance;
+      const newContract = new window.web3.eth.Contract(contract, contractAddress);
+      setMyContract(newContract);
+      setWeb3Instance(newWeb3Instance);
+    }
+  }, []);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -92,7 +107,9 @@ export default function App() {
               <NavbarWrapper
                 handleSetNavbar={handleSetNavbar}
               >
-                <WishListings />
+                <MetamaskProvider web3Instance={web3Instance}>
+                  <WishListings />
+                </MetamaskProvider>
               </NavbarWrapper>
             )}
           />
@@ -103,7 +120,13 @@ export default function App() {
               <NoNavbarWrapper
                 handleSetNoNavbar={handleSetNoNavbar}
               >
-                <JustinTest />
+                <MetamaskProvider web3Instance={web3Instance}>
+                  <JustinTest
+                    contract={contract}
+                    contractAddress={contractAddress}
+                    myContract={myContract}
+                  />
+                </MetamaskProvider>
               </NoNavbarWrapper>
             )}
           />
@@ -111,13 +134,15 @@ export default function App() {
             exact
             path="*"
             render={() => (
-              <MetamaskProvider>
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
+
+              <NavbarWrapper
+                handleSetNavbar={handleSetNavbar}
+              >
+                <MetamaskProvider web3Instance={web3Instance}>
                   <Error404 />
-                </NavbarWrapper>
-              </MetamaskProvider>
+                </MetamaskProvider>
+              </NavbarWrapper>
+
             )}
           />
         </Switch>

@@ -1,85 +1,26 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
-import { useWeb3React } from '@web3-react/core';
-import Web3 from 'web3';
+import React from 'react';
 // CUSTOM IMPORTS
-import injected from './components/Wallet/Connectors.jsx';
+import TestCryptoWalletAddress from './components/Test/TestCryptoWalletAddress.jsx';
 
-import contract from './abi/santa.json';
-
-const contractAddress = '0x71964Ed1000B5a08B679107dabb352753F0Df3D5';
-function EnterButton({ networkActive, account }) {
+export default function JustinTestPage({
+  contract,
+  contractAddress,
+  myContract,
+}) {
+  console.log('contract:');
+  console.log(contract);
+  console.log('contractAddress:');
+  console.log(contractAddress);
+  console.log('myContract:');
+  console.log(myContract);
   return (
-    <>
-      <button type="button" className="btn w-100 btn-primary" disabled={!networkActive}>Enter app</button>
-      {networkActive ? (
-        <span className="w-100">
-          Connected with
-          {' '}
-          <b>{account}</b>
-        </span>
-      ) : <span>Not connected</span>}
-    </>
-  );
-}
-
-export default function Home() {
-  console.log(Web3.currentProvider);
-  const {
-    active: networkActive, error: networkError, activate: activateNetwork, account,
-  } = useWeb3React();
-
-  useEffect(() => {
-    injected
-      .isAuthorized()
-      .then((isAuthorized) => {
-        if (isAuthorized && !networkActive && !networkError) {
-          activateNetwork(injected);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [activateNetwork, networkActive, networkError]);
-
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      });
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          window.location.reload();
-        }
-      });
-      window.web3 = new Web3(window.ethereum);
-      console.log(contract);
-      const myContract = new window.web3.eth.Contract(contract, contractAddress);
-      console.log(myContract);
-    }
-  }, []);
-
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12 d-flex flex-column">
-          <div>
-            <p>Before entering, please ensure that you have:</p>
-            <ul>
-              <li>
-                Installed the
-                {' '}
-                <a target="_blank" rel="noreferrer" href="https://metamask.io/index.html">MetaMask Chrome Extension</a>
-                .
-              </li>
-              <li>Connected your crypto wallet with MetaMask.</li>
-            </ul>
-          </div>
-          <EnterButton
-            networkActive={networkActive}
-            account={account}
-          />
-        </div>
+    <div className="container-fluid pt-5">
+      <div className="row w-100 pt-3">
+        <h1 className="pt-1 text-center">Justin&apos;s Test Page</h1>
+        <p className="text-center">This page is just for Justin to test stuff.</p>
+        <TestCryptoWalletAddress />
+        <div className="col-12 pt-3" />
       </div>
     </div>
   );

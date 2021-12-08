@@ -67,7 +67,7 @@ function EnterButton({ networkActive, account }) {
           disabled={!networkActive}
           onClick={handleActiveEnterClick}
         >
-          Enter app
+          Play Santa!
         </button>
         <p className="w-100 text-center">
           {networkActive ? (
