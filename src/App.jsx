@@ -15,6 +15,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 // Pages
 import Index from './components/Index/IndexPage.jsx';
 import Error404 from './components/Error/Error404Page.jsx';
+import WishListings from './components/Wishes/WishListingsPage.jsx';
 // Auxiliary Pages
 import JustinTest from './JustinTestPage.jsx';
 
@@ -80,6 +81,17 @@ export default function App() {
               >
                 <Index />
               </NoNavbarWrapper>
+            )}
+          />
+          <Route
+            exact
+            path="/wishes"
+            render={() => (
+              <NavbarWrapper
+                handleSetNavbar={handleSetNavbar}
+              >
+                <WishListings />
+              </NavbarWrapper>
             )}
           />
           <Route
