@@ -5,7 +5,7 @@ import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 export default function Error404Page() {
   return (
-    <div className="container-fluid pt-5">
+    <div className="container pt-5">
       <div className="row w-100 pt-3">
         <h1 className="pt-1 text-center">404</h1>
         <p className="text-center">Santa is not coming down this chimney!</p>

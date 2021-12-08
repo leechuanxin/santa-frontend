@@ -5,7 +5,7 @@ import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 export default function WishListingsPage() {
   return (
-    <div className="container-fluid pt-5">
+    <div className="container pt-5">
       <div className="row w-100 pt-3">
         <p className="pt-1 text-center">Preliminary Wish Listings Page</p>
         <TestCryptoWalletAddress />
