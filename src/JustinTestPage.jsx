@@ -7,6 +7,7 @@ export default function JustinTestPage({
   contract,
   contractAddress,
   myContract,
+  web3Instance,
 }) {
   console.log('contract:');
   console.log(contract);
@@ -14,6 +15,8 @@ export default function JustinTestPage({
   console.log(contractAddress);
   console.log('myContract:');
   console.log(myContract);
+  console.log('web3Instance:');
+  console.log(web3Instance);
   return (
     <div className="container-fluid pt-5">
       <div className="row w-100 pt-3">

@@ -125,6 +125,7 @@ export default function App() {
                     contract={contract}
                     contractAddress={contractAddress}
                     myContract={myContract}
+                    web3Instance={web3Instance}
                   />
                 </MetamaskProvider>
               </NoNavbarWrapper>
