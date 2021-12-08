@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
 import React, { useEffect } from 'react';
 import { useWeb3React } from '@web3-react/core';
+import { useHistory } from 'react-router-dom';
 // CUSTOM IMPORTS
 import injected from '../Wallet/Connectors.jsx';
 
@@ -43,13 +44,20 @@ function MetamaskAlert({ networkActive }) {
           </div>
         </div>
       </div>
-
     );
   }
   return null;
 }
 
 function EnterButton({ networkActive, account }) {
+  const history = useHistory();
+  const handleActiveEnterClick = (e) => {
+    e.preventDefault();
+    if (networkActive) {
+      history.push('/test');
+    }
+  };
+
   return (
     <div className="row pt-3">
       <div className="col-12 col-md-6 ms-auto me-auto">
@@ -57,6 +65,7 @@ function EnterButton({ networkActive, account }) {
           type="button"
           className="btn w-100 btn-primary"
           disabled={!networkActive}
+          onClick={handleActiveEnterClick}
         >
           Enter app
         </button>
@@ -121,30 +130,4 @@ export default function Home() {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="container">
-  //     <div className="row">
-  //       <div className="col-12 d-flex flex-column">
-  //         <div>
-  //           <p>Before entering, please ensure that you have:</p>
-  //           <ul>
-  //             <li>
-  //               Installed the
-  //               {' '}
-  //               <a target="_blank" rel="noreferrer" href="https://metamask.io/index.html">MetaMask Chrome Extension</a>
-  //               .
-  //             </li>
-  //             <li>Connected your crypto wallet account with MetaMask.</li>
-  //             <li>Connected your crypto wallet account account to this site using MetaMask.</li>
-  //           </ul>
-  //         </div>
-  //         <EnterButton
-  //           networkActive={networkActive}
-  //           account={account}
-  //         />
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 }

@@ -12,6 +12,8 @@ import Web3 from 'web3';
 // CUSTOM IMPORTS
 import './App.css';
 import Navbar from './components/Navbar/Navbar.jsx';
+// Providers
+import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
 // Pages
 import Index from './components/Index/IndexPage.jsx';
 import Error404 from './components/Error/Error404Page.jsx';
@@ -109,11 +111,13 @@ export default function App() {
             exact
             path="*"
             render={() => (
-              <NavbarWrapper
-                handleSetNavbar={handleSetNavbar}
-              >
-                <Error404 />
-              </NavbarWrapper>
+              <MetamaskProvider>
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <Error404 />
+                </NavbarWrapper>
+              </MetamaskProvider>
             )}
           />
         </Switch>
