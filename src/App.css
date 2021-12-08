@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.page-wrapper,
+.landing-wrapper {
+  height: 100%;
+}
+
+.text-truncated,
+.text-truncated-parent,
+.text-truncated-parent * {
+  /* Ellipsis */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anchor-name {
+  display: block;
+  position: relative;
+  top: -130px;
+  visibility: hidden;
+}
+
+.popover {
+  z-index: 1029;
+}
+
+.navbar-menu {
+  color: #eeeeee;
+  font-size: 1.5em;
+}
+
+.navbar-menu:hover {
+  color: #fff;
+}
+
+.offcanvas-body {
+  padding: 0;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.offcanvas-body-top {
+  overflow-y: auto;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+.offcanvas-body-top.is-logged-in {
+  height: calc(100% - 50px);
+}
+
+.offcanvas-body-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.offcanvas-body > div {
+  height: 100%;
+}
+
+.offcanvas-body .nav-pills .nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+}
+
+.offcanvas-body .active.nav-link,
+.offcanvas-body .active.nav-link:hover {
+  background: #3f51b5;
+}
+
+.offcanvas-body .nav-link:hover {
+  background: #1a237e;
+}
+
+.offcanvas-header .btn-close {
+  border-radius: 50%;
+}
+
+.square-image {
+  display: block;
+  padding-bottom: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: content-box;
+  width: 100%;
+}
+
+.square-image.circle {
+  border-radius: 50%;
+  background: #fff;
+}
+
+.square-image img {
+  position: absolute;
+  object-fit: cover;
+  height: auto;
+  min-height: 100%;
+  left: 0;
+  top: 0;
+  border: 0;
+  width: 100%;
+}
