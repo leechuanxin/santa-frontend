@@ -54,7 +54,7 @@ function EnterButton({ networkActive, account }) {
   const handleActiveEnterClick = (e) => {
     e.preventDefault();
     if (networkActive) {
-      history.push('/test');
+      history.push('/wishes');
     }
   };
 
