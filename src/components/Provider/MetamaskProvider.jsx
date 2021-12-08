@@ -23,6 +23,13 @@ function MetamaskProvider({ children }) {
     return children;
   }
   return <>Loading</>;
+  // return (
+  //   <Route path="/daksdjmas">
+  //     <MetamaskProvider>
+  //     <Wish  />
+  //     </MetamaskProvider>
+  //   </Route>
+  // );
 }
 
 export default MetamaskProvider;
