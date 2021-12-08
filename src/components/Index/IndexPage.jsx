@@ -38,7 +38,7 @@ function MetamaskAlert({ networkActive }) {
                   .
                 </li>
                 <li>Connected your crypto wallet account with MetaMask.</li>
-                <li>Connected your crypto wallet account account to this site using MetaMask.</li>
+                <li>Connected your crypto wallet account to this site using MetaMask.</li>
               </ul>
             </div>
           </div>
