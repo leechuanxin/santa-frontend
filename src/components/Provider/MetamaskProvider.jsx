@@ -69,7 +69,7 @@ function MetamaskProvider({ web3Instance, children }) {
             style={{ width: '5rem', height: '5rem' }}
             role="status"
           >
-            <span className="sr-only">Loading...</span>
+            <span className="sr-only"><span className="d-none">Loading...</span></span>
           </div>
         </div>
       </div>
