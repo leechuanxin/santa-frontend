@@ -66,15 +66,13 @@ function EnterButton({ networkActive, account }) {
         .post(`${REACT_APP_BACKEND_URL}/user/onboard`, { address: account })
         .then(async (response) => {
           if (!response.data.error) {
-            console.log('api call success!');
-            console.log(response.data);
             if (
               response.data.message.indexOf('New user added') === 0
               || response.data.message.indexOf('not yet onboarded') > -1
             ) {
-              localStorageService.setItem('id', response.data.id);
+              localStorageService.setItem('user_id', response.data.id);
               localStorageService.setItem('address', response.data.address);
-              history.push('/updateuser?onboard=true');
+              history.push('/updateprofile?onboard=true');
             } else {
               history.push('/wishes');
             }

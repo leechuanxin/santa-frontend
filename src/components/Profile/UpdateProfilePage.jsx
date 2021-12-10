@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import { useWeb3React } from '@web3-react/core';
 // Custom imports
+import getHash from '../../modules/hashing.mjs';
+import localStorageService from '../../modules/localStorageService.mjs';
 import * as errors from '../../modules/errors.mjs';
+import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
+import UserContext from '../../contexts/UserContext.js';
+import { addUser } from '../../reducers/UserReducer.js';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -33,7 +39,7 @@ function NewUserRedirectAlert({ flag }) {
               <p className="mb-0">
                 Your display username should be at least 2 characters long,
                 and not longer than 20 characters.
-                It should only include alphanumeric characters, or underscores.
+                It should only include lowercase alphanumeric characters, or underscores.
               </p>
             </div>
           </div>
@@ -59,15 +65,24 @@ function GlobalSettingsErrorAlert({ errorMessage }) {
   return null;
 }
 
-export default function UpdateUserPage({
-  prevUsername, userId,
+export default function UpdateProfilePage({
+  user,
 }) {
   const query = useQuery();
+  const history = useHistory();
+  const {
+    active: networkActive,
+    account,
+  } = useWeb3React();
+  const dispatch = useContext(UserContext);
 
   const [globalErrorMessage, setGlobalErrorMessage] = useState('');
   const [usernameInvalidMessage, setUsernameInvalidMessage] = useState('');
 
-  const [username, setUsername] = useState(prevUsername);
+  const [username, setUsername] = useState(
+    (user && user.username && typeof user.username === 'string')
+      ? user.username : '',
+  );
 
   const handleUsernameChange = (event) => {
     // Retrieve input field value from JS event object.
@@ -82,11 +97,14 @@ export default function UpdateUserPage({
     let usernameInvalid = '';
 
     const data = {
-      displayName: username,
+      username,
+      userId: user.user_id,
+      address: user.address,
+      address2: (networkActive ? account : ''),
     };
 
     axios
-      .put(`/user/${userId}/update`, data)
+      .put(`${REACT_APP_BACKEND_URL}/user/update`, data)
       .then((response) => {
         if (response.data.error) {
           window.scrollTo(0, 0);
@@ -100,9 +118,11 @@ export default function UpdateUserPage({
           setUsernameInvalidMessage(usernameInvalid);
           setGlobalErrorMessage(errors.SETTINGS_GLOBAL_ERROR_MESSAGE);
         } else {
-          window.scrollTo(0, 0);
-          setGlobalErrorMessage('');
-          setUsernameInvalidMessage('');
+          if (response.data.displayName) {
+            localStorageService.setItem('username', response.data.displayName);
+            dispatch(addUser({ username: response.data.displayName }));
+          }
+          history.push('/wishes');
         }
       })
       .catch(() => {
@@ -130,7 +150,11 @@ export default function UpdateUserPage({
                 <div className="col-5 col-md-1">
                   <div className="card">
                     <div className="card-img-top bg-gray-300 border-b border-gray-600">
-                      <img className="img-fluid" src={`https://avatars.dicebear.com/api/adventurer-neutral/${userId + 1}.svg`} alt="This is you!" />
+                      <img
+                        className="img-fluid"
+                        src={`https://avatars.dicebear.com/api/adventurer-neutral/${getHash((user.user_id + 23), user.address)}.svg`}
+                        alt="This is you!"
+                      />
                     </div>
                   </div>
                 </div>
