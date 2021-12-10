@@ -118,10 +118,15 @@ export default function UpdateProfilePage({
           setUsernameInvalidMessage(usernameInvalid);
           setGlobalErrorMessage(errors.SETTINGS_GLOBAL_ERROR_MESSAGE);
         } else {
-          if (response.data.displayName) {
-            localStorageService.setItem('username', response.data.displayName);
-            dispatch(addUser({ username: response.data.displayName }));
-          }
+          localStorageService.setItem('user_id', response.data.id);
+          localStorageService.setItem('address', response.data.address);
+          localStorageService.setItem('username', response.data.displayName);
+          dispatch(addUser({
+            user_id: response.data.id,
+            address: response.data.address,
+            username: response.data.displayName,
+          }));
+
           history.push('/wishes');
         }
       })
