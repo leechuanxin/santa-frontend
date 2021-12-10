@@ -1,17 +1,33 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useWeb3React } from '@web3-react/core';
 // CUSTOM IMPORTS
+import localStorageService from '../../modules/localStorageService.mjs';
+import {
+  initialState,
+  userReducer,
+  deleteUser,
+} from '../../reducers/UserReducer.js';
 import injected from '../Wallet/Connectors.jsx';
 
 function OnboardingMetamaskProvider({ web3Instance, children }) {
   const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React();
+  const [, dispatch] = useReducer(userReducer, initialState);
+
   const [loaded, setLoaded] = useState(false);
   // set default to true, we only switch it back to false
   // on error, or on disconnect
   const [apiCalled, setApiCalled] = useState(true);
   const [forcedLogout, setForcedLogout] = useState(false);
+
+  const handleForceLogout = () => {
+    localStorageService.removeItem('user_id');
+    localStorageService.removeItem('address');
+    localStorageService.removeItem('username');
+    dispatch(deleteUser());
+    setForcedLogout(true);
+  };
 
   useEffect(() => {
     injected
@@ -35,14 +51,14 @@ function OnboardingMetamaskProvider({ web3Instance, children }) {
       if (web3Instance) {
         checkedAccounts = await web3Instance.eth.getAccounts();
         if (checkedAccounts.length === 0) {
-          setForcedLogout(true);
+          handleForceLogout();
         }
       }
       window.ethereum.on('accountsChanged', (accounts) => {
         if (accounts.length > 0) {
           window.location.reload();
         } else {
-          setForcedLogout(true);
+          handleForceLogout();
         }
       });
     }
