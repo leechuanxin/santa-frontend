@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 // CUSTOM IMPORTS
 import injected from '../Wallet/Connectors.jsx';
 
-function MetamaskProvider({ web3Instance, children }) {
+function OnboardingMetamaskProvider({ web3Instance, children }) {
   const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React();
   const [loaded, setLoaded] = useState(false);
   // set default to true, we only switch it back to false
@@ -73,4 +73,4 @@ function MetamaskProvider({ web3Instance, children }) {
   return children;
 }
 
-export default MetamaskProvider;
+export default OnboardingMetamaskProvider;

@@ -24,6 +24,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import contract from './abi/santa.json';
 // Providers
 import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
+import OnboardingMetamaskProvider from './components/Provider/OnboardingMetamaskProvider.jsx';
 // Pages
 import Index from './components/Index/IndexPage.jsx';
 import WishListings from './components/Wishes/WishListingsPage.jsx';
@@ -159,9 +160,9 @@ export default function App() {
                 <NavbarWrapper
                   handleSetNavbar={handleSetNavbar}
                 >
-                  <MetamaskProvider web3Instance={web3Instance}>
+                  <OnboardingMetamaskProvider web3Instance={web3Instance}>
                     <UpdateProfile user={user} />
-                  </MetamaskProvider>
+                  </OnboardingMetamaskProvider>
                 </NavbarWrapper>
               )}
             />
@@ -172,7 +173,7 @@ export default function App() {
                 <NavbarWrapper
                   handleSetNavbar={handleSetNavbar}
                 >
-                  <MetamaskProvider web3Instance={web3Instance}>
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <WishListings />
                   </MetamaskProvider>
                 </NavbarWrapper>
