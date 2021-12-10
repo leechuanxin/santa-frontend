@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -7,6 +7,10 @@ import { useHistory } from 'react-router-dom';
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import injected from '../Wallet/Connectors.jsx';
 import localStorageService from '../../modules/localStorageService.mjs';
+import {
+  addUser,
+} from '../../reducers/UserReducer.js';
+import UserContext from '../../contexts/UserContext.js';
 
 function MetamaskAlert({ networkActive }) {
   if (!networkActive) {
@@ -53,6 +57,7 @@ function MetamaskAlert({ networkActive }) {
 }
 
 function EnterButton({ networkActive, account }) {
+  const dispatch = useContext(UserContext);
   const history = useHistory();
   const handleActiveEnterClick = (e) => {
     e.preventDefault();
@@ -72,8 +77,20 @@ function EnterButton({ networkActive, account }) {
             ) {
               localStorageService.setItem('user_id', response.data.id);
               localStorageService.setItem('address', response.data.address);
+              dispatch(addUser({
+                user_id: Number(response.data.id),
+                address: response.data.address,
+              }));
               history.push('/updateprofile?onboard=true');
             } else {
+              localStorageService.setItem('user_id', response.data.id);
+              localStorageService.setItem('address', response.data.address);
+              localStorageService.setItem('username', response.data.displayName);
+              dispatch(addUser({
+                user_id: Number(response.data.id),
+                address: response.data.address,
+                username: response.data.displayName,
+              }));
               history.push('/wishes');
             }
           }

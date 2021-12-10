@@ -11,7 +11,7 @@ import {
 } from '../../reducers/UserReducer.js';
 import injected from '../Wallet/Connectors.jsx';
 
-function MetamaskProvider({ web3Instance, children }) {
+function MetamaskProvider({ user, web3Instance, children }) {
   const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React();
   const [, dispatch] = useReducer(userReducer, initialState);
 
@@ -20,20 +20,33 @@ function MetamaskProvider({ web3Instance, children }) {
   // on error, or on disconnect
   const [apiCalled, setApiCalled] = useState(true);
   const [forcedLogout, setForcedLogout] = useState(false);
+  const [forcedOnboard, setForcedOnboard] = useState(false);
 
-  const handleForceLogout = () => {
+  const clearUser = () => {
     localStorageService.removeItem('user_id');
     localStorageService.removeItem('address');
     localStorageService.removeItem('username');
     dispatch(deleteUser());
+  };
+
+  const handleForceLogout = () => {
+    clearUser();
     setForcedLogout(true);
+  };
+
+  const handleForceOnboard = () => {
+    setForcedOnboard(true);
   };
 
   useEffect(() => {
     injected
       .isAuthorized()
       .then((isAuthorized) => {
-        if (isAuthorized && !networkActive && !networkError) {
+        if (
+          isAuthorized
+          && !networkActive
+          && !networkError
+        ) {
           activateNetwork(injected);
         }
         setLoaded(true);
@@ -50,13 +63,19 @@ function MetamaskProvider({ web3Instance, children }) {
       let checkedAccounts = [];
       if (web3Instance) {
         checkedAccounts = await web3Instance.eth.getAccounts();
-        if (checkedAccounts.length === 0) {
+        if (checkedAccounts.length === 0 || !user) {
           handleForceLogout();
+        } else if (user && !user.username) {
+          handleForceOnboard();
         }
       }
       window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          window.location.reload();
+        if (accounts.length > 0 && user) {
+          if (!user.username) {
+            handleForceOnboard();
+          } else {
+            window.location.reload();
+          }
         } else {
           handleForceLogout();
         }
@@ -84,6 +103,10 @@ function MetamaskProvider({ web3Instance, children }) {
 
   if (forcedLogout || (loaded && !apiCalled)) {
     return <Redirect to="/" />;
+  }
+
+  if (forcedOnboard) {
+    return <Redirect to="/updateprofile?onboard=true" />;
   }
 
   return children;

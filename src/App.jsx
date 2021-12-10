@@ -186,7 +186,7 @@ export default function App() {
                 <NoNavbarWrapper
                   handleSetNoNavbar={handleSetNoNavbar}
                 >
-                  <MetamaskProvider web3Instance={web3Instance}>
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <JustinTest
                       contract={contract}
                       contractAddress={contractAddress}
@@ -205,7 +205,7 @@ export default function App() {
                 <NavbarWrapper
                   handleSetNavbar={handleSetNavbar}
                 >
-                  <MetamaskProvider web3Instance={web3Instance}>
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <Error404 />
                   </MetamaskProvider>
                 </NavbarWrapper>

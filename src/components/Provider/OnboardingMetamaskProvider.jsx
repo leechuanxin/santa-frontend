@@ -21,11 +21,15 @@ function OnboardingMetamaskProvider({ web3Instance, children }) {
   const [apiCalled, setApiCalled] = useState(true);
   const [forcedLogout, setForcedLogout] = useState(false);
 
-  const handleForceLogout = () => {
+  const clearUser = () => {
     localStorageService.removeItem('user_id');
     localStorageService.removeItem('address');
     localStorageService.removeItem('username');
     dispatch(deleteUser());
+  };
+
+  const handleForceLogout = () => {
+    clearUser();
     setForcedLogout(true);
   };
 
