@@ -18,8 +18,9 @@ import contract from './abi/santa.json';
 import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
 // Pages
 import Index from './components/Index/IndexPage.jsx';
-import Error404 from './components/Error/Error404Page.jsx';
 import WishListings from './components/Wishes/WishListingsPage.jsx';
+import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
+import Error404 from './components/Error/Error404Page.jsx';
 // Auxiliary Pages
 import JustinTest from './JustinTestPage.jsx';
 
@@ -98,6 +99,19 @@ export default function App() {
               >
                 <Index />
               </NoNavbarWrapper>
+            )}
+          />
+          <Route
+            exact
+            path="/updateprofile"
+            render={() => (
+              <NavbarWrapper
+                handleSetNavbar={handleSetNavbar}
+              >
+                <MetamaskProvider web3Instance={web3Instance}>
+                  <UpdateProfile />
+                </MetamaskProvider>
+              </NavbarWrapper>
             )}
           />
           <Route
