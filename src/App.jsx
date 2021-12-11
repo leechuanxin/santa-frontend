@@ -27,10 +27,13 @@ import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
 import OnboardingMetamaskProvider from './components/Provider/OnboardingMetamaskProvider.jsx';
 // Pages
 import Index from './components/Index/IndexPage.jsx';
+// Pages - Wishes
 import WishListings from './components/Wishes/WishListingsPage.jsx';
+import CreateWish from './components/Wishes/CreateWishPage.jsx';
+// Pages - Settings
 import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
-import Error404 from './components/Error/Error404Page.jsx';
 // Auxiliary Pages
+import Error404 from './components/Error/Error404Page.jsx';
 import JustinTest from './JustinTestPage.jsx';
 
 // make sure that axios always sends the cookies to the backend server
@@ -174,7 +177,32 @@ export default function App() {
                   handleSetNavbar={handleSetNavbar}
                 >
                   <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <WishListings />
+                    <WishListings
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/createwish"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <CreateWish
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
                   </MetamaskProvider>
                 </NavbarWrapper>
               )}
