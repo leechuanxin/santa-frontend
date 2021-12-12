@@ -19,6 +19,7 @@ export default function CreateWishPage({ myContract, user }) {
   const [singleSelections, setSingleSelections] = useState([]);
   const [options, setOptions] = useState([]);
   const [currentOption, setCurrentOption] = useState(defaultWish);
+  const [transactionLoading, setTransactionLoading] = useState(false);
 
   useEffect(() => {
     myContract.methods.getAllListed().call()
@@ -78,9 +79,11 @@ export default function CreateWishPage({ myContract, user }) {
           if (receipt.status) {
             history.push('/wishes');
           }
+          setTransactionLoading(false);
         })
         .on('error', (err) => {
           console.log(err);
+          setTransactionLoading(false);
         });
     }
   };
@@ -112,8 +115,16 @@ export default function CreateWishPage({ myContract, user }) {
                     options={options}
                     placeholder="Select a Wish..."
                     selected={singleSelections}
+                    disabled={transactionLoading}
                   />
-                  <button type="button" className="btn btn-primary" disabled={(singleSelections.length === 0)} onClick={handleButtonClick}>Make Wish</button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    disabled={((singleSelections.length === 0) || transactionLoading)}
+                    onClick={(e) => { setTransactionLoading(true); handleButtonClick(e); }}
+                  >
+                    { transactionLoading ? 'Loading...' : 'Make Wish' }
+                  </button>
                 </Form.Group>
               </div>
             </div>
