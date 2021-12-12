@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,16 +11,29 @@ import Web3 from 'web3';
 
 // CUSTOM IMPORTS
 import './App.css';
+import localStorageService from './modules/localStorageService.mjs';
+import UserContext from './contexts/UserContext.js';
+import {
+  initialState,
+  userReducer,
+  addUser,
+  deleteUser,
+} from './reducers/UserReducer.js';
 import Navbar from './components/Navbar/Navbar.jsx';
 // CUSTOM IMPORTS
 import contract from './abi/santa.json';
 // Providers
 import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
+import OnboardingMetamaskProvider from './components/Provider/OnboardingMetamaskProvider.jsx';
 // Pages
 import Index from './components/Index/IndexPage.jsx';
-import Error404 from './components/Error/Error404Page.jsx';
+// Pages - Wishes
 import WishListings from './components/Wishes/WishListingsPage.jsx';
+import CreateWish from './components/Wishes/CreateWishPage.jsx';
+// Pages - Settings
+import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
 // Auxiliary Pages
+import Error404 from './components/Error/Error404Page.jsx';
 import JustinTest from './JustinTestPage.jsx';
 
 // make sure that axios always sends the cookies to the backend server
@@ -56,6 +69,7 @@ function NoNavbarWrapper({
 }
 
 export default function App() {
+  const [user, dispatch] = useReducer(userReducer, initialState);
   const [hasNavbar, setHasNavbar] = useState(false);
   const [myContract, setMyContract] = useState(null);
   const [web3Instance, setWeb3Instance] = useState(null);
@@ -69,6 +83,47 @@ export default function App() {
   };
 
   useEffect(() => {
+    const userId = localStorageService.getItem('user_id');
+    const address = localStorageService.getItem('address');
+    const username = localStorageService.getItem('username');
+
+    if (!userId) {
+      localStorageService.removeItem('user_id');
+      localStorageService.removeItem('address');
+      localStorageService.removeItem('username');
+      dispatch(deleteUser());
+    } else {
+      let obj = { user_id: Number(userId) };
+
+      if (
+        address
+        && typeof address === 'string'
+        && address.trim() !== ''
+      ) {
+        obj = {
+          ...obj,
+          address,
+        };
+      }
+
+      if (
+        username
+        && typeof username === 'string'
+        && username.trim() !== ''
+      ) {
+        obj = {
+          ...obj,
+          username,
+        };
+      }
+
+      dispatch(
+        addUser({
+          ...obj,
+        }),
+      );
+    }
+
     if (window.ethereum) {
       const newWeb3Instance = new Web3(window.ethereum);
       window.web3 = newWeb3Instance;
@@ -79,75 +134,115 @@ export default function App() {
   }, []);
 
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Router>
-        <Navbar
-          hasNavbar={hasNavbar}
-        />
-        {/* A <Switch> looks through its children <Route>s and
+    <UserContext.Provider value={dispatch}>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Router>
+          <Navbar
+            hasNavbar={hasNavbar}
+          />
+          {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-        <Switch>
-          {/* give the route matching path in order of matching precedence */}
-          {/* ALL OTHERS */}
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <NoNavbarWrapper
-                handleSetNoNavbar={handleSetNoNavbar}
-              >
-                <Index />
-              </NoNavbarWrapper>
-            )}
-          />
-          <Route
-            exact
-            path="/wishes"
-            render={() => (
-              <NavbarWrapper
-                handleSetNavbar={handleSetNavbar}
-              >
-                <MetamaskProvider web3Instance={web3Instance}>
-                  <WishListings />
-                </MetamaskProvider>
-              </NavbarWrapper>
-            )}
-          />
-          <Route
-            exact
-            path="/justintest"
-            render={() => (
-              <NoNavbarWrapper
-                handleSetNoNavbar={handleSetNoNavbar}
-              >
-                <MetamaskProvider web3Instance={web3Instance}>
-                  <JustinTest
-                    contract={contract}
-                    contractAddress={contractAddress}
-                    myContract={myContract}
-                    web3Instance={web3Instance}
-                  />
-                </MetamaskProvider>
-              </NoNavbarWrapper>
-            )}
-          />
-          <Route
-            exact
-            path="*"
-            render={() => (
+          <Switch>
+            {/* give the route matching path in order of matching precedence */}
+            {/* ALL OTHERS */}
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <NoNavbarWrapper
+                  handleSetNoNavbar={handleSetNoNavbar}
+                >
+                  <Index />
+                </NoNavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/updateprofile"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <OnboardingMetamaskProvider web3Instance={web3Instance}>
+                    <UpdateProfile user={user} />
+                  </OnboardingMetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/wishes"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <WishListings
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/createwish"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <CreateWish
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/justintest"
+              render={() => (
+                <NoNavbarWrapper
+                  handleSetNoNavbar={handleSetNoNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <JustinTest
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NoNavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="*"
+              render={() => (
 
-              <NavbarWrapper
-                handleSetNavbar={handleSetNavbar}
-              >
-                <MetamaskProvider web3Instance={web3Instance}>
-                  <Error404 />
-                </MetamaskProvider>
-              </NavbarWrapper>
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <Error404 />
+                  </MetamaskProvider>
+                </NavbarWrapper>
 
-            )}
-          />
-        </Switch>
-      </Router>
-    </Web3ReactProvider>
+              )}
+            />
+          </Switch>
+        </Router>
+      </Web3ReactProvider>
+    </UserContext.Provider>
   );
 }
