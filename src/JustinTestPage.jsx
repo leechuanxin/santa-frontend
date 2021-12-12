@@ -17,6 +17,13 @@ export default function JustinTestPage({
   console.log(myContract);
   console.log('web3Instance:');
   console.log(web3Instance);
+  console.log('getAllListed:');
+  myContract.methods.displayPrice(1).call().then((res) => {
+    console.log(res);
+  });
+  myContract.methods.getAllListed().call().then((res) => {
+    console.log(res);
+  });
   return (
     <div className="container pt-5">
       <div className="row w-100 pt-3">
