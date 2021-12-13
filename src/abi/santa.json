@@ -412,6 +412,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "incentiveNFT",
+		"outputs": [
+			{
+				"internalType": "contract Incentive",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
