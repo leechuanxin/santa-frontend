@@ -1,9 +1,31 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 // CUSTOM IMPORTS
+import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
-export default function WishListingsPage() {
+export default function WishListingsPage({ user }) {
+  useEffect(() => {
+    console.log(user);
+    if (user.user_id && user.address) {
+      axios
+        .get(`${REACT_APP_BACKEND_URL}/user/${user.user_id}-${user.address}/users`)
+        .then(async (response) => {
+          if (!response.data.error) {
+            console.log('success:');
+            console.log(response.data);
+          } else {
+            console.log('error:');
+            console.log(response.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
   return (
     <div className="container pt-5">
       <div className="row w-100 pt-3">

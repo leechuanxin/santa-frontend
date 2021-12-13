@@ -1,38 +1,67 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Form } from 'react-bootstrap';
-import wishes from '../../abi/wishes.json';
+import { useHistory } from 'react-router-dom';
 // CUSTOM IMPORTS
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
-export default function CreateWishPage() {
+export default function CreateWishPage({ myContract, user }) {
+  const history = useHistory();
   const defaultWish = {
     name: 'Your Christmas Wish',
     description: 'This Christmas, make a wish or play Santa and grant a wish!',
-    image: 'https://www.foot.com/wp-content/uploads/2017/03/placeholder.gif',
+    imgURL: 'https://www.foot.com/wp-content/uploads/2017/03/placeholder.gif',
     isDefault: true,
+    price: 0,
   };
-  const allWishes = [
-    ...Object.values(wishes),
-  ];
-
+  const [allWishes, setAllWishes] = useState([]);
   const [singleSelections, setSingleSelections] = useState([]);
-  const [options] = useState(
-    Object
-      .entries(wishes)
-      .map(
-        (wish) => wish[1],
-      ),
-  );
+  const [options, setOptions] = useState([]);
   const [currentOption, setCurrentOption] = useState(defaultWish);
+  const [transactionLoading, setTransactionLoading] = useState(false);
+
+  useEffect(() => {
+    myContract.methods.getAllListed().call()
+      .then((res) => {
+        const modifiedArr = res
+          .map((option) => {
+            const modifiedOption = {
+              ...option,
+              id: Number(option.id),
+              price: (Number(option.price) / (10 ** 18)),
+            };
+            delete modifiedOption['0'];
+            delete modifiedOption['1'];
+            delete modifiedOption['2'];
+            delete modifiedOption['3'];
+            delete modifiedOption['4'];
+            delete modifiedOption['5'];
+            delete modifiedOption['6'];
+            delete modifiedOption['7'];
+            delete modifiedOption.gifter;
+            delete modifiedOption.owner;
+            delete modifiedOption.isSold;
+
+            return modifiedOption;
+          })
+          .sort((a, b) => ((a.name < b.name) ? -1 : 1));
+        const namesArr = modifiedArr.map((option) => option.name);
+        setAllWishes([...modifiedArr]);
+        setOptions([...namesArr]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const handleSetSingleSelections = (e) => {
     if (e.length === 0) {
       setCurrentOption(defaultWish);
     } else {
       let selectedIndex = -1;
       for (let i = 0; i < allWishes.length; i += 1) {
-        if (allWishes[i].name === e[0].name) {
+        if (allWishes[i].name === e[0]) {
           selectedIndex = i;
         }
       }
@@ -41,8 +70,26 @@ export default function CreateWishPage() {
     setSingleSelections(e);
   };
 
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    if (singleSelections.length > 0) {
+      myContract.methods.createWish(user.address, currentOption.id)
+        .send({ from: user.address })
+        .on('receipt', (receipt) => {
+          if (receipt.status) {
+            history.push('/wishes');
+          }
+          setTransactionLoading(false);
+        })
+        .on('error', (err) => {
+          console.log(err);
+          setTransactionLoading(false);
+        });
+    }
+  };
+
   const divStyle = {
-    backgroundImage: `url(${currentOption.image})`,
+    backgroundImage: `url(${currentOption.imgURL})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat',
@@ -68,8 +115,16 @@ export default function CreateWishPage() {
                     options={options}
                     placeholder="Select a Wish..."
                     selected={singleSelections}
+                    disabled={transactionLoading}
                   />
-                  <button type="button" className="btn btn-primary" disabled={(singleSelections.length === 0)}>Make Wish</button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    disabled={((singleSelections.length === 0) || transactionLoading)}
+                    onClick={(e) => { setTransactionLoading(true); handleButtonClick(e); }}
+                  >
+                    { transactionLoading ? 'Loading...' : 'Make Wish' }
+                  </button>
                 </Form.Group>
               </div>
             </div>
@@ -80,7 +135,14 @@ export default function CreateWishPage() {
                   <div>
                     {' '}
                     <h5 className="card-title">{currentOption.name}</h5>
-                    <p className="card-text mb-0">{currentOption.description}</p>
+                    <p className="card-text">{currentOption.description}</p>
+                    <p className="card-text mb-0">
+                      <strong>Price:</strong>
+                      {' '}
+                      {currentOption.price}
+                      {' '}
+                      ETH
+                    </p>
                   </div>
                 </div>
               </div>
