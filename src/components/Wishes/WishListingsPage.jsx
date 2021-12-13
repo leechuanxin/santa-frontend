@@ -126,7 +126,7 @@ export default function WishListingsPage({ myContract, user }) {
 
                       return modifiedOption;
                     })
-                    .sort((a, b) => ((a.id < b.id) ? -1 : 1));
+                    .sort((a, b) => ((a.id > b.id) ? -1 : 1));
 
                   setUnfulfilledWishes([...modifiedArr]);
                 })
