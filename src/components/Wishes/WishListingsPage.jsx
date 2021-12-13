@@ -26,11 +26,6 @@ function UnfulfilledWishes({ isLoaded, unfulfilledWishes }) {
                   {wish.wisherName}
                 </span>
               </div>
-              <div className="text-center text-truncated-parent">
-                <span className={`badge badge-pill d-block${(wish.isCurrentWisher ? ' bg-dark' : ' bg-success')}`}>
-                  {wish.wisher}
-                </span>
-              </div>
             </div>
 
             <p className="card-text text-center">
