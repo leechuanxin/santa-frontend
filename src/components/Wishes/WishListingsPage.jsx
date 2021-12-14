@@ -84,9 +84,10 @@ export default function WishListingsPage({ myContract, user }) {
           if (!response.data.error) {
             if (response.data.users && response.data.users.length > 0) {
               const { users } = response.data;
-              myContract.methods.getWishCreated().call()
+              myContract.methods.getAllListed().call()
                 .then((res) => {
                   const modifiedArr = res
+                    .filter((option) => option.wishCreated)
                     .map((option) => {
                       let modifiedOption = {
                         ...option,
