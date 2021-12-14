@@ -38,7 +38,7 @@ import JustinTest from './JustinTestPage.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
-const contractAddress = '0x8ae6EA3333001AE9Fe1cFd64899c01C6CE3f38B3';
+const contractAddress = '0x8d58d01f52E02d6659f46a64682602F5436CAf73';
 
 // const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 

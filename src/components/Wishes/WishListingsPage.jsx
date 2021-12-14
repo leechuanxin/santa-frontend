@@ -5,50 +5,76 @@ import axios from 'axios';
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
-function UnfulfilledWishes({ isLoaded, unfulfilledWishes }) {
-  if (isLoaded && unfulfilledWishes.length > 0) {
-    return unfulfilledWishes.map((wish) => (
-      <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${wish.id}`}>
-        <div className="unfulfilled-wish-card card w-100 mb-3">
-          <img
-            className="card-img-top img-fluid"
-            src={wish.imgURL}
-            alt=""
-          />
-          <div className="card-body">
-            <h5 className="card-title text-center">{wish.name}</h5>
+function UnfulfilledWish({ user, wish, myContract }) {
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    setButtonLoading(true);
+    myContract.methods.buyWish(user.address, wish.id)
+      .send({ from: user.address, value: (Number(wish.price) * (10 ** 18)) })
+      .on('receipt', (receipt) => {
+        console.log('receipt:');
+        console.log(receipt);
+        setButtonLoading(false);
+      })
+      .on('error', (err) => {
+        console.log('err:');
+        console.log(err);
+        setButtonLoading(false);
+      });
+  };
 
-            <div className="mb-3">
-              <div className="text-center text-truncated-parent">
-                <span className={`badge badge-pill${(wish.isCurrentWisher ? ' bg-dark' : ' bg-success')}`}>
-                  Wisher:
-                  {' '}
-                  {wish.wisherName}
-                </span>
-              </div>
+  return (
+    <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${wish.id}`}>
+      <div className="unfulfilled-wish-card card w-100 mb-3">
+        <img
+          className="card-img-top img-fluid"
+          src={wish.imgURL}
+          alt=""
+        />
+        <div className="card-body">
+          <h5 className="card-title text-center">{wish.name}</h5>
+
+          <div className="mb-3">
+            <div className="text-center text-truncated-parent">
+              <span className={`badge badge-pill${(wish.isCurrentWisher ? ' bg-dark' : ' bg-success')}`}>
+                Wisher:
+                {' '}
+                {wish.wisherName}
+              </span>
             </div>
+          </div>
 
-            <p className="card-text text-center">
-              {wish.description}
-            </p>
-            <h4 className="text-center">
-              Price:
-              {' '}
-              {wish.price}
-              {' '}
-              ETH
-            </h4>
-            {
+          <p className="card-text text-center">
+            {wish.description}
+          </p>
+          <h4 className="text-center">
+            Price:
+            {' '}
+            {wish.price}
+            {' '}
+            ETH
+          </h4>
+          {
               !wish.isCurrentWisher
               && (
                 <div className="d-flex justify-content-center">
-                  <button type="button" className="btn btn-primary">Fulfill Wish!</button>
+                  <button type="button" className="btn btn-primary" disabled={buttonLoading} onClick={handleButtonClick}>Fulfill Wish!</button>
                 </div>
               )
             }
-          </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function UnfulfilledWishes({
+  user, myContract, isLoaded, unfulfilledWishes,
+}) {
+  if (isLoaded && unfulfilledWishes.length > 0) {
+    return unfulfilledWishes.map((wish) => (
+      <UnfulfilledWish user={user} myContract={myContract} key={`wish${wish.id}`} wish={wish} />
     ));
   }
 
@@ -86,6 +112,8 @@ export default function WishListingsPage({ myContract, user }) {
               const { users } = response.data;
               myContract.methods.getAllListed().call()
                 .then((res) => {
+                  console.log('res on load:');
+                  console.log(res);
                   const modifiedArr = res
                     .filter((option) => option.wishCreated)
                     .map((option) => {
@@ -124,6 +152,8 @@ export default function WishListingsPage({ myContract, user }) {
                     })
                     .sort((a, b) => ((a.id > b.id) ? -1 : 1));
 
+                  console.log('wish listings:');
+                  console.log([...modifiedArr]);
                   setUnfulfilledWishes([...modifiedArr]);
                 })
                 .catch((error) => {
@@ -163,7 +193,12 @@ export default function WishListingsPage({ myContract, user }) {
         <hr />
         <div className="col-12 pt-3" />
         <div className="row w-100 pt-3">
-          <UnfulfilledWishes isLoaded={isLoaded} unfulfilledWishes={unfulfilledWishes} />
+          <UnfulfilledWishes
+            user={user}
+            myContract={myContract}
+            isLoaded={isLoaded}
+            unfulfilledWishes={unfulfilledWishes}
+          />
         </div>
       </div>
     </div>
