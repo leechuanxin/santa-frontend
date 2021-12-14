@@ -30,6 +30,8 @@ import Index from './components/Index/IndexPage.jsx';
 // Pages - Wishes
 import WishListings from './components/Wishes/WishListingsPage.jsx';
 import CreateWish from './components/Wishes/CreateWishPage.jsx';
+// Pages - Incentives
+import Incentives from './components/Incentives/IncentivesPage.jsx';
 // Pages - Settings
 import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
 // Auxiliary Pages
@@ -38,7 +40,7 @@ import JustinTest from './JustinTestPage.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
-const contractAddress = '0x8d58d01f52E02d6659f46a64682602F5436CAf73';
+const contractAddress = '0x24C38f231baeF3f36658B70D5fAf835377534605';
 
 // const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 
@@ -197,6 +199,25 @@ export default function App() {
                 >
                   <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <CreateWish
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/incentives"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <Incentives
                       user={user}
                       contract={contract}
                       contractAddress={contractAddress}

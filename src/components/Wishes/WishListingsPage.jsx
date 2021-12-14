@@ -134,19 +134,6 @@ export default function WishListingsPage({ myContract, user }) {
                           };
                         }
                       }
-                      delete modifiedOption['0'];
-                      delete modifiedOption['1'];
-                      delete modifiedOption['2'];
-                      delete modifiedOption['3'];
-                      delete modifiedOption['4'];
-                      delete modifiedOption['5'];
-                      delete modifiedOption['6'];
-                      delete modifiedOption['7'];
-                      delete modifiedOption['8'];
-                      delete modifiedOption['9'];
-                      delete modifiedOption.gifter;
-                      delete modifiedOption.owner;
-                      delete modifiedOption.isSold;
 
                       return modifiedOption;
                     })
