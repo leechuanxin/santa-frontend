@@ -22,7 +22,7 @@ export default function CreateWishPage({ myContract, user }) {
   const [transactionLoading, setTransactionLoading] = useState(false);
 
   useEffect(() => {
-    myContract.methods.getAllListed().call()
+    myContract.methods.getWishUncreated().call()
       .then((res) => {
         const modifiedArr = res
           .map((option) => {

@@ -124,3 +124,8 @@ body {
 .create-wish-card .card-img {
   height: 250px;
 }
+
+.unfulfilled-wish-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
