@@ -5,13 +5,18 @@ import axios from 'axios';
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
-function UnfulfilledWish({ user, wish, myContract }) {
+function UnfulfilledWish({
+  user,
+  wish,
+  myContract,
+  web3Instance,
+}) {
   const [buttonLoading, setButtonLoading] = useState(false);
   const handleButtonClick = (e) => {
     e.preventDefault();
     setButtonLoading(true);
     myContract.methods.buyWish(user.address, wish.id)
-      .send({ from: user.address, value: (Number(wish.price) * (10 ** 18)) })
+      .send({ from: user.address, value: web3Instance.utils.toWei(String(wish.price), 'ether') })
       .on('receipt', (receipt) => {
         console.log('receipt:');
         console.log(receipt);
@@ -22,6 +27,20 @@ function UnfulfilledWish({ user, wish, myContract }) {
         console.log(err);
         setButtonLoading(false);
       });
+
+    // web3Instance.eth.sendTransaction({
+    //   to: '0x3d8eE8c37c19aaA2a8674a4720BEc157d2a2e9E9',
+    //   from: user.address,
+    //   value: web3Instance.utils.toWei(String(wish.price), 'ether'),
+    // }, (error, result) => {
+    //   if (error) {
+    //     console.log('send transaction error:');
+    //     console.log(error);
+    //   } else {
+    //     console.log('send transaction result:');
+    //     console.log(result);
+    //   }
+    // });
   };
 
   return (
@@ -70,11 +89,17 @@ function UnfulfilledWish({ user, wish, myContract }) {
 }
 
 function UnfulfilledWishes({
-  user, myContract, isLoaded, unfulfilledWishes,
+  user, myContract, isLoaded, unfulfilledWishes, web3Instance,
 }) {
   if (isLoaded && unfulfilledWishes.length > 0) {
     return unfulfilledWishes.map((wish) => (
-      <UnfulfilledWish user={user} myContract={myContract} key={`wish${wish.id}`} wish={wish} />
+      <UnfulfilledWish
+        user={user}
+        myContract={myContract}
+        key={`wish${wish.id}`}
+        wish={wish}
+        web3Instance={web3Instance}
+      />
     ));
   }
 
@@ -99,7 +124,7 @@ function UnfulfilledWishes({
   );
 }
 
-export default function WishListingsPage({ myContract, user }) {
+export default function WishListingsPage({ myContract, user, web3Instance }) {
   const [unfulfilledWishes, setUnfulfilledWishes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -185,6 +210,7 @@ export default function WishListingsPage({ myContract, user }) {
             myContract={myContract}
             isLoaded={isLoaded}
             unfulfilledWishes={unfulfilledWishes}
+            web3Instance={web3Instance}
           />
         </div>
       </div>
