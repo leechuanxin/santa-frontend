@@ -30,6 +30,8 @@ import Index from './components/Index/IndexPage.jsx';
 // Pages - Wishes
 import WishListings from './components/Wishes/WishListingsPage.jsx';
 import CreateWish from './components/Wishes/CreateWishPage.jsx';
+// Pages - Incentives
+import Incentives from './components/Incentives/IncentivesPage.jsx';
 // Pages - Settings
 import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
 // Auxiliary Pages
@@ -197,6 +199,25 @@ export default function App() {
                 >
                   <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <CreateWish
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/incentives"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <Incentives
                       user={user}
                       contract={contract}
                       contractAddress={contractAddress}
