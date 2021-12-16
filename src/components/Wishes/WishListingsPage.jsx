@@ -8,6 +8,8 @@ import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 function UnfulfilledWish({
   user,
   wish,
+  unfulfilledWishes,
+  setUnfulfilledWishes,
   myContract,
   web3Instance,
 }) {
@@ -15,12 +17,16 @@ function UnfulfilledWish({
   const handleButtonClick = (e) => {
     e.preventDefault();
     setButtonLoading(true);
+
     myContract.methods.buyWish(user.address, wish.id)
       .send({ from: user.address, value: web3Instance.utils.toWei(String(wish.price), 'ether') })
       .on('receipt', (receipt) => {
+        const remainingWishes = unfulfilledWishes
+          .filter((unfulfilledWish) => wish.id !== unfulfilledWish.id);
         console.log('receipt:');
         console.log(receipt);
         setButtonLoading(false);
+        setUnfulfilledWishes([...remainingWishes]);
       })
       .on('error', (err) => {
         console.log('err:');
@@ -89,7 +95,12 @@ function UnfulfilledWish({
 }
 
 function UnfulfilledWishes({
-  user, myContract, isLoaded, unfulfilledWishes, web3Instance,
+  user,
+  myContract,
+  isLoaded,
+  unfulfilledWishes,
+  setUnfulfilledWishes,
+  web3Instance,
 }) {
   if (isLoaded && unfulfilledWishes.length > 0) {
     return unfulfilledWishes.map((wish) => (
@@ -98,6 +109,8 @@ function UnfulfilledWishes({
         myContract={myContract}
         key={`wish${wish.id}`}
         wish={wish}
+        unfulfilledWishes={unfulfilledWishes}
+        setUnfulfilledWishes={setUnfulfilledWishes}
         web3Instance={web3Instance}
       />
     ));
@@ -210,6 +223,7 @@ export default function WishListingsPage({ myContract, user, web3Instance }) {
             myContract={myContract}
             isLoaded={isLoaded}
             unfulfilledWishes={unfulfilledWishes}
+            setUnfulfilledWishes={setUnfulfilledWishes}
             web3Instance={web3Instance}
           />
         </div>
