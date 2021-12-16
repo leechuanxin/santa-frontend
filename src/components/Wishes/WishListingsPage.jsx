@@ -153,7 +153,7 @@ export default function WishListingsPage({ myContract, user, web3Instance }) {
                   console.log('res on load:');
                   console.log(res);
                   const modifiedArr = res
-                    .filter((option) => option.wishCreated)
+                    .filter((option) => option.wishCreated && !option.isSold)
                     .map((option) => {
                       let modifiedOption = {
                         ...option,
