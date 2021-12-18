@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
+  Link,
   useParams,
+  useLocation,
+  useHistory,
 } from 'react-router-dom';
 import axios from 'axios';
 // CUSTOM IMPORTS
@@ -10,8 +13,189 @@ import getHash from '../../modules/hashing.mjs';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 import Error404Page from '../Error/Error404Page.jsx';
 
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  const { search } = useLocation();
+
+  return useMemo(() => new URLSearchParams(search), [search]);
+}
+
+function UserProfileSection({ userPageId, userPageName, userPageAddress }) {
+  return (
+    <div className="row">
+      <div className="col-12 d-flex justify-content-center align-items-center">
+        <div className="col-1 me-3">
+          <div className="card">
+            <div className="card-img-top bg-gray-300 border-b border-gray-600">
+              <img
+                className="img-fluid"
+                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${userPageId}-${getHash((userPageId + 23), userPageAddress)}`}.svg`}
+                alt="This is you!"
+              />
+            </div>
+          </div>
+        </div>
+        <h3>{userPageName}</h3>
+      </div>
+    </div>
+  );
+}
+
+function UserNavSelect({
+  isGranted, isAchievements, handleSelectChange, wishType,
+}) {
+  if (isGranted || isAchievements) {
+    return null;
+  }
+
+  return (
+    <div className="col-12 col-md-6">
+      <select className="form-select w-100" aria-label="Default select example" onChange={handleSelectChange}>
+        <option
+          selected={(wishType !== 'unfulfilledwishes' && wishType !== 'fulfilledWishes')}
+          value=""
+        >
+          All Wishes
+        </option>
+        <option
+          selected={(wishType === 'fulfilledwishes')}
+          value="fulfilledwishes"
+        >
+          Fulfilled Wishes
+
+        </option>
+        <option
+          selected={(wishType === 'unfulfilledwishes')}
+          value="unfulfilledwishes"
+        >
+          Unfulfilled Wishes
+        </option>
+      </select>
+    </div>
+  );
+}
+
+function UserNavSection({
+  isGranted,
+  isAchievements,
+  userPageId,
+  handleQueryChange,
+  handleSelectChange,
+  wishType,
+}) {
+  return (
+    <div className="row d-flex align-items-center">
+      <div className={`col-12${(isGranted || isAchievements) ? '' : ' col-md-6'}`}>
+        <ul className="nav nav-pills">
+          <li className="nav-item">
+            <Link
+              className={`nav-link${(isGranted || isAchievements) ? '' : ' active'}`}
+              to={`/users/${userPageId}`}
+              replace
+              onClick={() => { handleQueryChange(''); }}
+            >
+              Wishes
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className={`nav-link${(isGranted) ? ' active' : ''}`}
+              to={`/users/${userPageId}?granted=true`}
+              replace
+              onClick={() => { handleQueryChange('granted'); }}
+            >
+              Wishes Granted
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className={`nav-link${(isAchievements) ? ' active' : ''}`}
+              to={`/users/${userPageId}?achievements=true`}
+              replace
+              onClick={() => { handleQueryChange('achievements'); }}
+            >
+              Achievements
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <UserNavSelect
+        isGranted={isGranted}
+        isAchievements={isAchievements}
+        handleSelectChange={handleSelectChange}
+        wishType={wishType}
+      />
+    </div>
+  );
+}
+
+function UserNavHeader({ isGranted, isAchievements, wishType }) {
+  console.log('wish type in user nav header:');
+  console.log(wishType);
+  if (isGranted) {
+    return (
+      <h3 className="text-center">Wishes Granted</h3>
+    );
+  }
+
+  if (isAchievements) {
+    return (
+      <h3 className="text-center">Achievements</h3>
+    );
+  }
+
+  if (!isGranted && !isAchievements && wishType === 'unfulfilledwishes') {
+    return (
+      <h3 className="text-center">Unfulfilled Wishes</h3>
+    );
+  }
+
+  if (!isGranted && !isAchievements && wishType === 'fulfilledwishes') {
+    return (
+      <h3 className="text-center">Fulfilled Wishes</h3>
+    );
+  }
+
+  return (
+    <h3 className="text-center">All Wishes</h3>
+  );
+}
+
 export default function UserPage({ myContract, user }) {
+  const query = useQuery();
   const { paramId } = useParams();
+  const history = useHistory();
+
+  const getWishType = (wishQuery) => {
+    if (
+      wishQuery.get('granted') !== 'true'
+      && wishQuery.get('achievements') !== 'true'
+      && wishQuery.get('fulfilledwishes') === 'true'
+      && wishQuery.get('unfulfilledwishes') !== 'true'
+    ) {
+      return 'fulfilledwishes';
+    }
+
+    if (
+      wishQuery.get('granted') !== 'true'
+      && wishQuery.get('achievements') !== 'true'
+      && wishQuery.get('unfulfilledwishes') === 'true'
+      && wishQuery.get('fulfilledwishes') !== 'true'
+    ) {
+      return 'unfulfilledwishes';
+    }
+
+    return '';
+  };
+
+  const [wishType, setWishType] = useState(getWishType(query));
+  const [isGranted, setIsGranted] = useState(
+    !!((query.get('granted') === 'true' && query.get('achievements') !== 'true')),
+  );
+  const [isAchievements, setIsAchievements] = useState(
+    !!((query.get('achievements') === 'true' && query.get('granted') !== 'true')),
+  );
   const [isLoaded, setIsLoaded] = useState(false);
   const [userPageId, setUserPageId] = useState(0);
   const [userPageAddress, setUserPageAddress] = useState('');
@@ -122,6 +306,35 @@ export default function UserPage({ myContract, user }) {
       });
   }, [userPageId, userPageAddress, userPageName]);
 
+  const handleQueryChange = (flag) => {
+    if (flag === 'granted') {
+      setIsGranted(true);
+      setIsAchievements(false);
+      setWishType('');
+    } else if (flag === 'achievements') {
+      setIsGranted(false);
+      setIsAchievements(true);
+      setWishType('');
+    } else {
+      setIsGranted(false);
+      setIsAchievements(false);
+    }
+  };
+
+  const handleSelectChange = (e) => {
+    setWishType(e.target.value);
+    if (e.target.value === 'fulfilledwishes') {
+      history.replace(`/users/${userPageId}?fulfilledwishes=true`);
+    } else if (e.target.value === 'unfulfilledwishes') {
+      history.replace(`/users/${userPageId}?unfulfilledwishes=true`);
+    } else {
+      history.replace(`/users/${userPageId}`);
+    }
+  };
+
+  console.log('Wish Type:');
+  console.log(wishType);
+
   if (!isLoaded) {
     return (
       <div className="container pt-5 pb-5">
@@ -151,27 +364,28 @@ export default function UserPage({ myContract, user }) {
       <div className="row w-100 pt-3">
         <div className="col-12 pt-1 py-3">
           <h2 className="pt-1 text-center mb-3">User Page</h2>
-          <div>
-            <div className="d-flex justify-content-center align-items-center">
-              <div className="col-1 me-3">
-                <div className="card">
-                  <div className="card-img-top bg-gray-300 border-b border-gray-600">
-                    <img
-                      className="img-fluid"
-                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${userPageId}-${getHash((userPageId + 23), userPageAddress)}`}.svg`}
-                      alt="This is you!"
-                    />
-                  </div>
-                </div>
-              </div>
-              <h3>{userPageName}</h3>
-            </div>
-          </div>
+          <UserProfileSection
+            userPageId={userPageId}
+            userPageName={userPageName}
+            userPageAddress={userPageAddress}
+          />
           <TestCryptoWalletAddress />
+          <UserNavSection
+            isGranted={isGranted}
+            isAchievements={isAchievements}
+            userPageId={userPageId}
+            handleQueryChange={handleQueryChange}
+            handleSelectChange={handleSelectChange}
+            wishType={wishType}
+          />
           <hr />
           <div className="row">
             <div className="col-12">
-              <h3 className="text-center">Granted Wishes</h3>
+              <UserNavHeader
+                isGranted={isGranted}
+                isAchievements={isAchievements}
+                wishType={wishType}
+              />
             </div>
           </div>
         </div>
