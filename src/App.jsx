@@ -252,7 +252,7 @@ export default function App() {
             />
             <Route
               exact
-              path="/users/:userId"
+              path="/users/:paramId"
               render={() => (
                 <NavbarWrapper
                   handleSetNavbar={handleSetNavbar}
