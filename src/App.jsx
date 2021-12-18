@@ -36,6 +36,7 @@ import Incentives from './components/Incentives/IncentivesPage.jsx';
 import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
 // Pages - Search Users
 import SearchUsers from './components/Users/SearchUsersPage.jsx';
+import User from './components/Users/UserPage.jsx';
 // Auxiliary Pages
 import Error404 from './components/Error/Error404Page.jsx';
 import JustinTest from './JustinTestPage.jsx';
@@ -239,6 +240,25 @@ export default function App() {
                 >
                   <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <SearchUsers
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/users/:userId"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <User
                       user={user}
                       contract={contract}
                       contractAddress={contractAddress}
