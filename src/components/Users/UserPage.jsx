@@ -130,36 +130,6 @@ function UserNavSection({
   );
 }
 
-function UserNavHeader({ isGranted, isAchievements, wishType }) {
-  if (isGranted) {
-    return (
-      <h3 className="text-center">Wishes Granted</h3>
-    );
-  }
-
-  if (isAchievements) {
-    return (
-      <h3 className="text-center">Achievements</h3>
-    );
-  }
-
-  if (!isGranted && !isAchievements && wishType === 'unfulfilledwishes') {
-    return (
-      <h3 className="text-center">Unfulfilled Wishes</h3>
-    );
-  }
-
-  if (!isGranted && !isAchievements && wishType === 'fulfilledwishes') {
-    return (
-      <h3 className="text-center">Fulfilled Wishes</h3>
-    );
-  }
-
-  return (
-    <h3 className="text-center">All Wishes</h3>
-  );
-}
-
 export default function UserPage({ myContract, user }) {
   const query = useQuery();
   const { paramId } = useParams();
@@ -195,14 +165,15 @@ export default function UserPage({ myContract, user }) {
     !!((query.get('achievements') === 'true' && query.get('granted') !== 'true')),
   );
   const [isLoaded, setIsLoaded] = useState(false);
+  const [allUsers, setAllUsers] = useState([]);
   const [userPageId, setUserPageId] = useState(0);
   const [userPageAddress, setUserPageAddress] = useState('');
   const [userPageName, setUserPageName] = useState('');
-  const [, setUserPageGrantedWishes] = useState([]);
-  const [, setUserPageAllCreatedWishes] = useState([]);
-  const [, setUserPageUnfulfilledCreatedWishes] = useState([]);
-  const [, setUserPageFulfilledCreatedWishes] = useState([]);
-  const [, setUserPageIncentives] = useState([]);
+  const [userPageGrantedWishes, setUserPageGrantedWishes] = useState([]);
+  const [userPageAllCreatedWishes, setUserPageAllCreatedWishes] = useState([]);
+  const [userPageUnfulfilledCreatedWishes, setUserPageUnfulfilledCreatedWishes] = useState([]);
+  const [userPageFulfilledCreatedWishes, setUserPageFulfilledCreatedWishes] = useState([]);
+  const [userPageIncentives, setUserPageIncentives] = useState([]);
 
   useEffect(() => {
     if (user.user_id && user.address) {
@@ -219,6 +190,7 @@ export default function UserPage({ myContract, user }) {
                   setUserPageName(retrievedUsers[i].displayName);
                 }
               }
+              setAllUsers([...retrievedUsers]);
             }
             setIsLoaded(true);
           } else {
@@ -316,6 +288,139 @@ export default function UserPage({ myContract, user }) {
     }
   };
 
+  const handleInterfaces = () => {
+    let headerText = '';
+    let emptyText = '';
+    let interfaceType = [...userPageAllCreatedWishes];
+    // const allUsersArr = [...allUsers];
+    let interfaceMapCallback = (item) => (
+      <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${item.id}`}>
+        <div className="unfulfilled-wish-card card w-100 mb-3">
+          <img
+            className="card-img-top img-fluid"
+            src={item.imgURL}
+            alt=""
+          />
+          <div className="card-body">
+            <h5 className="card-title text-center">{item.name}</h5>
+
+            <p className="card-text text-center">
+              {item.description}
+            </p>
+            <h4 className="text-center">
+              Price:
+              {' '}
+              {Number(item.price) / (10 ** 18)}
+              {' '}
+              ETH
+            </h4>
+          </div>
+        </div>
+      </div>
+    );
+    if (isGranted) {
+      headerText = 'Wishes Granted';
+      emptyText = 'This user has not granted any wishes.';
+      interfaceType = [...userPageGrantedWishes];
+      interfaceMapCallback = (item) => {
+        const wisherName = [...allUsers]
+          .filter(
+            (filteredUser) => filteredUser.walletAddress === item.wisher,
+          )[0].displayName;
+        return (
+          <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${item.id}`}>
+            <div className="unfulfilled-wish-card card w-100 mb-3">
+              <img
+                className="card-img-top img-fluid"
+                src={item.imgURL}
+                alt=""
+              />
+              <div className="card-body">
+                <h5 className="card-title text-center">{item.name}</h5>
+
+                <div className="mb-3">
+                  <div className="text-center text-truncated-parent">
+                    <span className="badge badge-pill bg-success">
+                      Wisher:
+                      {' '}
+                      {wisherName}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="card-text text-center">
+                  {item.description}
+                </p>
+                <h4 className="text-center">
+                  Price:
+                  {' '}
+                  {Number(item.price) / (10 ** 18)}
+                  {' '}
+                  ETH
+                </h4>
+              </div>
+            </div>
+          </div>
+        );
+      };
+    } else if (isAchievements) {
+      headerText = 'Achievements';
+      emptyText = 'This user has not redeemed any achievements.';
+      interfaceType = [...userPageIncentives];
+      interfaceMapCallback = (item) => (
+        <div className="col-12 col-sm-6 col-md-3 d-flex" key={`incentive${item.id}`}>
+          <div className="unfulfilled-wish-card card w-100 mb-3">
+            <img
+              className="card-img-top img-fluid"
+              src={item.imgURL}
+              alt=""
+            />
+            <div className="card-body">
+              <h5 className="card-title text-center">{item.name}</h5>
+
+              <p className="card-text text-center">
+                {item.description}
+              </p>
+              <h4 className="text-center">
+                {item.price}
+                {' '}
+                Goodwill
+              </h4>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (!isGranted && !isAchievements && wishType === 'unfulfilledwishes') {
+      headerText = 'Unfulfilled Wishes';
+      emptyText = 'This user does not have any of their wishes unfulfilled currently.';
+      interfaceType = [...userPageUnfulfilledCreatedWishes];
+    } else if (!isGranted && !isAchievements && wishType === 'fulfilledwishes') {
+      headerText = 'Fulfilled Wishes';
+      emptyText = 'This user does not have any of their wishes fulfilled.';
+      interfaceType = [...userPageFulfilledCreatedWishes];
+    } else {
+      headerText = 'All Wishes';
+      emptyText = 'This user has not made any wishes yet.';
+    }
+
+    return (
+      <>
+        <h3 className="text-center">{headerText}</h3>
+        <div className="row">
+          {
+            (interfaceType.length > 0)
+              ? interfaceType.map(interfaceMapCallback)
+              : (
+                <div className="col-12">
+                  <p className="text-center">{emptyText}</p>
+                </div>
+              )
+          }
+        </div>
+      </>
+    );
+  };
+
   if (!isLoaded) {
     return (
       <div className="container pt-5 pb-5">
@@ -362,11 +467,7 @@ export default function UserPage({ myContract, user }) {
           <hr />
           <div className="row">
             <div className="col-12">
-              <UserNavHeader
-                isGranted={isGranted}
-                isAchievements={isAchievements}
-                wishType={wishType}
-              />
+              {handleInterfaces()}
             </div>
           </div>
         </div>
