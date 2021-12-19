@@ -187,7 +187,14 @@ export default function UserPage({ myContract, user }) {
             if (response.data.users && response.data.users.length > 0) {
               const retrievedUsers = response.data.users;
               for (let i = 0; i < retrievedUsers.length; i += 1) {
-                if (Number(paramId) === Number(retrievedUsers[i].id)) {
+                if (
+                  Number(paramId) === Number(retrievedUsers[i].id)
+                  && (
+                    retrievedUsers[i]
+                    && retrievedUsers[i].displayName
+                    && retrievedUsers[i].displayName.trim() !== ''
+                  )
+                ) {
                   setUserPageId(Number(retrievedUsers[i].id));
                   setUserPageAddress(retrievedUsers[i].walletAddress);
                   setUserPageName(retrievedUsers[i].displayName);
