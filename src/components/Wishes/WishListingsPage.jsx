@@ -195,10 +195,19 @@ export default function WishListingsPage({ myContract, user, web3Instance }) {
           <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
             <a
               className="btn btn-primary w-100"
-              href="/createwish"
+              href="/makewish"
               role="button"
             >
               Make a Wish!
+            </a>
+          </div>
+          <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
+            <a
+              className="btn btn-primary w-100"
+              href="/createwish"
+              role="button"
+            >
+              Create your own Wish!
             </a>
           </div>
         </div>

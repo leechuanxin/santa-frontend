@@ -29,7 +29,7 @@ import OnboardingMetamaskProvider from './components/Provider/OnboardingMetamask
 import Index from './components/Index/IndexPage.jsx';
 // Pages - Wishes
 import WishListings from './components/Wishes/WishListingsPage.jsx';
-import CreateWish from './components/Wishes/CreateWishPage.jsx';
+import MakeWish from './components/Wishes/MakeWish.jsx';
 // Pages - Incentives
 import Incentives from './components/Incentives/IncentivesPage.jsx';
 // Pages - Settings
@@ -37,10 +37,11 @@ import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
 // Auxiliary Pages
 import Error404 from './components/Error/Error404Page.jsx';
 import JustinTest from './JustinTestPage.jsx';
+import CreateWish from './components/Wishes/CreateWish.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
-const contractAddress = '0xC7d4AEb3905838CDd22bD6ec6a47Ef1F389AEd6f';
+const contractAddress = '0xf8bd8403906bfdF87c347842788820605e618014';
 
 // const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
 
@@ -180,6 +181,25 @@ export default function App() {
                 >
                   <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <WishListings
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/makewish"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <MakeWish
                       user={user}
                       contract={contract}
                       contractAddress={contractAddress}
