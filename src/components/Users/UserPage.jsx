@@ -131,8 +131,6 @@ function UserNavSection({
 }
 
 function UserNavHeader({ isGranted, isAchievements, wishType }) {
-  console.log('wish type in user nav header:');
-  console.log(wishType);
   if (isGranted) {
     return (
       <h3 className="text-center">Wishes Granted</h3>
@@ -238,8 +236,6 @@ export default function UserPage({ myContract, user }) {
   }, []);
 
   useEffect(() => {
-    console.log('user page address:');
-    console.log(userPageAddress);
     myContract.methods.getAllListed().call()
       .then((res) => {
         const grantedWishes = res
@@ -269,16 +265,6 @@ export default function UserPage({ myContract, user }) {
               !option.isSold
             ),
           );
-        console.log('all res:');
-        console.log(res);
-        console.log('all created wishes:');
-        console.log(allCreatedWishes);
-        console.log('granted wishes:');
-        console.log(grantedWishes);
-        console.log('unfulfilledCreatedWishes:');
-        console.log(unfulfilledCreatedWishes);
-        console.log('fulfilledCreatedWishes:');
-        console.log(fulfilledCreatedWishes);
         setUserPageGrantedWishes([...grantedWishes]);
         setUserPageAllCreatedWishes([...allCreatedWishes]);
         setUserPageUnfulfilledCreatedWishes([...unfulfilledCreatedWishes]);
@@ -297,8 +283,6 @@ export default function UserPage({ myContract, user }) {
                 && option.owner === userPageAddress
             ),
           );
-        console.log('incentives:');
-        console.log(incentives);
         setUserPageIncentives([...incentives]);
       })
       .catch((error) => {
@@ -331,9 +315,6 @@ export default function UserPage({ myContract, user }) {
       history.replace(`/users/${userPageId}`);
     }
   };
-
-  console.log('Wish Type:');
-  console.log(wishType);
 
   if (!isLoaded) {
     return (

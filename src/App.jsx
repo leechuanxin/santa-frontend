@@ -44,9 +44,7 @@ import CreateWish from './components/Wishes/CreateWish.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
-const contractAddress = '0xf8bd8403906bfdF87c347842788820605e618014';
-
-// const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3004';
+const contractAddress = '0x686D669472C479C5515a81A9F7696d3Ef5dACe11';
 
 function getLibrary(provider) {
   return new Web3(provider);
