@@ -293,31 +293,52 @@ export default function UserPage({ myContract, user }) {
     let emptyText = '';
     let interfaceType = [...userPageAllCreatedWishes];
     // const allUsersArr = [...allUsers];
-    let interfaceMapCallback = (item) => (
-      <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${item.id}`}>
-        <div className="unfulfilled-wish-card card w-100 mb-3">
-          <img
-            className="card-img-top img-fluid"
-            src={item.imgURL}
-            alt=""
-          />
-          <div className="card-body">
-            <h5 className="card-title text-center">{item.name}</h5>
+    let interfaceMapCallback = (item) => {
+      const fulfillerName = [...allUsers]
+        .filter(
+          (filteredUser) => filteredUser.walletAddress === item.gifter,
+        )[0].displayName;
+      return (
+        <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${item.id}`}>
+          <div className="unfulfilled-wish-card card w-100 mb-3">
+            <img
+              className="card-img-top img-fluid"
+              src={item.imgURL}
+              alt=""
+            />
+            <div className="card-body">
+              <h5 className="card-title text-center">{item.name}</h5>
 
-            <p className="card-text text-center">
-              {item.description}
-            </p>
-            <h4 className="text-center">
-              Price:
-              {' '}
-              {Number(item.price) / (10 ** 18)}
-              {' '}
-              ETH
-            </h4>
+              {
+                item.isSold
+                  ? (
+                    <div className="mb-3">
+                      <div className="text-center text-truncated-parent">
+                        <span className="badge badge-pill bg-primary">
+                          Fulfilled by:
+                          {' '}
+                          {fulfillerName}
+                        </span>
+                      </div>
+                    </div>
+                  ) : null
+              }
+
+              <p className="card-text text-center">
+                {item.description}
+              </p>
+              <h4 className="text-center">
+                Price:
+                {' '}
+                {Number(item.price) / (10 ** 18)}
+                {' '}
+                ETH
+              </h4>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    };
     if (isGranted) {
       headerText = 'Wishes Granted';
       emptyText = 'This user has not granted any wishes.';
