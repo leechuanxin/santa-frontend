@@ -30,8 +30,11 @@ import Index from './components/Index/IndexPage.jsx';
 // Pages - Wishes
 import WishListings from './components/Wishes/WishListingsPage.jsx';
 import MakeWish from './components/Wishes/MakeWish.jsx';
+import CreateWish from './components/Wishes/CreateWish.jsx';
 // Pages - Incentives
 import Incentives from './components/Incentives/IncentivesPage.jsx';
+// Pages - Leaderboard
+import Leaderboard from './components/Leaderboard/LeaderboardPage.jsx';
 // Pages - Settings
 import UpdateProfile from './components/Profile/UpdateProfilePage.jsx';
 // Pages - Search Users
@@ -40,7 +43,6 @@ import User from './components/Users/UserPage.jsx';
 // Auxiliary Pages
 import Error404 from './components/Error/Error404Page.jsx';
 import JustinTest from './JustinTestPage.jsx';
-import CreateWish from './components/Wishes/CreateWish.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
@@ -277,6 +279,25 @@ export default function App() {
                 >
                   <MetamaskProvider user={user} web3Instance={web3Instance}>
                     <User
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
+                  </MetamaskProvider>
+                </NavbarWrapper>
+              )}
+            />
+            <Route
+              exact
+              path="/leaderboard"
+              render={() => (
+                <NavbarWrapper
+                  handleSetNavbar={handleSetNavbar}
+                >
+                  <MetamaskProvider user={user} web3Instance={web3Instance}>
+                    <Leaderboard
                       user={user}
                       contract={contract}
                       contractAddress={contractAddress}
