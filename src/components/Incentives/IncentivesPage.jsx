@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 function UnredeemedIncentive({
-  user, incentive, myContract, unredeemedIncentives, setUnredeemedIncentives,
+  user, incentive, myContract, unredeemedIncentives, setUnredeemedIncentives, setPoints,
 }) {
   const [buttonLoading, setButtonLoading] = useState(false);
   const handleButtonClick = (e) => {
@@ -19,6 +19,7 @@ function UnredeemedIncentive({
         console.log(receipt);
         setButtonLoading(false);
         setUnredeemedIncentives([...remainingIncentives]);
+        setPoints((currentPoints) => currentPoints - Number(incentive.price));
       })
       .on('error', (err) => {
         console.log('err:');
@@ -56,7 +57,7 @@ function UnredeemedIncentive({
 }
 
 function UnredeemedIncentives({
-  user, myContract, unredeemedIncentives, setUnredeemedIncentives,
+  user, myContract, unredeemedIncentives, setUnredeemedIncentives, setPoints,
 }) {
   if (unredeemedIncentives.length > 0) {
     return unredeemedIncentives.map((incentive) => (
@@ -67,6 +68,7 @@ function UnredeemedIncentives({
         incentive={incentive}
         unredeemedIncentives={unredeemedIncentives}
         setUnredeemedIncentives={setUnredeemedIncentives}
+        setPoints={setPoints}
       />
     ));
   }
@@ -138,6 +140,7 @@ export default function IncentivesPage({ myContract, user }) {
             myContract={myContract}
             unredeemedIncentives={unredeemedIncentives}
             setUnredeemedIncentives={setUnredeemedIncentives}
+            setPoints={setPoints}
           />
         </div>
       </div>
