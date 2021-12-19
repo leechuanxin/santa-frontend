@@ -10,7 +10,7 @@ function UnredeemedIncentive({
   const handleButtonClick = (e) => {
     e.preventDefault();
     setButtonLoading(true);
-    myContract.methods.transferIncentive(user.address, incentive.id)
+    myContract.methods.redeem(user.address, incentive.id)
       .send({ from: user.address })
       .on('receipt', (receipt) => {
         const remainingIncentives = unredeemedIncentives
@@ -42,7 +42,9 @@ function UnredeemedIncentive({
             {incentive.description}
           </p>
           <h4 className="text-center">
-            1 Goodwill
+            {incentive.price}
+            {' '}
+            Goodwill
           </h4>
           <div className="d-flex justify-content-center">
             <button type="button" className="btn btn-primary" disabled={buttonLoading} onClick={handleButtonClick}>Redeem</button>
@@ -78,8 +80,19 @@ function UnredeemedIncentives({
 
 export default function IncentivesPage({ myContract, user }) {
   const [unredeemedIncentives, setUnredeemedIncentives] = useState([]);
+  const [points, setPoints] = useState(0);
   useEffect(() => {
     if (user.user_id && user.address) {
+      myContract.methods.getPoints(user.address).call()
+        .then((res) => {
+          console.log('get points load:');
+          console.log(res);
+          setPoints(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
       myContract.methods.getAllIncentive().call()
         .then((res) => {
           console.log('res on load:');
@@ -90,14 +103,15 @@ export default function IncentivesPage({ myContract, user }) {
               const modifiedOption = {
                 ...option,
                 id: Number(option.id),
-                price: (Number(option.price) / (10 ** 18)),
+                price: Number(option.price),
                 isCurrentWisher: (option.wisher === user.address),
               };
 
               return modifiedOption;
             })
             .sort((a, b) => ((a.id > b.id) ? -1 : 1));
-
+          console.log('modifiedArr:');
+          console.log([...modifiedArr]);
           setUnredeemedIncentives([...modifiedArr]);
         })
         .catch((error) => {
@@ -109,7 +123,12 @@ export default function IncentivesPage({ myContract, user }) {
   return (
     <div className="container pt-5">
       <div className="row w-100 pt-3">
-        <h2 className="pt-1 text-center mb-0">Incentives</h2>
+        <h2 className="pt-1 text-center mb-3">Incentives</h2>
+        <h4 className="text-center">
+          Goodwill Points:
+          {' '}
+          {points}
+        </h4>
         <TestCryptoWalletAddress />
         <hr />
         <div className="col-12 pt-3" />
