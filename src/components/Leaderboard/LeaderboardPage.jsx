@@ -105,14 +105,21 @@ export default function LeaderboardPage({ user, myContract }) {
                       };
                     })
                     .sort(
-                      (a, b) => (
-                        (
-                          Number(a.totalPoints) > Number(b.totalPoints)
-                            && a.displayName < b.displayName
-                        )
-                          ? -1
-                          : 1
-                      ),
+                      (a, b) => {
+                        const n = Number(a.totalPoints) - Number(b.totalPoints);
+                        // sort by number of points first
+                        if (n !== 0) {
+                          return (n < 0) ? 1 : -1;
+                        }
+                        // then sort by username
+                        return (
+                          (
+                            a.displayName < b.displayName
+                          )
+                            ? -1
+                            : 1
+                        );
+                      },
                     );
                   setLeaderboardUsers([...filteredAllUsers]);
                 })
