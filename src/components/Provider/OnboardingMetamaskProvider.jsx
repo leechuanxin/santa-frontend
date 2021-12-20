@@ -11,7 +11,7 @@ import {
 } from '../../reducers/UserReducer.js';
 import injected from '../Wallet/Connectors.jsx';
 
-function OnboardingMetamaskProvider({ web3Instance, children }) {
+function OnboardingMetamaskProvider({ web3Instance, user, children }) {
   const { active: networkActive, error: networkError, activate: activateNetwork } = useWeb3React();
   const [, dispatch] = useReducer(userReducer, initialState);
 
@@ -54,19 +54,23 @@ function OnboardingMetamaskProvider({ web3Instance, children }) {
       let checkedAccounts = [];
       if (web3Instance) {
         checkedAccounts = await web3Instance.eth.getAccounts();
-        if (checkedAccounts.length === 0) {
-          handleForceLogout();
+        if (
+          checkedAccounts.length === 0
+          || !user
+          || (user && !user.user_id && !user.address)
+        ) {
+          if (!forcedLogout) {
+            handleForceLogout();
+          }
         }
       }
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          window.location.reload();
-        } else {
+      window.ethereum.on('accountsChanged', () => {
+        if (!forcedLogout) {
           handleForceLogout();
         }
       });
     }
-  }, [web3Instance]);
+  }, [user, forcedLogout]);
 
   if (!loaded) {
     return (

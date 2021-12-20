@@ -169,7 +169,7 @@ export default function App() {
                 <NavbarWrapper
                   handleSetNavbar={handleSetNavbar}
                 >
-                  <OnboardingMetamaskProvider web3Instance={web3Instance}>
+                  <OnboardingMetamaskProvider user={user} web3Instance={web3Instance}>
                     <UpdateProfile user={user} />
                   </OnboardingMetamaskProvider>
                 </NavbarWrapper>
