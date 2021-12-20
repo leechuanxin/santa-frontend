@@ -49,12 +49,22 @@ function MetamaskProvider({ user, web3Instance, children }) {
         ) {
           activateNetwork(injected);
         }
-        setLoaded(true);
-        setApiCalled(true);
+        if (!loaded) {
+          setLoaded(true);
+        }
+
+        if (!apiCalled) {
+          setApiCalled(true);
+        }
       })
       .catch(() => {
-        setLoaded(true);
-        setApiCalled(false);
+        if (!loaded) {
+          setLoaded(true);
+        }
+
+        if (apiCalled) {
+          setApiCalled(false);
+        }
       });
   }, [activateNetwork, networkActive, networkError]);
 
@@ -63,25 +73,27 @@ function MetamaskProvider({ user, web3Instance, children }) {
       let checkedAccounts = [];
       if (web3Instance) {
         checkedAccounts = await web3Instance.eth.getAccounts();
-        if (checkedAccounts.length === 0 || !user) {
-          handleForceLogout();
+        if (
+          checkedAccounts.length === 0
+          || !user
+          || (user && !user.username && !user.user_id && !user.address)
+        ) {
+          if (!forcedLogout) {
+            handleForceLogout();
+          }
         } else if (user && !user.username) {
-          handleForceOnboard();
+          if (!forcedOnboard) {
+            handleForceOnboard();
+          }
         }
       }
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0 && user) {
-          if (!user.username) {
-            handleForceOnboard();
-          } else {
-            window.location.reload();
-          }
-        } else {
+      window.ethereum.on('accountsChanged', () => {
+        if (!forcedLogout) {
           handleForceLogout();
         }
       });
     }
-  }, [web3Instance]);
+  }, [user, forcedLogout, forcedOnboard]);
 
   if (!loaded) {
     return (
