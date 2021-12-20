@@ -32,18 +32,6 @@ export default function MakeWishPage({ myContract, user }) {
               id: Number(option.id),
               price: (Number(option.price) / (10 ** 18)),
             };
-            delete modifiedOption['0'];
-            delete modifiedOption['1'];
-            delete modifiedOption['2'];
-            delete modifiedOption['3'];
-            delete modifiedOption['4'];
-            delete modifiedOption['5'];
-            delete modifiedOption['6'];
-            delete modifiedOption['7'];
-            delete modifiedOption.gifter;
-            delete modifiedOption.owner;
-            delete modifiedOption.isSold;
-
             return modifiedOption;
           })
           .sort((a, b) => ((a.name < b.name) ? -1 : 1));
