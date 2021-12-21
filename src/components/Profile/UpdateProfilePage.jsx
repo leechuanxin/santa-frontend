@@ -138,9 +138,9 @@ export default function UpdateProfilePage({
   };
 
   return (
-    <div className="settings-container container ps-vertical-nav">
-      <div className="row w-100 pt-3 page-panel">
-        <div className="col-12 pt-1 py-3">
+    <div className="container-fluid ps-vertical-nav d-flex">
+      <div className="row w-100 pt-4 pb-4">
+        <div className="col-12 page-panel">
           <form>
             <NewUserRedirectAlert
               flag={query.get('onboard')}
