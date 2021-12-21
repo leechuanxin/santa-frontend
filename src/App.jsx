@@ -143,205 +143,208 @@ export default function App() {
     <UserContext.Provider value={dispatch}>
       <Web3ReactProvider getLibrary={getLibrary}>
         <Router>
-          <Navbar
-            hasNavbar={hasNavbar}
-          />
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-          <Switch>
-            {/* give the route matching path in order of matching precedence */}
-            {/* ALL OTHERS */}
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <NoNavbarWrapper
-                  handleSetNoNavbar={handleSetNoNavbar}
-                >
-                  <Index />
-                </NoNavbarWrapper>
-              )}
+          <div className="d-flex">
+            <Navbar
+              hasNavbar={hasNavbar}
+              user={user}
             />
-            <Route
-              exact
-              path="/updateprofile"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <OnboardingMetamaskProvider user={user} web3Instance={web3Instance}>
-                    <UpdateProfile user={user} />
-                  </OnboardingMetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/wishes"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <WishListings
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/makewish"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <MakeWish
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/createwish"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <CreateWish
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/incentives"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <Incentives
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/searchusers"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <SearchUsers
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/users/:paramId"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <User
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/leaderboard"
-              render={() => (
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <Leaderboard
-                      user={user}
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="/justintest"
-              render={() => (
-                <NoNavbarWrapper
-                  handleSetNoNavbar={handleSetNoNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <JustinTest
-                      contract={contract}
-                      contractAddress={contractAddress}
-                      myContract={myContract}
-                      web3Instance={web3Instance}
-                    />
-                  </MetamaskProvider>
-                </NoNavbarWrapper>
-              )}
-            />
-            <Route
-              exact
-              path="*"
-              render={() => (
+            {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+            <Switch>
+              {/* give the route matching path in order of matching precedence */}
+              {/* ALL OTHERS */}
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <NoNavbarWrapper
+                    handleSetNoNavbar={handleSetNoNavbar}
+                  >
+                    <Index />
+                  </NoNavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/updateprofile"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <OnboardingMetamaskProvider user={user} web3Instance={web3Instance}>
+                      <UpdateProfile user={user} />
+                    </OnboardingMetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/wishes"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <WishListings
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/makewish"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <MakeWish
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/createwish"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <CreateWish
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/incentives"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <Incentives
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/searchusers"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <SearchUsers
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/users/:paramId"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <User
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/leaderboard"
+                render={() => (
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <Leaderboard
+                        user={user}
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="/justintest"
+                render={() => (
+                  <NoNavbarWrapper
+                    handleSetNoNavbar={handleSetNoNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <JustinTest
+                        contract={contract}
+                        contractAddress={contractAddress}
+                        myContract={myContract}
+                        web3Instance={web3Instance}
+                      />
+                    </MetamaskProvider>
+                  </NoNavbarWrapper>
+                )}
+              />
+              <Route
+                exact
+                path="*"
+                render={() => (
 
-                <NavbarWrapper
-                  handleSetNavbar={handleSetNavbar}
-                >
-                  <MetamaskProvider user={user} web3Instance={web3Instance}>
-                    <Error404 />
-                  </MetamaskProvider>
-                </NavbarWrapper>
+                  <NavbarWrapper
+                    handleSetNavbar={handleSetNavbar}
+                  >
+                    <MetamaskProvider user={user} web3Instance={web3Instance}>
+                      <Error404 />
+                    </MetamaskProvider>
+                  </NavbarWrapper>
 
-              )}
-            />
-          </Switch>
+                )}
+              />
+            </Switch>
+          </div>
         </Router>
       </Web3ReactProvider>
     </UserContext.Provider>

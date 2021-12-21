@@ -1,57 +1,68 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Offcanvas, CloseButton } from 'react-bootstrap';
+/* eslint-disable react/prop-types, react/jsx-props-no-spreading */
+import React, { useReducer } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faCertificate,
+  faTrophy,
+  faUsers,
+  faPowerOff,
+} from '@fortawesome/free-solid-svg-icons';
+// CUSTOM IMPORTS
+import localStorageService from '../../modules/localStorageService.mjs';
+import {
+  initialState,
+  userReducer,
+  deleteUser,
+} from '../../reducers/UserReducer.js';
 
 export default function Navbar({
   hasNavbar,
 }) {
-  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const history = useHistory();
+  const [, dispatch] = useReducer(userReducer, initialState);
 
-  const handleCloseOffCanvas = () => setShowOffcanvas(false);
-  const handleShowOffCanvas = (e) => {
+  const handleLogout = (e) => {
     e.preventDefault();
-    setShowOffcanvas(true);
+    localStorageService.removeItem('user_id');
+    localStorageService.removeItem('address');
+    localStorageService.removeItem('username');
+    dispatch(deleteUser());
+    history.push('/');
   };
 
   if (hasNavbar) {
     return (
-      <>
-        <nav className="navbar navbar-dark bg-dark fixed-top">
-          <div className="container-fluid">
-            <div className="row w-100">
-              <div className="col-12">
-                <a
-                  className="navbar-menu"
-                  href="/show-offcanvas"
-                  role="button"
-                  onClick={handleShowOffCanvas}
-                >
-                  <FontAwesomeIcon icon={faBars} />
-                </a>
-
-              </div>
-            </div>
-          </div>
-        </nav>
-        <Offcanvas className="text-white bg-dark" show={showOffcanvas} onHide={handleCloseOffCanvas}>
-          <Offcanvas.Header>
-            <Offcanvas.Title>Wish Upon a Santa</Offcanvas.Title>
-            <CloseButton variant="white" onClick={handleCloseOffCanvas} />
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <div className="d-flex flex-column">
-              <ul className="offcanvas-body-top nav nav-pills flex-column mb-auto">
-                <li className="nav-item">
-                  <Link className="nav-link text-white" to="/" aria-current="page" onClick={handleCloseOffCanvas}>Home</Link>
-                </li>
-              </ul>
-            </div>
-          </Offcanvas.Body>
-        </Offcanvas>
-      </>
+      <div className="d-flex flex-column flex-shrink-0 bg-dark vertical-nav">
+        <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
+          <li className="nav-item">
+            <Link to="/wishes" className="nav-link active py-3 border-bottom d-flex align-items-center justify-content-center">
+              <FontAwesomeIcon icon={faHome} color="white" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/incentives" className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
+              <FontAwesomeIcon icon={faCertificate} color="white" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/leaderboard" className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
+              <FontAwesomeIcon icon={faTrophy} color="white" />
+            </Link>
+          </li>
+          <li>
+            <Link to="/searchusers" className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
+              <FontAwesomeIcon icon={faUsers} color="white" />
+            </Link>
+          </li>
+        </ul>
+        <div className="border-top">
+          <Link to="/logout" onClick={handleLogout} className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
+            <FontAwesomeIcon icon={faPowerOff} color="white" />
+          </Link>
+        </div>
+      </div>
     );
   }
   return null;
