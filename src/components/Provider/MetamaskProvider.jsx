@@ -92,6 +92,8 @@ function MetamaskProvider({ user, web3Instance, children }) {
           handleForceLogout();
         }
       });
+    } else if (!forcedLogout) {
+      handleForceLogout();
     }
   }, [user, forcedLogout, forcedOnboard]);
 

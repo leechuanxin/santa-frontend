@@ -69,6 +69,8 @@ function OnboardingMetamaskProvider({ web3Instance, user, children }) {
           handleForceLogout();
         }
       });
+    } else if (!forcedLogout) {
+      handleForceLogout();
     }
   }, [user, forcedLogout]);
 
