@@ -54,10 +54,13 @@ function getLibrary(provider) {
 
 function NavbarWrapper({
   handleSetNavbar,
+  setPageState,
+  pageState = '',
   children,
 }) {
   useEffect(() => {
     handleSetNavbar();
+    setPageState(pageState);
   }, []);
 
   return <>{children}</>;
@@ -65,10 +68,13 @@ function NavbarWrapper({
 
 function NoNavbarWrapper({
   handleSetNoNavbar,
+  setPageState,
+  pageState = '',
   children,
 }) {
   useEffect(() => {
     handleSetNoNavbar();
+    setPageState(pageState);
   }, []);
 
   return <>{children}</>;
@@ -161,6 +167,8 @@ export default function App() {
                 render={() => (
                   <NoNavbarWrapper
                     handleSetNoNavbar={handleSetNoNavbar}
+                    setPageState={setPageState}
+                    key="indexNoNavbarWrapper"
                   >
                     <Index />
                   </NoNavbarWrapper>
@@ -172,6 +180,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="profile"
+                    key="profileNavbarWrapper"
                   >
                     <OnboardingMetamaskProvider user={user} web3Instance={web3Instance}>
                       <UpdateProfile user={user} />
@@ -185,6 +196,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="wishes"
+                    key="wishesNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <WishListings
@@ -193,7 +207,6 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
-                        setPageState={setPageState}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>
@@ -205,6 +218,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="wishes"
+                    key="wishesNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <MakeWish
@@ -213,7 +229,6 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
-                        setPageState={setPageState}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>
@@ -225,6 +240,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="wishes"
+                    key="wishesNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <CreateWish
@@ -233,7 +251,6 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
-                        setPageState={setPageState}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>
@@ -245,6 +262,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="incentives"
+                    key="incentivesNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <Incentives
@@ -264,6 +284,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="users"
+                    key="searchUsersNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <SearchUsers
@@ -283,6 +306,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="users"
+                    key="usersNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <User
@@ -302,6 +328,9 @@ export default function App() {
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    pageState="leaderboard"
+                    key="leaderboardNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <Leaderboard
@@ -321,6 +350,8 @@ export default function App() {
                 render={() => (
                   <NoNavbarWrapper
                     handleSetNoNavbar={handleSetNoNavbar}
+                    setPageState={setPageState}
+                    key="justinNoNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <JustinTest
@@ -340,6 +371,8 @@ export default function App() {
 
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
+                    setPageState={setPageState}
+                    key="errorNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
                       <Error404 />

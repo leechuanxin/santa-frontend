@@ -40,13 +40,14 @@ function NavbarTopLinks({ user, pageState }) {
         <li>
           <Link
             to="/incentives"
-            className="nav-link
+            className={`nav-link
               py-3
               border-bottom
               d-flex
               align-items-center
               justify-content-center
-            "
+              ${(pageState === 'incentives') ? 'active' : ''}
+            `}
           >
             <FontAwesomeIcon icon={faCertificate} color="white" />
           </Link>
@@ -54,13 +55,14 @@ function NavbarTopLinks({ user, pageState }) {
         <li>
           <Link
             to="/leaderboard"
-            className="nav-link
+            className={`nav-link
               py-3
               border-bottom
               d-flex
               align-items-center
               justify-content-center
-            "
+              ${(pageState === 'leaderboard') ? 'active' : ''}
+            `}
           >
             <FontAwesomeIcon icon={faTrophy} color="white" />
           </Link>
@@ -68,13 +70,14 @@ function NavbarTopLinks({ user, pageState }) {
         <li>
           <Link
             to="/searchusers"
-            className="nav-link
+            className={`nav-link
               py-3
               border-bottom
               d-flex
               align-items-center
               justify-content-center
-            "
+              ${(pageState === 'users') ? 'active' : ''}
+            `}
           >
             <FontAwesomeIcon icon={faUsers} color="white" />
           </Link>
@@ -109,10 +112,17 @@ export default function Navbar({
         <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
           <NavbarTopLinks pageState={pageState} user={user} />
         </ul>
-        <div className="border-top">
+        <div className="border-top nav-pills">
           <Link
             to="/updateprofile"
-            className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center"
+            className={`nav-link
+              py-3
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+              ${(pageState === 'profile') ? ' active' : ''}
+            `}
           >
             <FontAwesomeIcon icon={faCog} color="white" />
           </Link>

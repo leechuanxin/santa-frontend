@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import {
+  Link,
+} from 'react-router-dom';
 import axios from 'axios';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
@@ -138,7 +141,7 @@ function UnfulfilledWishes({
 }
 
 export default function WishListingsPage({
-  myContract, user, web3Instance, setPageState,
+  myContract, user, web3Instance,
 }) {
   const [unfulfilledWishes, setUnfulfilledWishes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -188,18 +191,15 @@ export default function WishListingsPage({
                 });
             }
             setIsLoaded(true);
-            setPageState('wishes');
           } else {
             console.log('error:');
             console.log(response.data);
             setIsLoaded(true);
-            setPageState('wishes');
           }
         })
         .catch((error) => {
           console.log(error);
           setIsLoaded(true);
-          setPageState('wishes');
         });
     }
   }, []);
@@ -212,22 +212,22 @@ export default function WishListingsPage({
           <TestCryptoWalletAddress />
           <div className="row w-100 pt-1">
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
-              <a
+              <Link
                 className="btn btn-primary w-100"
-                href="/makewish"
+                to="/makewish"
                 role="button"
               >
                 Make a Wish!
-              </a>
+              </Link>
             </div>
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
-              <a
+              <Link
                 className="btn btn-primary w-100"
-                href="/createwish"
+                to="/createwish"
                 role="button"
               >
                 Create your own Wish!
-              </a>
+              </Link>
             </div>
           </div>
           <hr />

@@ -7,7 +7,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 export default function CreateWish({
-  myContract, user, web3Instance, setPageState,
+  myContract, user, web3Instance,
 }) {
   const history = useHistory();
   const [wishName, setWishName] = useState('');
@@ -25,7 +25,6 @@ export default function CreateWish({
         const allBaseNames = res.map((baseTemplate) => baseTemplate[0]);
         setBaseName([...allBaseNames]);
       });
-    setPageState('wishes');
   }, []);
   const handleButtonClick = (e) => {
     console.log(wishBox);
