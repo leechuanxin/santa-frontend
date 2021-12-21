@@ -161,7 +161,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container pt-5">
+    <div className="container ps-5">
       <div className="row w-100 pt-3">
         <h1 className="pt-1 text-center">Wish Upon A Santa</h1>
         <p className="text-center">Some placeholder text about how awesome Project 6 is!</p>

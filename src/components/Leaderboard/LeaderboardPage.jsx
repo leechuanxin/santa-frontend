@@ -146,7 +146,7 @@ export default function LeaderboardPage({ user, myContract }) {
   console.log(leaderboardUsers);
 
   return (
-    <div className="container pt-5">
+    <div className="container ps-5">
       <div className="row w-100 pt-3">
         <h2 className="pt-1 text-center mb-3">Leaderboard</h2>
         <TestCryptoWalletAddress />

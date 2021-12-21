@@ -200,7 +200,7 @@ export default function WishListingsPage({ myContract, user, web3Instance }) {
   }, []);
 
   return (
-    <div className="container pt-5">
+    <div className="container ps-5">
       <div className="row w-100 pt-3">
         <h2 className="pt-1 text-center mb-0">Wishes</h2>
         <TestCryptoWalletAddress />

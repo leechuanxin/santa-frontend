@@ -85,7 +85,7 @@ export default function SearchUsersPage({ user }) {
 
   if (!isLoaded) {
     return (
-      <div className="container pt-5 pb-5">
+      <div className="container ps-5 pt-5 pb-5">
         <div className="row w-100 pt-3">
           <div className="col-12 pt-1 d-flex justify-content-center">
             <div
@@ -102,7 +102,7 @@ export default function SearchUsersPage({ user }) {
   }
 
   return (
-    <div className="container pt-5">
+    <div className="container ps-5">
       <div className="row w-100 pt-3">
         <div className="col-12 pt-1 py-3">
           <h2 className="pt-1 text-center mb-0">Search Users</h2>

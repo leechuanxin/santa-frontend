@@ -138,7 +138,7 @@ export default function UpdateProfilePage({
   };
 
   return (
-    <div className="settings-container container pt-5">
+    <div className="settings-container container ps-5">
       <div className="row w-100 pt-3">
         <div className="col-12 pt-1 py-3">
           <form>

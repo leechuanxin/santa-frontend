@@ -85,7 +85,7 @@ export default function MakeWishPage({ myContract, user }) {
   };
 
   return (
-    <div className="container pt-5">
+    <div className="container ps-5">
       <div className="row w-100 pt-3">
         <h2 className="pt-1 text-center mb-0">Select A Wish</h2>
         <TestCryptoWalletAddress />

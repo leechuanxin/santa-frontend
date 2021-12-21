@@ -123,7 +123,7 @@ export default function IncentivesPage({ myContract, user }) {
   }, []);
 
   return (
-    <div className="container pt-5">
+    <div className="container ps-5">
       <div className="row w-100 pt-3">
         <h2 className="pt-1 text-center mb-3">Incentives</h2>
         <h4 className="text-center">
