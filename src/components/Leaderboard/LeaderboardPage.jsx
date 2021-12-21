@@ -12,8 +12,27 @@ import getHash from '../../modules/hashing.mjs';
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 function LeaderboardUser({ leaderboardUser, index }) {
+  console.log(leaderboardUser);
+  console.log(index);
   return (
     <>
+      <div className=" d-flex justify-content-center text-center">
+        {index === 0 && (
+        <h2>
+          1st
+        </h2>
+        )}
+        {index === 1 && (
+        <h4>
+          2nd
+        </h4>
+        )}
+        {index === 2 && (
+        <h5>
+          3rd
+        </h5>
+        )}
+      </div>
       {
         (index === 4)
           ? (
@@ -47,7 +66,23 @@ function LeaderboardUser({ leaderboardUser, index }) {
                   </div>
                 </div>
               </div>
-              <div className="col-2" />
+              <div className="col-2">
+                {/* {index === 0 && (
+                <h2>
+                  1st
+                </h2>
+                )}
+                {index === 1 && (
+                  <h4>
+                    2nd
+                  </h4>
+                )}
+                {index === 2 && (
+                <h5>
+                  3rd
+                </h5>
+                )} */}
+              </div>
               <div className="col-6 text-center">
                 <strong>
                   {leaderboardUser.displayName}
@@ -55,6 +90,8 @@ function LeaderboardUser({ leaderboardUser, index }) {
               </div>
               <div className="col-3 text-end">
                 {leaderboardUser.totalPoints}
+                {' '}
+                {leaderboardUser.totalPoints > 1 ? 'wishes granted' : 'wish granted'}
               </div>
             </div>
           </div>
@@ -146,8 +183,8 @@ export default function LeaderboardPage({ user, myContract }) {
   console.log(leaderboardUsers);
 
   return (
-    <div className="container ps-5">
-      <div className="row w-100 pt-3">
+    <div className="container-fluid ps-vertical-nav">
+      <div className="row w-100 pt-3 page-panel">
         <h2 className="pt-1 text-center mb-3">Leaderboard</h2>
         <TestCryptoWalletAddress />
         <hr />

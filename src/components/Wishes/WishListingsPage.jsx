@@ -62,7 +62,7 @@ function UnfulfilledWish({
         />
         <div className="card-body">
           <h5 className="card-title text-center">{wish.name}</h5>
-
+          <h5 className="card-title text-center">{wish.baseName}</h5>
           <div className="mb-3">
             <div className="text-center text-truncated-parent">
               <span className={`badge badge-pill${(wish.isCurrentWisher ? ' bg-dark' : ' bg-success')}`}>
