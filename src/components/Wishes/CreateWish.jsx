@@ -57,6 +57,12 @@ export default function CreateWish({ myContract, user, web3Instance }) {
     setSingleSelections(e);
   };
   const boxArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const divStyle = {
+    backgroundImage: `url(https://gateway.pinata.cloud/ipfs/QmejHEyWmCigv618VaXPiLvfRURniTZV74wHy4MDkwNpfe/${wishBox}.png)`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    backgroundRepeat: 'no-repeat',
+  };
   return (
     <div className="container pt-5">
       <div className="row w-100 pt-3">
@@ -114,25 +120,29 @@ export default function CreateWish({ myContract, user, web3Instance }) {
                 </Form.Group>
               </div>
             </div>
-            {/* <div className="mb-3 col-12 col-md-3">
+            <div className="mb-3 col-12 col-md-3">
               <div className="create-wish-card card bg-dark text-white w-100">
                 <div className="card-img" style={divStyle} alt="" />
                 <div className="card-img-overlay d-flex align-items-center">
                   <div>
                     {' '}
-                    <h5 className="card-title">{currentOption.name}</h5>
-                    <p className="card-text">{currentOption.description}</p>
+                    <h5 className="card-title">{wishName}</h5>
+                    <p className="card-text">
+                      {currentBase.name}
+                      <br />
+                      {wishDescription}
+                    </p>
                     <p className="card-text mb-0">
                       <strong>Price:</strong>
                       {' '}
-                      {currentOption.price}
+                      {(Number(currentBase.price) / (10 ** 18))}
                       {' '}
                       ETH
                     </p>
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
