@@ -170,3 +170,7 @@ a.card {
 .vertical-nav .svg-inline--fa {
   font-size: 1.5em;
 }
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}

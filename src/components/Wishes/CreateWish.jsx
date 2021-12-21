@@ -230,32 +230,33 @@ export default function CreateWish({
                         <div className="col-12 mt-2 col-sm-6 col-md-3" key={`giftBox${boxType}`}>
                           <div className="card w-100">
                             <div className="card-body">
-                              <div className="row d-flex align-items-center">
-                                <div className="col-2">
-                                  <input
-                                    type="radio"
-                                    name="boxArray"
-                                    id={`giftBox${boxType}`}
-                                    value={boxType}
-                                    checked={(wishBox === boxType)}
-                                    onChange={
+                              <label className="cursor-pointer form-check-label w-100" htmlFor={`giftBox${boxType}`}>
+                                <div className="row d-flex align-items-center">
+                                  <div className="col-2">
+                                    <input
+                                      type="radio"
+                                      name="boxArray"
+                                      id={`giftBox${boxType}`}
+                                      value={boxType}
+                                      checked={(wishBox === boxType)}
+                                      onChange={
                                       (e) => {
                                         setWishBox(Number(e.target.value));
                                       }
                                     }
-                                    disabled={transactionLoading}
-                                  />
-                                </div>
-                                <div className="col-10">
-                                  <label className="form-check-label w-100" htmlFor={`giftBox${boxType}`}>
+                                      disabled={transactionLoading}
+                                    />
+                                  </div>
+                                  <div className="col-10">
+
                                     <img
                                       className="img-fluid"
                                       src={handleReturnImage(boxType)}
                                       alt=""
                                     />
-                                  </label>
+                                  </div>
                                 </div>
-                              </div>
+                              </label>
                             </div>
                           </div>
                         </div>
