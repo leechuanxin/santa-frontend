@@ -200,42 +200,45 @@ export default function WishListingsPage({ myContract, user, web3Instance }) {
   }, []);
 
   return (
-    <div className="container ps-5">
-      <div className="row w-100 pt-3">
-        <h2 className="pt-1 text-center mb-0">Wishes</h2>
-        <TestCryptoWalletAddress />
-        <div className="row w-100 pt-1">
-          <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
-            <a
-              className="btn btn-primary w-100"
-              href="/makewish"
-              role="button"
-            >
-              Make a Wish!
-            </a>
+    <div className="container-fluid ps-vertical-nav d-flex">
+      <div className="row w-100 pt-4 pb-4">
+        <div className="col-12 page-panel">
+          <h2 className="pt-1 text-center mb-0">Wishes</h2>
+          <TestCryptoWalletAddress />
+          <div className="row w-100 pt-1">
+            <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
+              <a
+                className="btn btn-primary w-100"
+                href="/makewish"
+                role="button"
+              >
+                Make a Wish!
+              </a>
+            </div>
+            <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
+              <a
+                className="btn btn-primary w-100"
+                href="/createwish"
+                role="button"
+              >
+                Create your own Wish!
+              </a>
+            </div>
           </div>
-          <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
-            <a
-              className="btn btn-primary w-100"
-              href="/createwish"
-              role="button"
-            >
-              Create your own Wish!
-            </a>
+          <hr />
+          <div className="col-12 pt-3" />
+          <div className="row w-100 pt-3">
+            <UnfulfilledWishes
+              user={user}
+              myContract={myContract}
+              isLoaded={isLoaded}
+              unfulfilledWishes={unfulfilledWishes}
+              setUnfulfilledWishes={setUnfulfilledWishes}
+              web3Instance={web3Instance}
+            />
           </div>
         </div>
-        <hr />
-        <div className="col-12 pt-3" />
-        <div className="row w-100 pt-3">
-          <UnfulfilledWishes
-            user={user}
-            myContract={myContract}
-            isLoaded={isLoaded}
-            unfulfilledWishes={unfulfilledWishes}
-            setUnfulfilledWishes={setUnfulfilledWishes}
-            web3Instance={web3Instance}
-          />
-        </div>
+
       </div>
     </div>
   );

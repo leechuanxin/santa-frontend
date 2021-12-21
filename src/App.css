@@ -12,9 +12,12 @@ body {
   background: #1a237e;
 }
 
-#root,
-#root > div {
+#root {
   height: 100%;
+}
+
+#root > div {
+  min-height: 100%;
 }
 
 .page-panel {
