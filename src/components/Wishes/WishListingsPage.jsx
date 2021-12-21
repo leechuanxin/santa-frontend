@@ -214,19 +214,10 @@ export default function WishListingsPage({
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
               <Link
                 className="btn btn-primary w-100"
-                to="/makewish"
-                role="button"
-              >
-                Make a Wish!
-              </Link>
-            </div>
-            <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
-              <Link
-                className="btn btn-primary w-100"
                 to="/createwish"
                 role="button"
               >
-                Create your own Wish!
+                Make a Wish!
               </Link>
             </div>
           </div>
