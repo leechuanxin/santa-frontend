@@ -137,7 +137,9 @@ function UnfulfilledWishes({
   );
 }
 
-export default function WishListingsPage({ myContract, user, web3Instance }) {
+export default function WishListingsPage({
+  myContract, user, web3Instance, setPageState,
+}) {
   const [unfulfilledWishes, setUnfulfilledWishes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
@@ -186,15 +188,18 @@ export default function WishListingsPage({ myContract, user, web3Instance }) {
                 });
             }
             setIsLoaded(true);
+            setPageState('wishes');
           } else {
             console.log('error:');
             console.log(response.data);
             setIsLoaded(true);
+            setPageState('wishes');
           }
         })
         .catch((error) => {
           console.log(error);
           setIsLoaded(true);
+          setPageState('wishes');
         });
     }
   }, []);

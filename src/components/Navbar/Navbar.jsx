@@ -18,21 +18,21 @@ import {
   deleteUser,
 } from '../../reducers/UserReducer.js';
 
-function NavbarTopLinks({ user }) {
+function NavbarTopLinks({ user, pageState }) {
   if (user && user.username) {
     return (
       <>
         <li className="nav-item">
           <Link
             to="/wishes"
-            className="nav-link
-              active
+            className={`nav-link
               py-3
               border-bottom
               d-flex
               align-items-center
               justify-content-center
-            "
+              ${(pageState === 'wishes') ? 'active' : ''}
+            `}
           >
             <FontAwesomeIcon icon={faHome} color="white" />
           </Link>
@@ -89,6 +89,7 @@ function NavbarTopLinks({ user }) {
 export default function Navbar({
   hasNavbar,
   user,
+  pageState,
 }) {
   const history = useHistory();
   const [, dispatch] = useReducer(userReducer, initialState);
@@ -106,7 +107,7 @@ export default function Navbar({
     return (
       <div className="d-flex flex-column flex-shrink-0 bg-dark vertical-nav">
         <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
-          <NavbarTopLinks user={user} />
+          <NavbarTopLinks pageState={pageState} user={user} />
         </ul>
         <div className="border-top">
           <Link

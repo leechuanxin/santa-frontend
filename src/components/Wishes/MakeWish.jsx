@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 // CUSTOM IMPORTS
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
-export default function MakeWishPage({ myContract, user }) {
+export default function MakeWishPage({ myContract, user, setPageState }) {
   const history = useHistory();
   const defaultWish = {
     name: 'Your Christmas Wish',
@@ -38,6 +38,7 @@ export default function MakeWishPage({ myContract, user }) {
         const namesArr = modifiedArr.map((option) => option.name);
         setAllWishes([...modifiedArr]);
         setOptions([...namesArr]);
+        setPageState('wishes');
       })
       .catch((error) => {
         console.log(error);

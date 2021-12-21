@@ -79,6 +79,7 @@ export default function App() {
   const [hasNavbar, setHasNavbar] = useState(false);
   const [myContract, setMyContract] = useState(null);
   const [web3Instance, setWeb3Instance] = useState(null);
+  const [pageState, setPageState] = useState('');
 
   const handleSetNavbar = () => {
     setHasNavbar(true);
@@ -147,6 +148,7 @@ export default function App() {
             <Navbar
               hasNavbar={hasNavbar}
               user={user}
+              pageState={pageState}
             />
             {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
@@ -191,6 +193,7 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
+                        setPageState={setPageState}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>
@@ -210,6 +213,7 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
+                        setPageState={setPageState}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>
@@ -229,6 +233,7 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
+                        setPageState={setPageState}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>
