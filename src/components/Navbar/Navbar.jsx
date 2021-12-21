@@ -129,7 +129,7 @@ export default function Navbar({
           <Link
             to="/logout"
             onClick={handleLogout}
-            className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center"
+            className="nav-link py-3 d-flex align-items-center justify-content-center"
           >
             <FontAwesomeIcon icon={faPowerOff} color="white" />
           </Link>
