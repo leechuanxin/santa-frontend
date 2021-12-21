@@ -8,6 +8,7 @@ import {
   faTrophy,
   faUsers,
   faPowerOff,
+  faCog,
 } from '@fortawesome/free-solid-svg-icons';
 // CUSTOM IMPORTS
 import localStorageService from '../../modules/localStorageService.mjs';
@@ -17,8 +18,77 @@ import {
   deleteUser,
 } from '../../reducers/UserReducer.js';
 
+function NavbarTopLinks({ user }) {
+  if (user && user.username) {
+    return (
+      <>
+        <li className="nav-item">
+          <Link
+            to="/wishes"
+            className="nav-link
+              active
+              py-3
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+          >
+            <FontAwesomeIcon icon={faHome} color="white" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/incentives"
+            className="nav-link
+              py-3
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+          >
+            <FontAwesomeIcon icon={faCertificate} color="white" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/leaderboard"
+            className="nav-link
+              py-3
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+          >
+            <FontAwesomeIcon icon={faTrophy} color="white" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/searchusers"
+            className="nav-link
+              py-3
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+          >
+            <FontAwesomeIcon icon={faUsers} color="white" />
+          </Link>
+        </li>
+      </>
+    );
+  }
+
+  return null;
+}
+
 export default function Navbar({
   hasNavbar,
+  user,
 }) {
   const history = useHistory();
   const [, dispatch] = useReducer(userReducer, initialState);
@@ -36,29 +106,20 @@ export default function Navbar({
     return (
       <div className="d-flex flex-column flex-shrink-0 bg-dark vertical-nav">
         <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
-          <li className="nav-item">
-            <Link to="/wishes" className="nav-link active py-3 border-bottom d-flex align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faHome} color="white" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/incentives" className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faCertificate} color="white" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/leaderboard" className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faTrophy} color="white" />
-            </Link>
-          </li>
-          <li>
-            <Link to="/searchusers" className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faUsers} color="white" />
-            </Link>
-          </li>
+          <NavbarTopLinks user={user} />
         </ul>
         <div className="border-top">
-          <Link to="/logout" onClick={handleLogout} className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center">
+          <Link
+            to="/updateprofile"
+            className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center"
+          >
+            <FontAwesomeIcon icon={faCog} color="white" />
+          </Link>
+          <Link
+            to="/logout"
+            onClick={handleLogout}
+            className="nav-link py-3 border-bottom d-flex align-items-center justify-content-center"
+          >
             <FontAwesomeIcon icon={faPowerOff} color="white" />
           </Link>
         </div>
