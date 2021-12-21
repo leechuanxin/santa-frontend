@@ -303,7 +303,7 @@ export default function App() {
               <Route
                 exact
                 path="/users/:paramId"
-                render={() => (
+                render={(props) => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
                     setPageState={setPageState}
@@ -317,6 +317,7 @@ export default function App() {
                         contractAddress={contractAddress}
                         myContract={myContract}
                         web3Instance={web3Instance}
+                        key={props.match.params.paramId || 'empty'}
                       />
                     </MetamaskProvider>
                   </NavbarWrapper>

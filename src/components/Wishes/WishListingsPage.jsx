@@ -6,7 +6,7 @@ import {
 import axios from 'axios';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
-import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
+import getHash from '../../modules/hashing.mjs';
 
 function UnfulfilledWish({
   user,
@@ -53,44 +53,98 @@ function UnfulfilledWish({
   };
 
   return (
-    <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${wish.id}`}>
+    <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex" key={`wish${wish.id}`}>
       <div className="unfulfilled-wish-card card w-100 mb-3">
-        <img
-          className="card-img-top img-fluid"
-          src={wish.imgURL}
-          alt=""
-        />
-        <div className="card-body">
-          <h5 className="card-title text-center">{wish.name}</h5>
-          <h5 className="card-title text-center">{wish.baseName}</h5>
-          <div className="mb-3">
-            <div className="text-center text-truncated-parent">
-              <span className={`badge badge-pill${(wish.isCurrentWisher ? ' bg-dark' : ' bg-success')}`}>
-                Wisher:
-                {' '}
-                {wish.wisherName}
-              </span>
+        <div className="card-body p-2">
+          <div className="row">
+            <div className="col-12">
+              <div className="position-relative">
+                <img
+                  className="card-img-top img-fluid"
+                  src={wish.imgURL}
+                  alt=""
+                />
+                <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
+                  <p className="mb-0">
+                    <small>
+                      <strong className="text-center">
+                        {wish.baseName}
+                      </strong>
+                    </small>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-          <p className="card-text text-center">
-            {wish.description}
-          </p>
-          <h4 className="text-center">
-            Price:
-            {' '}
-            {wish.price}
-            {' '}
-            ETH
-          </h4>
-          {
+          <div className="row pt-3 align-items-md-center">
+            <div className="col-12 col-md-8">
+              <div className="row d-flex align-items-center justify-content-center justify-content-md-start">
+                <div className="col-3 col-md-4">
+                  <Link className="d-block" to={`/users/${wish.wisherId}`}>
+                    <img
+                      className="img-fluid"
+                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wish.wisherId}-${getHash((wish.wisherId + 23), wish.wisherAddress)}`}.svg`}
+                      alt=""
+                    />
+                  </Link>
+                </div>
+                <div className="col-md-8 text-truncated-parent w-auto">
+                  <p className="mb-0">
+                    <strong>
+                      <Link to={`/users/${wish.wisherId}`}>
+                        {wish.wisherName}
+                      </Link>
+                    </strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="pt-2 d-block d-md-none col-12 text-center">
+              <strong>
+                <small>
+                  {wish.price}
+                  {' '}
+                  ETH
+                </small>
+              </strong>
+            </div>
+            <div className="col-12 col-md-4 pt-2 pt-md-0">
+              {
               !wish.isCurrentWisher
               && (
                 <div className="d-flex justify-content-center">
-                  <button type="button" className="btn btn-primary" disabled={buttonLoading} onClick={handleButtonClick}>Fulfill Wish!</button>
+                  <button
+                    type="button"
+                    className="btn btn-primary w-100"
+                    disabled={buttonLoading}
+                    onClick={handleButtonClick}
+                  >
+                    <small>Grant</small>
+                  </button>
                 </div>
               )
             }
+            </div>
+          </div>
+          <div className="row pt-3">
+            <div className="col-12 col-md-8">
+              <p className="mb-1">
+                <strong>{wish.name}</strong>
+              </p>
+              <p className="mb-0">
+                {wish.description}
+              </p>
+            </div>
+            <div className="d-none d-md-block col-4 text-center">
+              <strong>
+                <small>
+                  {wish.price}
+                  {' '}
+                  ETH
+                </small>
+              </strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -170,6 +224,8 @@ export default function WishListingsPage({
                         if (users[i].walletAddress === modifiedOption.wisher) {
                           modifiedOption = {
                             ...modifiedOption,
+                            wisherId: users[i].id,
+                            wisherAddress: users[i].walletAddress,
                             wisherName:
                               (modifiedOption.wisher === user.address)
                                 ? 'You!'
@@ -208,9 +264,12 @@ export default function WishListingsPage({
     <div className="container-fluid ps-vertical-nav d-flex">
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
-          <h2 className="pt-1 text-center mb-0">Wishes</h2>
-          <TestCryptoWalletAddress />
           <div className="row w-100 pt-1">
+            <div className="col-12 ms-auto me-auto">
+              <h2 className="text-center mb-0">Wishes</h2>
+            </div>
+          </div>
+          <div className="row w-100 pt-3">
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
               <Link
                 className="btn btn-primary w-100"
@@ -222,7 +281,6 @@ export default function WishListingsPage({
             </div>
           </div>
           <hr />
-          <div className="col-12 pt-3" />
           <div className="row w-100 pt-3">
             <UnfulfilledWishes
               user={user}

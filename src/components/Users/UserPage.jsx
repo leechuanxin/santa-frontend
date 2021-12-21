@@ -220,7 +220,31 @@ export default function UserPage({ myContract, user }) {
   useEffect(() => {
     myContract.methods.getAllListed().call()
       .then((res) => {
-        const grantedWishes = res
+        const modifiedArr = res
+          .map((option) => {
+            let modifiedOption = {
+              ...option,
+              id: Number(option.id),
+              price: (Number(option.price) / (10 ** 18)),
+            };
+            for (let i = 0; i < allUsers.length; i += 1) {
+              if (allUsers[i].walletAddress === modifiedOption.wisher) {
+                modifiedOption = {
+                  ...modifiedOption,
+                  wisherId: allUsers[i].id,
+                  wisherAddress: allUsers[i].walletAddress,
+                  wisherName:
+                    (modifiedOption.wisher === user.address)
+                      ? 'You!'
+                      : allUsers[i].displayName,
+                };
+              }
+            }
+
+            return modifiedOption;
+          });
+
+        const grantedWishes = modifiedArr
           .filter(
             (option) => (
               option.wishCreated
@@ -228,7 +252,7 @@ export default function UserPage({ myContract, user }) {
                 && option.gifter === userPageAddress
             ),
           );
-        const allCreatedWishes = res
+        const allCreatedWishes = modifiedArr
           .filter(
             (option) => (
               option.wishCreated
@@ -304,46 +328,85 @@ export default function UserPage({ myContract, user }) {
     let interfaceType = [...userPageAllCreatedWishes];
     // const allUsersArr = [...allUsers];
     let interfaceMapCallback = (item) => {
-      const fulfillerName = [...allUsers]
+      const fulfiller = [...allUsers]
         .filter(
           (filteredUser) => filteredUser.walletAddress === item.gifter,
-        )[0].displayName;
+        )[0];
+      const fulfillerName = (fulfiller && fulfiller.displayName ? fulfiller.displayName : '');
+      const fulfillerId = (fulfiller && fulfiller.id ? fulfiller.id : 0);
       return (
-        <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${item.id}`}>
+        <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex" key={`wish${item.id}`}>
           <div className="unfulfilled-wish-card card w-100 mb-3">
-            <img
-              className="card-img-top img-fluid"
-              src={item.imgURL}
-              alt=""
-            />
-            <div className="card-body">
-              <h5 className="card-title text-center">{item.name}</h5>
-
-              {
-                item.isSold
-                  ? (
-                    <div className="mb-3">
-                      <div className="text-center text-truncated-parent">
-                        <span className="badge badge-pill bg-primary">
-                          Fulfilled by:
-                          {' '}
-                          {fulfillerName}
-                        </span>
-                      </div>
+            <div className="card-body p-2">
+              <div className="row">
+                <div className="col-12">
+                  <div className="position-relative">
+                    <img
+                      className="card-img-top img-fluid"
+                      src={item.imgURL}
+                      alt=""
+                    />
+                    <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
+                      <p className="mb-0">
+                        <small>
+                          <strong className="text-center">
+                            {item.baseName}
+                          </strong>
+                        </small>
+                      </p>
                     </div>
-                  ) : null
-              }
-
-              <p className="card-text text-center">
-                {item.description}
-              </p>
-              <h4 className="text-center">
-                Price:
-                {' '}
-                {Number(item.price) / (10 ** 18)}
-                {' '}
-                ETH
-              </h4>
+                  </div>
+                </div>
+              </div>
+              <div className="row pt-3 align-items-md-center">
+                <div className="col-12">
+                  <div className="row d-flex align-items-center justify-content-center justify-content-md-start">
+                    {
+                      item.isSold
+                        ? (
+                          <div className="">
+                            <div className="text-center text-truncated-parent">
+                              <Link to={`/users/${fulfillerId}`} className="badge badge-pill bg-primary">
+                                Fulfilled by:
+                                {' '}
+                                {fulfillerName}
+                              </Link>
+                            </div>
+                          </div>
+                        ) : null
+                    }
+                  </div>
+                </div>
+                <div className="pt-2 d-block d-md-none col-12 text-center">
+                  <strong>
+                    <small>
+                      {item.price}
+                      {' '}
+                      ETH
+                    </small>
+                  </strong>
+                </div>
+                <div className="col-12 col-md-4 pt-2 pt-md-0" />
+              </div>
+              <div className="row pt-3">
+                <div className="col-12 col-md-8">
+                  <p className="mb-1">
+                    <strong>{item.name}</strong>
+                  </p>
+                  <p className="mb-0">
+                    {item.description}
+                  </p>
+                </div>
+                <div className="d-none d-md-block col-4 text-center">
+                  <strong>
+                    <small>
+                      {item.price}
+                      {' '}
+                      ETH
+                    </small>
+                  </strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -354,41 +417,90 @@ export default function UserPage({ myContract, user }) {
       emptyText = 'This user has not granted any wishes.';
       interfaceType = [...userPageGrantedWishes];
       interfaceMapCallback = (item) => {
-        const wisherName = [...allUsers]
+        const wisher = [...allUsers]
           .filter(
             (filteredUser) => filteredUser.walletAddress === item.wisher,
-          )[0].displayName;
+          )[0];
+        const wisherName = (wisher && wisher.displayName ? wisher.displayName : '');
+        const wisherId = (wisher && wisher.id ? wisher.id : 0);
+        const wisherAddress = (wisher && wisher.walletAddress ? wisher.iwalletAddress : '');
         return (
-          <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${item.id}`}>
+          <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex" key={`wish${item.id}`}>
             <div className="unfulfilled-wish-card card w-100 mb-3">
-              <img
-                className="card-img-top img-fluid"
-                src={item.imgURL}
-                alt=""
-              />
-              <div className="card-body">
-                <h5 className="card-title text-center">{item.name}</h5>
-
-                <div className="mb-3">
-                  <div className="text-center text-truncated-parent">
-                    <span className="badge badge-pill bg-success">
-                      Wisher:
-                      {' '}
-                      {wisherName}
-                    </span>
+              <div className="card-body p-2">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="position-relative">
+                      <img
+                        className="card-img-top img-fluid"
+                        src={item.imgURL}
+                        alt=""
+                      />
+                      <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
+                        <p className="mb-0">
+                          <small>
+                            <strong className="text-center">
+                              {item.baseName}
+                            </strong>
+                          </small>
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <p className="card-text text-center">
-                  {item.description}
-                </p>
-                <h4 className="text-center">
-                  Price:
-                  {' '}
-                  {Number(item.price) / (10 ** 18)}
-                  {' '}
-                  ETH
-                </h4>
+                <div className="row pt-3 align-items-md-center">
+                  <div className="col-12 col-md-8">
+                    <div className="row d-flex align-items-center justify-content-center justify-content-md-start">
+                      <div className="col-3 col-md-4">
+                        <Link className="d-block" to={`/users/${wisherId}`}>
+                          <img
+                            className="img-fluid"
+                            src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wisherId}-${getHash((wisherId + 23), wisherAddress)}`}.svg`}
+                            alt=""
+                          />
+                        </Link>
+                      </div>
+                      <div className="col-md-8 text-truncated-parent w-auto">
+                        <p className="mb-0">
+                          <strong>
+                            <Link to={`/users/${wisherId}`}>
+                              {wisherName}
+                            </Link>
+                          </strong>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-2 d-block d-md-none col-12 text-center">
+                    <strong>
+                      <small>
+                        {item.price}
+                        {' '}
+                        ETH
+                      </small>
+                    </strong>
+                  </div>
+                  <div className="col-12 col-md-4 pt-2 pt-md-0" />
+                </div>
+                <div className="row pt-3">
+                  <div className="col-12 col-md-8">
+                    <p className="mb-1">
+                      <strong>{item.name}</strong>
+                    </p>
+                    <p className="mb-0">
+                      {item.description}
+                    </p>
+                  </div>
+                  <div className="d-none d-md-block col-4 text-center">
+                    <strong>
+                      <small>
+                        {item.price}
+                        {' '}
+                        ETH
+                      </small>
+                    </strong>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
