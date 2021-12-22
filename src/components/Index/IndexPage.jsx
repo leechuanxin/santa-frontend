@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -20,8 +20,8 @@ function Snowfall() {
   ));
 }
 
-function MetamaskAlert({ networkActive }) {
-  if (!networkActive) {
+function MetamaskAlert({ checkedAccount }) {
+  if (typeof checkedAccount !== 'string' || checkedAccount.trim() === '') {
     return (
       <div className="row pt-3">
         <div className="col-12 col-lg-10 col-xl-12 ms-auto me-auto">
@@ -98,19 +98,17 @@ function MetamaskAlert({ networkActive }) {
   );
 }
 
-function EnterButton({ networkActive, account }) {
+function EnterButton({ checkedAccount }) {
   const dispatch = useContext(UserContext);
   const history = useHistory();
   const handleActiveEnterClick = (e) => {
     e.preventDefault();
     if (
-      networkActive
-      && account
-      && typeof account === 'string'
-      && account.trim() !== ''
+      typeof checkedAccount === 'string'
+      && checkedAccount.trim() !== ''
     ) {
       axios
-        .post(`${REACT_APP_BACKEND_URL}/user/onboard`, { address: account })
+        .post(`${REACT_APP_BACKEND_URL}/user/onboard`, { address: checkedAccount })
         .then(async (response) => {
           if (!response.data.error) {
             if (
@@ -149,7 +147,9 @@ function EnterButton({ networkActive, account }) {
         <button
           type="button"
           className="btn w-100 btn-primary para-bold"
-          disabled={!networkActive}
+          disabled={
+            (typeof checkedAccount !== 'string' || checkedAccount.trim() === '')
+          }
           onClick={handleActiveEnterClick}
         >
           Play Santa!
@@ -159,13 +159,14 @@ function EnterButton({ networkActive, account }) {
   );
 }
 
-export default function Home() {
+export default function Home({ web3Instance }) {
   const {
     active: networkActive,
     error: networkError,
     activate: activateNetwork,
-    account,
   } = useWeb3React();
+
+  const [checkedAccount, setCheckedAccount] = useState('');
 
   useEffect(() => {
     injected
@@ -180,18 +181,27 @@ export default function Home() {
       });
   }, [activateNetwork, networkActive, networkError]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (window.ethereum) {
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      });
+      let checkedAccounts = [];
+      if (web3Instance) {
+        checkedAccounts = await web3Instance.eth.getAccounts();
+        if (
+          checkedAccounts.length > 0
+          && checkedAccounts[0] !== checkedAccount
+        ) {
+          setCheckedAccount(checkedAccounts[0]);
+        }
+      }
       window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          window.location.reload();
+        if (accounts.length <= 0) {
+          setCheckedAccount('');
+        } else if (accounts.length > 0 && accounts[0] !== checkedAccount) {
+          setCheckedAccount(accounts[0]);
         }
       });
     }
-  }, []);
+  }, [networkActive]);
 
   return (
     <div className="d-flex w-100 snowfall-wrapper">
@@ -208,12 +218,13 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-center para">
-                Make wishes on the blockchain. Grant wishes for NFT badges.
+                Make wishes on the blockchain. Grant wishes for NFT badges. Checked account:
+                {' '}
+                {checkedAccount}
               </p>
-              <MetamaskAlert networkActive={networkActive} />
+              <MetamaskAlert checkedAccount={checkedAccount} />
               <EnterButton
-                networkActive={networkActive}
-                account={account}
+                checkedAccount={checkedAccount}
               />
             </div>
           </div>

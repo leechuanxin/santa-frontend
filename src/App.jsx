@@ -170,7 +170,13 @@ export default function App() {
                     setPageState={setPageState}
                     key="indexNoNavbarWrapper"
                   >
-                    <Index />
+                    <Index
+                      user={user}
+                      contract={contract}
+                      contractAddress={contractAddress}
+                      myContract={myContract}
+                      web3Instance={web3Instance}
+                    />
                   </NoNavbarWrapper>
                 )}
               />
