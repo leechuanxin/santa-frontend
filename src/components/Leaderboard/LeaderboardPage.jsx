@@ -121,50 +121,57 @@ function LeaderboardUsers({
 
 function LeaderboardTopUser({ leaderboardTopUser, index }) {
   return (
-    <>
-      <div
-        className="leaderboard-top-user d-block col-4 col-sm-3 ps-1 pe-1 pb-2"
-      >
-        <h4 className="text-center para-bold">
+    <div
+      className="
+        leaderboard-top-user
+        d-block
+        col-4
+        col-sm-3
+        ps-1
+        pe-1
+        pb-2
+      "
+      key={`leaderboardTopUser${leaderboardTopUser.userId}`}
+    >
+      <h4 className="text-center para-bold">
+        <Link
+          to={`/users/${leaderboardTopUser.userId}`}
+        >
+          <strong className="header">{index + 1}</strong>
+        </Link>
+      </h4>
+      <div className="row d-flex justify-content-center">
+        <div className="col-12 col-md-10 col-lg-8 col-xl-6">
           <Link
             to={`/users/${leaderboardTopUser.userId}`}
           >
-            <strong className="header">{index + 1}</strong>
+            <img
+              className="img-fluid"
+              src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardTopUser.userId}-${getHash((leaderboardTopUser.userId + 23), leaderboardTopUser.userAddress)}`}.svg`}
+              alt="This is you!"
+            />
           </Link>
-        </h4>
-        <div className="row d-flex justify-content-center">
-          <div className="col-12 col-md-10 col-lg-8 col-xl-6">
-            <Link
-              to={`/users/${leaderboardTopUser.userId}`}
-            >
-              <img
-                className="img-fluid"
-                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardTopUser.userId}-${getHash((leaderboardTopUser.userId + 23), leaderboardTopUser.userAddress)}`}.svg`}
-                alt="This is you!"
-              />
-            </Link>
-          </div>
         </div>
-        <p className="text-center mb-0">
-          <Link
-            to={`/users/${leaderboardTopUser.userId}`}
-          >
-            <strong className="para-bold">{leaderboardTopUser.displayName}</strong>
-          </Link>
-        </p>
-        <p className="text-center">
-          <Link
-            to={`/users/${leaderboardTopUser.userId}`}
-          >
-            <small className="para-bold-default ">
-              {leaderboardTopUser.totalPoints}
-              {' '}
-              Goodwill
-            </small>
-          </Link>
-        </p>
       </div>
-    </>
+      <p className="text-center mb-0">
+        <Link
+          to={`/users/${leaderboardTopUser.userId}`}
+        >
+          <strong className="para-bold">{leaderboardTopUser.displayName}</strong>
+        </Link>
+      </p>
+      <p className="text-center">
+        <Link
+          to={`/users/${leaderboardTopUser.userId}`}
+        >
+          <small className="para-bold-default ">
+            {leaderboardTopUser.totalPoints}
+            {' '}
+            Goodwill
+          </small>
+        </Link>
+      </p>
+    </div>
   );
 }
 
@@ -257,7 +264,7 @@ export default function LeaderboardPage({ user, myContract }) {
     <div className="container-fluid ps-vertical-nav d-flex">
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
-          <h2 className="pt-1 text-center mb-3 header-bold">Leaderboard</h2>
+          <h2 className="pt-1 text-center mb-3 header-bold">Leaderboards</h2>
           <hr />
           {
             (leaderboardTopUsers.length <= 0 && leaderboardUsers.length <= 0)
