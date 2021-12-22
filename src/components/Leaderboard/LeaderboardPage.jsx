@@ -264,7 +264,7 @@ export default function LeaderboardPage({ user, myContract }) {
     <div className="container-fluid ps-vertical-nav d-flex">
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
-          <h2 className="pt-1 text-center mb-3 header-bold">Leaderboards</h2>
+          <h2 className="pt-1 text-center mb-3 header-bold">Leaderboard</h2>
           <hr />
           {
             (leaderboardTopUsers.length <= 0 && leaderboardUsers.length <= 0)
