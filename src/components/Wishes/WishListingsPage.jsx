@@ -119,7 +119,7 @@ function UnfulfilledWish({
                 <div className="d-flex justify-content-center">
                   <button
                     type="button"
-                    className="btn btn-primary w-100"
+                    className="btn btn-xmas-green w-100"
                     disabled={buttonLoading}
                     onClick={handleButtonClick}
                   >
@@ -273,7 +273,7 @@ export default function WishListingsPage({
           <div className="row w-100 pt-3">
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
               <Link
-                className="btn btn-primary w-100 para-bold"
+                className="btn btn-xmas-red w-100 para-bold"
                 to="/createwish"
                 role="button"
               >

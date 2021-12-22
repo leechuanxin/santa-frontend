@@ -369,7 +369,7 @@ a.badge {
 
 .snowfall-wrapper {
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .snowfall-wrapper > .index-bg {
