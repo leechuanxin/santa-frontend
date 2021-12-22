@@ -27,11 +27,9 @@ function UnfulfilledWish({
 
     myContract.methods.buyWish(user.address, wish.id)
       .send({ from: user.address, value: web3Instance.utils.toWei(String(wish.price), 'ether') })
-      .on('receipt', (receipt) => {
+      .on('receipt', () => {
         const remainingWishes = unfulfilledWishes
           .filter((unfulfilledWish) => wish.id !== unfulfilledWish.id);
-        console.log('receipt:');
-        console.log(receipt);
         setButtonLoading(false);
         setUnfulfilledWishes([...remainingWishes]);
       })
@@ -227,8 +225,6 @@ export default function WishListingsPage({
               const { users } = response.data;
               myContract.methods.getAllListed().call()
                 .then((res) => {
-                  console.log('res on load:');
-                  console.log(res);
                   const modifiedArr = res
                     .filter((option) => option.wishCreated && !option.isSold)
                     .map((option) => {
@@ -255,9 +251,6 @@ export default function WishListingsPage({
                       return modifiedOption;
                     })
                     .sort((a, b) => ((a.id > b.id) ? -1 : 1));
-
-                  console.log('wish listings:');
-                  console.log([...modifiedArr]);
                   setUnfulfilledWishes([...modifiedArr]);
                 })
                 .catch((error) => {

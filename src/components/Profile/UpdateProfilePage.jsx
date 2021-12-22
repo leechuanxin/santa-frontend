@@ -189,7 +189,7 @@ export default function UpdateProfilePage({
             </div>
             <hr className="mb-4" />
             <button
-              className="btn btn-primary btn-lg btn-block para-bold"
+              className="btn btn-xmas-red btn-lg btn-block para-bold"
               type="submit"
               onClick={handleSubmit}
             >

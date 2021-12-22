@@ -113,8 +113,6 @@ export default function IncentivesPage({ myContract, user }) {
     if (user.user_id && user.address) {
       myContract.methods.getPoints(user.address).call()
         .then((res) => {
-          console.log('get points load:');
-          console.log(res);
           setPoints(res);
         })
         .catch((error) => {
@@ -123,8 +121,6 @@ export default function IncentivesPage({ myContract, user }) {
 
       myContract.methods.getAllIncentive().call()
         .then((res) => {
-          console.log('res on load:');
-          console.log(res);
           const modifiedArr = res
             .filter((option) => !option.isClaimed)
             .map((option) => {
@@ -138,8 +134,6 @@ export default function IncentivesPage({ myContract, user }) {
               return modifiedOption;
             })
             .sort((a, b) => ((a.id > b.id) ? -1 : 1));
-          console.log('modifiedArr:');
-          console.log([...modifiedArr]);
           setUnredeemedIncentives([...modifiedArr]);
         })
         .catch((error) => {
