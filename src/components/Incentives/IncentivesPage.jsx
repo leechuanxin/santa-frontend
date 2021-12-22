@@ -14,11 +14,9 @@ function UnredeemedIncentive({
     setButtonLoading(true);
     myContract.methods.redeem(user.address, incentive.id)
       .send({ from: user.address })
-      .on('receipt', (receipt) => {
+      .on('receipt', () => {
         const remainingIncentives = unredeemedIncentives
           .filter((unredeemedIncentive) => incentive.id !== unredeemedIncentive.id);
-        console.log('receipt:');
-        console.log(receipt);
         setButtonLoading(false);
         setUnredeemedIncentives([...remainingIncentives]);
         setPoints((currentPoints) => currentPoints - Number(incentive.price));
@@ -63,7 +61,7 @@ function UnredeemedIncentive({
             </div>
             <div className="col-12 col-sm-3 col-md-2">
               <div className="d-flex justify-content-center">
-                <button type="button" className="btn btn-primary" disabled={buttonLoading || !canRedeem} onClick={handleButtonClick}>
+                <button type="button" className="btn btn-xmas-green" disabled={buttonLoading || !canRedeem} onClick={handleButtonClick}>
                   <small className="para-bold-default">
                     Redeem
                   </small>

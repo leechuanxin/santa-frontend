@@ -367,6 +367,20 @@ a.badge {
   right: 10px;
 }
 
+.nav-link.xmas-nav-link {
+  color: #0f8a5f;
+}
+
+.nav-link.xmas-nav-link:hover {
+  color: #087750;
+}
+
+.nav-pills .nav-link.xmas-nav-link.active,
+.nav-pills .nav-link.xmas-nav-link.active:hover {
+  color: #fff;
+  background-color: #0f8a5f;
+}
+
 .snowfall-wrapper {
   position: relative;
   overflow: hidden;

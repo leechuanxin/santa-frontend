@@ -18,6 +18,7 @@ import {
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
 import Error404Page from '../Error/Error404Page.jsx';
+import setImage from '../Incentives/setImage.js';
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
@@ -55,24 +56,34 @@ function UserNavSelect({
     return null;
   }
 
+  const setValue = () => {
+    if (wishType !== 'unfulfilledwishes' && wishType !== 'fulfilledwishes') {
+      return '';
+    }
+
+    return wishType;
+  };
+
   return (
     <div className="col-12 col-md-6">
-      <select className="form-select w-100 para" aria-label="Default select example" onChange={handleSelectChange}>
+      <select
+        className="form-select w-100 para"
+        aria-label="Default select example"
+        onChange={handleSelectChange}
+        value={setValue()}
+      >
         <option
-          selected={(wishType !== 'unfulfilledwishes' && wishType !== 'fulfilledWishes')}
           value=""
         >
           All Wishes
         </option>
         <option
-          selected={(wishType === 'fulfilledwishes')}
           value="fulfilledwishes"
         >
           Fulfilled Wishes
 
         </option>
         <option
-          selected={(wishType === 'unfulfilledwishes')}
           value="unfulfilledwishes"
         >
           Unfulfilled Wishes
@@ -96,7 +107,7 @@ function UserNavSection({
         <ul className="nav nav-pills para-bold-default">
           <li className="nav-item">
             <Link
-              className={`nav-link${(isGranted || isAchievements) ? '' : ' active'}`}
+              className={`xmas-nav-link nav-link${(isGranted || isAchievements) ? '' : ' active'}`}
               to={`/users/${userPageId}`}
               replace
               onClick={() => { handleQueryChange(''); }}
@@ -106,7 +117,7 @@ function UserNavSection({
           </li>
           <li className="nav-item">
             <Link
-              className={`nav-link${(isGranted) ? ' active' : ''}`}
+              className={`xmas-nav-link nav-link${(isGranted) ? ' active' : ''}`}
               to={`/users/${userPageId}?granted=true`}
               replace
               onClick={() => { handleQueryChange('granted'); }}
@@ -116,7 +127,7 @@ function UserNavSection({
           </li>
           <li className="nav-item">
             <Link
-              className={`nav-link${(isAchievements) ? ' active' : ''}`}
+              className={`xmas-nav-link nav-link${(isAchievements) ? ' active' : ''}`}
               to={`/users/${userPageId}?achievements=true`}
               replace
               onClick={() => { handleQueryChange('achievements'); }}
@@ -507,63 +518,53 @@ export default function UserPage({ myContract, user }) {
       headerText = 'Badges';
       emptyText = `${userPageName} has not redeemed any badges.`;
       interfaceType = [...userPageIncentives];
-      interfaceMapCallback = (item) => (
-        <div className="unredeemed-incentive col-12 d-flex" key={`wish${item.id}`}>
-          <div className="card w-100 mb-3">
-            <div className="card-body">
-              <div className="row d-flex align-items-center">
-                <div className="d-none d-sm-block col-3 col-md-2">
-                  <div className="row d-flex justify-content-center">
-                    <div className="col-12 col-lg-8">
-                      <img
-                        className="img-fluid"
-                        src={item.imgURL}
-                        alt=""
-                      />
+      interfaceMapCallback = (item) => {
+        const image = setImage(item.imgURL);
+        return (
+          <div className="unredeemed-incentive col-12 d-flex" key={`wish${item.id}`}>
+            <div className="card w-100 mb-3">
+              <div className="card-body">
+                <div className="row d-flex align-items-center">
+                  <div className="d-none d-sm-block col-3 col-md-2">
+                    <div className="row d-flex justify-content-center">
+                      <div className="col-12 col-lg-8">
+                        <img
+                          className="img-fluid"
+                          src={image}
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-6 ms-auto me-auto d-sm-none pb-3">
-                  <img
-                    className="img-fluid"
-                    src={item.imgURL}
-                    alt=""
-                  />
-                </div>
-                <div className="col-12 col-sm-6 col-md-8">
-                  <div className="row">
-                    <div className="col-12">
-                      <h6 className="card-title text-center d-lg-none para-bold">{item.name}</h6>
-                      <h5 className="card-title text-center d-none d-lg-block para-bold">{item.name}</h5>
+                  <div className="col-6 ms-auto me-auto d-sm-none pb-3">
+                    <img
+                      className="img-fluid"
+                      src={image}
+                      alt=""
+                    />
+                  </div>
+                  <div className="col-12 col-sm-6 col-md-8">
+                    <div className="row">
+                      <div className="col-12">
+                        <h6 className="card-title text-center d-lg-none para-bold">{item.name}</h6>
+                        <h5 className="card-title text-center d-none d-lg-block para-bold">{item.name}</h5>
+                      </div>
                     </div>
                   </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-12">
-                      <p className="text-center d-lg-none">
-                        <small className="para">
-                          {item.description}
-                        </small>
-                      </p>
-                      <p className="text-center d-none d-lg-block para">
-                        {item.description}
-                      </p>
-                    </div>
+                  <div className="col-12 col-sm-3 col-md-2">
+                    <strong className="d-block text-center para-bold-default">
+                      {item.price}
+                      {' '}
+                      Goodwill
+                    </strong>
                   </div>
-                </div>
-                <div className="col-12 col-sm-3 col-md-2">
-                  <strong className="d-block text-center para-bold-default">
-                    {item.price}
-                    {' '}
-                    Goodwill
-                  </strong>
-                </div>
 
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      );
+        );
+      };
     } else if (!isGranted && !isAchievements && wishType === 'unfulfilledwishes') {
       headerText = 'Unfulfilled Wishes';
       emptyText = `${userPageName} does not have any of their wishes unfulfilled currently.`;
