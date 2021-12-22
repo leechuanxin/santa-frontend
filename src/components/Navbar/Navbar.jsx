@@ -112,7 +112,7 @@ export default function Navbar({
 
   if (hasNavbar) {
     return (
-      <div className="d-flex flex-column flex-shrink-0 bg-dark vertical-nav">
+      <div className="d-flex flex-column flex-shrink-0 vertical-nav bg-dark">
         <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
           <NavbarTopLinks pageState={pageState} user={user} />
         </ul>
