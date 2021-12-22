@@ -3,6 +3,11 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPlay,
+  faPause,
+} from '@fortawesome/free-solid-svg-icons';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import injected from '../Wallet/Connectors.jsx';
@@ -146,7 +151,7 @@ function EnterButton({ checkedAccount }) {
       <div className="col-12 col-md-6 ms-auto me-auto">
         <button
           type="button"
-          className="btn w-100 btn-primary para-bold"
+          className="btn w-100 btn-xmas-green para-bold"
           disabled={
             (typeof checkedAccount !== 'string' || checkedAccount.trim() === '')
           }
@@ -159,7 +164,11 @@ function EnterButton({ checkedAccount }) {
   );
 }
 
-export default function Home({ web3Instance }) {
+export default function Home({
+  web3Instance,
+  isAudioPlaying,
+  handleSetAudioPlay,
+}) {
   const {
     active: networkActive,
     error: networkError,
@@ -211,7 +220,21 @@ export default function Home({ web3Instance }) {
       <div className="d-flex w-100 index-bg">
         <div className="container align-self-center">
           <div className="row pt-4 pb-4">
-            <div className="col-10 col-lg-8 col-xl-6 col-xxl-5 page-panel index-page-panel ms-auto me-auto">
+            <div className="col-10 col-lg-8 col-xl-6 col-xxl-5 page-panel index-page-panel ms-auto me-auto position-relative">
+              <button
+                className="btn btn-xmas-red play-button index-play-button"
+                type="button"
+                onClick={handleSetAudioPlay}
+              >
+                {(
+                  (isAudioPlaying)
+                    ? (
+                      <FontAwesomeIcon icon={faPause} color="white" />
+                    ) : (
+                      <FontAwesomeIcon icon={faPlay} color="white" />
+                    )
+                )}
+              </button>
               <div className="row">
                 <div className="col-sm-8 col-md-5 col-xxl-7 ms-auto me-auto">
                   <img src={bannerImage} alt="" className="img-fluid" />

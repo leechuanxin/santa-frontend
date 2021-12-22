@@ -232,6 +232,10 @@ a.badge {
   font-size: 1.5em;
 }
 
+.vertical-nav .play-button .svg-inline--fa {
+  font-size: 1em;
+}
+
 .cursor-pointer:hover {
   cursor: pointer;
 }
@@ -255,8 +259,115 @@ a.badge {
   width: 100%;
 }
 
+.btn-xmas-green {
+  color: white;
+  background-color: #0f8a5f;
+  border-color: #087750;
+}
+
+.btn-xmas-green:hover {
+  color: white;
+  background-color: #087750;
+  border-color: #046443;
+}
+
+.btn-xmas-green:active {
+  color: white;
+  background-color: #046443;
+  border-color: #024e34;
+}
+
+.btn-xmas-green:focus {
+  color: white;
+  background-color: #087750;
+  border-color: #046443;
+  box-shadow: 0 0 0 0.25rem rgba(24, 160, 112, 0.5);
+}
+
+.btn-xmas-green.disabled,
+.btn-xmas-green:disabled {
+  color: white;
+  background-color: #5fb798;
+  border-color: #5fb798;
+}
+
+.btn-xmas-green-light {
+  color: white;
+  background-color: #34a65f;
+  border-color: #299953;
+}
+
+.btn-xmas-green-light:hover {
+  color: white;
+  background-color: #299953;
+  border-color: #1d8545;
+}
+
+.btn-xmas-green-light:active {
+  color: white;
+  background-color: #1d8545;
+  border-color: #157238;
+}
+
+.btn-xmas-green-light:focus {
+  color: white;
+  background-color: #299953;
+  border-color: #1d8545;
+  box-shadow: 0 0 0 0.25rem rgba(41, 187, 136, 0.5);
+}
+
+.btn-xmas-green-light.disabled,
+.btn-xmas-green-light:disabled {
+  color: white;
+  background-color: #80d5b7;
+  border-color: #80d5b7;
+}
+
+.btn-xmas-red {
+  color: white;
+  background-color: #cc231e;
+  border-color: #bb1914;
+}
+
+.btn-xmas-red:hover {
+  color: white;
+  background-color: #bb1914;
+  border-color: #a8120c;
+}
+
+.btn-xmas-red:active {
+  color: white;
+  background-color: #a8120c;
+  border-color: #920b06;
+}
+
+.btn-xmas-red:focus {
+  color: white;
+  background-color: #bb1914;
+  border-color: #a8120c;
+  box-shadow: 0 0 0 0.25rem rgba(189, 42, 42, 0.5);
+}
+
+.btn-xmas-red.disabled,
+.btn-xmas-red:disabled {
+  color: white;
+  background-color: #5fb798;
+  border-color: #5fb798;
+}
+
+.play-button {
+  border-radius: 50%;
+}
+
+.index-play-button {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+}
+
 .snowfall-wrapper {
   position: relative;
+  overflow-x: hidden;
 }
 
 .snowfall-wrapper > .index-bg {
