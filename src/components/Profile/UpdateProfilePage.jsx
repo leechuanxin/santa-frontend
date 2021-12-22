@@ -147,7 +147,7 @@ export default function UpdateProfilePage({
             />
             <div className="row">
               <div className="col-12">
-                <h3 className="mb-3 index-header">Update Your Profile</h3>
+                <h3 className="mb-3 index-header header-bold">Update Your Profile</h3>
                 <hr />
               </div>
               <GlobalSettingsErrorAlert errorMessage={globalErrorMessage} />
@@ -166,14 +166,14 @@ export default function UpdateProfilePage({
                 <div className="col-7 col-md-11">
                   <div className="col-12 mb-3">
                     <label htmlFor="userName">
-                      <strong className="text-blue-50">Display Username</strong>
+                      <strong className="text-blue-50 para-bold">Display Username</strong>
                     </label>
                     <input
                       type="text"
                       className={
                     `form-control${
                       usernameInvalidMessage.trim() !== '' ? ' is-invalid' : ''
-                    }`
+                    } para-bold`
                   }
                       id="userName"
                       name="username"
@@ -189,7 +189,7 @@ export default function UpdateProfilePage({
             </div>
             <hr className="mb-4" />
             <button
-              className="btn btn-primary btn-lg btn-block"
+              className="btn btn-primary btn-lg btn-block para-bold"
               type="submit"
               onClick={handleSubmit}
             >

@@ -22,7 +22,7 @@ function UsersSection({ users, userInput }) {
                   />
                 </div>
                 <div>
-                  <p className="mb-0 text-truncated-parent">
+                  <p className="mb-0 text-truncated-parent para-bold">
                     {user.displayName}
                   </p>
                 </div>
@@ -37,14 +37,14 @@ function UsersSection({ users, userInput }) {
 
   if (users.length <= 0) {
     return (
-      <p className="text-center">
+      <p className="text-center para-bold">
         There are no users found.
       </p>
     );
   }
 
   return (
-    <p className="text-center">
+    <p className="text-center para-bold">
       Type in the search field to find a user!
     </p>
   );
@@ -117,9 +117,9 @@ export default function SearchUsersPage({ user }) {
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
           <div className="row">
-            <h2 className="pt-1 text-center mb-0">Search Users</h2>
+            <h2 className="pt-1 text-center mb-0 header-bold">Search Users</h2>
             <div className="col-12 pt-3">
-              <input type="text" className="form-control w-100" placeholder="Type in a username..." value={userInput} onChange={handleSetUserInput} />
+              <input type="text" className="form-control w-100 para-bold" placeholder="Type in a username..." value={userInput} onChange={handleSetUserInput} />
               <hr />
             </div>
           </div>

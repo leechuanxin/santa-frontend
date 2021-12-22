@@ -53,8 +53,8 @@ function UnredeemedIncentive({
             <div className="col-12 col-sm-6 col-md-8">
               <div className="row">
                 <div className="col-12">
-                  <h6 className="card-title text-center d-lg-none">{incentive.name}</h6>
-                  <h5 className="card-title text-center d-none d-lg-block">{incentive.name}</h5>
+                  <h6 className="card-title text-center d-lg-none ">{incentive.name}</h6>
+                  <h5 className="card-title text-center d-none d-lg-block para-bold">{incentive.name}</h5>
                 </div>
               </div>
               <hr />
@@ -65,7 +65,7 @@ function UnredeemedIncentive({
                       {incentive.description}
                     </small>
                   </p>
-                  <p className="text-center d-none d-lg-block">
+                  <p className="text-center d-none d-lg-block para">
                     {incentive.description}
                   </p>
                 </div>
@@ -74,12 +74,12 @@ function UnredeemedIncentive({
             <div className="col-12 col-sm-3 col-md-2">
               <div className="d-flex justify-content-center">
                 <button type="button" className="btn btn-primary" disabled={buttonLoading || !canRedeem} onClick={handleButtonClick}>
-                  <small>
+                  <small className="para-bold">
                     Redeem
                   </small>
                 </button>
               </div>
-              <small className="d-block text-center">
+              <small className="d-block text-center para-bold">
                 {incentive.price}
                 {' '}
                 Goodwill
@@ -164,8 +164,8 @@ export default function IncentivesPage({ myContract, user }) {
     <div className="container-fluid ps-vertical-nav d-flex">
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
-          <h2 className="pt-1 text-center mb-3">Redeem a Badge!</h2>
-          <h4 className="text-center pb-3">
+          <h2 className="pt-1 text-center mb-3 header-bold">Redeem a Badge!</h2>
+          <h4 className="text-center pb-3 para-bold">
             Goodwill Balance:
             {' '}
             {points}

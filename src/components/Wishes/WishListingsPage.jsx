@@ -67,7 +67,7 @@ function UnfulfilledWish({
                 <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
                   <p className="mb-0">
                     <small>
-                      <strong className="text-center">
+                      <strong className="text-center para-bold">
                         {wish.baseName}
                       </strong>
                     </small>
@@ -89,7 +89,7 @@ function UnfulfilledWish({
                   </Link>
                 </div>
                 <div className="col-md-8 text-truncated-parent w-auto">
-                  <p className="mb-0">
+                  <p className="mb-0 para-bold">
                     <strong>
                       <Link to={`/users/${wish.wisherId}`}>
                         {wish.wisherName}
@@ -119,7 +119,7 @@ function UnfulfilledWish({
                     disabled={buttonLoading}
                     onClick={handleButtonClick}
                   >
-                    <small>Grant</small>
+                    <small className="para-bold">Grant</small>
                   </button>
                 </div>
               )
@@ -131,11 +131,11 @@ function UnfulfilledWish({
               <p className="mb-1">
                 <strong>{wish.name}</strong>
               </p>
-              <p className="mb-0">
+              <p className="mb-0 para">
                 {wish.description}
               </p>
             </div>
-            <div className="d-none d-md-block col-4 text-center">
+            <div className="d-none d-md-block col-4 text-center para-bold">
               <strong>
                 <small>
                   {wish.price}
@@ -176,7 +176,7 @@ function UnfulfilledWishes({
   if (isLoaded) {
     return (
       <div className="col-12">
-        <p className="text-center">There are no unfulfilled wishes. Start making a wish!</p>
+        <p className="text-center para-bold">There are no unfulfilled wishes. Start making a wish!</p>
       </div>
     );
   }
@@ -266,13 +266,13 @@ export default function WishListingsPage({
         <div className="col-12 page-panel">
           <div className="row w-100 pt-1">
             <div className="col-12 ms-auto me-auto">
-              <h2 className="text-center mb-0">Wishes</h2>
+              <h2 className="text-center mb-0 header-bold">Wishes</h2>
             </div>
           </div>
           <div className="row w-100 pt-3">
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
               <Link
-                className="btn btn-primary w-100"
+                className="btn btn-primary w-100 para-bold"
                 to="/createwish"
                 role="button"
               >

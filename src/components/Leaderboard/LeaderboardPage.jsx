@@ -34,7 +34,7 @@ function LeaderboardUser({ leaderboardUser, index }) {
           <div className="card-body w-100 ">
             <div className="row d-flex align-items-center">
               <div className="col-2 col-sm-1">
-                <strong>
+                <strong className="para-bold">
                   {index + 4}
                 </strong>
               </div>
@@ -47,7 +47,7 @@ function LeaderboardUser({ leaderboardUser, index }) {
               </div>
               <div className="d-none d-md-block col-md-1" />
               <div className="col-6 d-none d-sm-block text-center">
-                <strong>
+                <strong className="para-bold">
                   {leaderboardUser.displayName}
                 </strong>
               </div>
@@ -91,12 +91,12 @@ function LeaderboardUsers({
             <div className="col-3" />
             <div className="col-6 text-center">
               <strong>
-                <small>Username</small>
+                <small className="para-bold">Username</small>
               </strong>
             </div>
             <div className="col-3 text-end">
               <strong>
-                <small>
+                <small className="para-bold">
                   Goodwill
                 </small>
               </strong>
@@ -125,11 +125,11 @@ function LeaderboardTopUser({ leaderboardTopUser, index }) {
       <div
         className="leaderboard-top-user d-block col-4 col-sm-3 ps-1 pe-1 pb-2"
       >
-        <h4 className="text-center">
+        <h4 className="text-center para-bold">
           <Link
             to={`/users/${leaderboardTopUser.userId}`}
           >
-            <strong>{index + 1}</strong>
+            <strong className="header">{index + 1}</strong>
           </Link>
         </h4>
         <div className="row d-flex justify-content-center">
@@ -149,14 +149,14 @@ function LeaderboardTopUser({ leaderboardTopUser, index }) {
           <Link
             to={`/users/${leaderboardTopUser.userId}`}
           >
-            <strong>{leaderboardTopUser.displayName}</strong>
+            <strong className="para-bold">{leaderboardTopUser.displayName}</strong>
           </Link>
         </p>
         <p className="text-center">
           <Link
             to={`/users/${leaderboardTopUser.userId}`}
           >
-            <small>
+            <small className="para-bold ">
               {leaderboardTopUser.totalPoints}
               {' '}
               Goodwill
@@ -257,12 +257,12 @@ export default function LeaderboardPage({ user, myContract }) {
     <div className="container-fluid ps-vertical-nav d-flex">
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
-          <h2 className="pt-1 text-center mb-3">Leaderboard</h2>
+          <h2 className="pt-1 text-center mb-3 header-bold">Leaderboard</h2>
           <hr />
           {
             (leaderboardTopUsers.length <= 0 && leaderboardUsers.length <= 0)
               ? (
-                <p className="text-center">
+                <p className="text-center para">
                   There are no users on the leaderboard.
                   Start granting some wishes to be the first on the leaderboard!
                 </p>

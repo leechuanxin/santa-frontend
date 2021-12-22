@@ -7,6 +7,26 @@ body {
   height: 100%;
 }
 
+.para {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+}
+
+.para-bold{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 120%;
+}
+
+.header {
+  font-family: 'Playfair Display', serif;
+}
+
+.header-bold {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+}
+
 body {
   min-height: 100%;
   background: #1a237e;

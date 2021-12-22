@@ -156,12 +156,12 @@ export default function CreateWish({
         <div className="col-12 page-panel">
           <div className="row">
             <div className="col-7 d-none d-sm-block">
-              <h2 className="pt-1 mb-0">Make A Wish!</h2>
+              <h2 className="pt-1 mb-0 header">Make A Wish!</h2>
             </div>
             <div className="col-12 d-flex col-sm-5 justify-content-end">
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary para-bold"
                 disabled={!fullyValidated || transactionLoading}
                 onClick={(e) => { setTransactionLoading(true); handleButtonClick(e); }}
               >
@@ -174,7 +174,7 @@ export default function CreateWish({
             <div className="row">
               <div className="col-12 col-md-9 mb-3 d-flex align-items-center">
                 <div className="row w-100">
-                  <div className="col-12 mb-3">
+                  <div className="col-12 mb-3 para-bold">
                     <Form.Label>
                       <strong>
                         What do you wish for?
@@ -189,7 +189,7 @@ export default function CreateWish({
                       disabled={transactionLoading}
                     />
                   </div>
-                  <div className="col-12 mb-3">
+                  <div className="col-12 mb-3 para-bold">
                     <label htmlFor="namewish">
                       <strong>Name your wish!</strong>
                     </label>
@@ -204,7 +204,7 @@ export default function CreateWish({
                       disabled={transactionLoading}
                     />
                   </div>
-                  <div className="col-12 mb-3">
+                  <div className="col-12 mb-3 para-bold">
                     <label htmlFor="describewish">
                       <strong>Describe your wish!</strong>
                     </label>
@@ -223,7 +223,7 @@ export default function CreateWish({
                   </div>
                   <div className="col-12 mb-3">
                     <label>
-                      <strong>Select your gift wrapping:</strong>
+                      <strong className="para-bold">Select your gift wrapping:</strong>
                     </label>
                     <div className="row">
                       { boxArray.map((boxType) => (
@@ -271,13 +271,13 @@ export default function CreateWish({
                   <div className="card-img-overlay d-flex align-items-center">
                     <div>
                       {' '}
-                      <h5 className="card-title">{wishName}</h5>
-                      <p className="card-text">
+                      <h5 className="card-title para-bold">{wishName}</h5>
+                      <p className="card-text para-bold">
                         <strong>{currentBase.name}</strong>
                         <br />
                         {wishDescription}
                       </p>
-                      <p className="card-text mb-0">
+                      <p className="card-text mb-0 para-bold">
                         <strong>Price:</strong>
                         {' '}
                         {currentBase.price}
