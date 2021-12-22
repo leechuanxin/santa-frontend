@@ -60,7 +60,6 @@ function UnredeemedIncentive({
                   <h5 className="card-title text-center d-none d-lg-block para-bold">{incentive.name}</h5>
                 </div>
               </div>
-              <hr />
             </div>
             <div className="col-12 col-sm-3 col-md-2">
               <div className="d-flex justify-content-center">
