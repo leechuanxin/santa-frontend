@@ -218,9 +218,7 @@ export default function Home({ web3Instance }) {
                 </div>
               </div>
               <p className="text-center para">
-                Make wishes on the blockchain. Grant wishes for NFT badges. Checked account:
-                {' '}
-                {checkedAccount}
+                Make wishes on the blockchain. Grant wishes for NFT badges.
               </p>
               <MetamaskAlert checkedAccount={checkedAccount} />
               <EnterButton
