@@ -42,7 +42,7 @@ function UserProfileSection({ userPageId, userPageName, userPageAddress }) {
             </div>
           </div>
         </div>
-        <h3>{userPageName}</h3>
+        <h3 className="para-bold">{userPageName}</h3>
       </div>
     </div>
   );
@@ -57,7 +57,7 @@ function UserNavSelect({
 
   return (
     <div className="col-12 col-md-6">
-      <select className="form-select w-100" aria-label="Default select example" onChange={handleSelectChange}>
+      <select className="form-select w-100 para" aria-label="Default select example" onChange={handleSelectChange}>
         <option
           selected={(wishType !== 'unfulfilledwishes' && wishType !== 'fulfilledWishes')}
           value=""
@@ -93,7 +93,7 @@ function UserNavSection({
   return (
     <div className="row d-flex align-items-center">
       <div className={`col-12${(isGranted || isAchievements) ? '' : ' col-md-6 pb-3'}`}>
-        <ul className="nav nav-pills">
+        <ul className="nav nav-pills para-bold-default">
           <li className="nav-item">
             <Link
               className={`nav-link${(isGranted || isAchievements) ? '' : ' active'}`}
@@ -352,7 +352,7 @@ export default function UserPage({ myContract, user }) {
                     <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
                       <p className="mb-0">
                         <small>
-                          <strong className="text-center">
+                          <strong className="text-center para-bold">
                             {item.baseName}
                           </strong>
                         </small>
@@ -368,7 +368,7 @@ export default function UserPage({ myContract, user }) {
                       item.isSold
                         ? (
                           <div className="">
-                            <div className="text-center text-truncated-parent">
+                            <div className="text-center text-truncated-parent para-bold-default">
                               <Link to={`/users/${fulfillerId}`} className="badge badge-pill bg-primary">
                                 Fulfilled by:
                                 {' '}
@@ -381,7 +381,7 @@ export default function UserPage({ myContract, user }) {
                   </div>
                 </div>
                 <div className="pt-2 d-block d-md-none col-12 text-center">
-                  <strong>
+                  <strong className="para-bold">
                     <small>
                       {item.price}
                       {' '}
@@ -393,13 +393,13 @@ export default function UserPage({ myContract, user }) {
               </div>
               <div className="row pt-3">
                 <div className="col-12 col-md-8">
-                  <p className="mb-0 text-center text-md-start">
+                  <p className="mb-0 text-center text-md-start para">
                     {item.description}
                   </p>
                 </div>
                 <div className="d-none d-md-block col-4 text-center">
                   <strong>
-                    <small>
+                    <small className="para-bold">
                       {item.price}
                       {' '}
                       <FontAwesomeIcon icon={faEthereum} />
@@ -439,7 +439,7 @@ export default function UserPage({ myContract, user }) {
                       <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
                         <p className="mb-0">
                           <small>
-                            <strong className="text-center">
+                            <strong className="text-center para-bold">
                               {item.baseName}
                             </strong>
                           </small>
@@ -462,7 +462,7 @@ export default function UserPage({ myContract, user }) {
                       </div>
                       <div className="col-md-8 text-truncated-parent w-auto">
                         <p className="mb-0">
-                          <strong>
+                          <strong className="para-bold">
                             <Link to={`/users/${wisherId}`}>
                               {wisherName}
                             </Link>
@@ -472,7 +472,7 @@ export default function UserPage({ myContract, user }) {
                     </div>
                   </div>
                   <div className="pt-2 d-block d-md-none col-12 text-center">
-                    <strong>
+                    <strong className="para-bold">
                       <small>
                         {item.price}
                         {' '}
@@ -484,12 +484,12 @@ export default function UserPage({ myContract, user }) {
                 </div>
                 <div className="row pt-3">
                   <div className="col-12 col-md-8">
-                    <p className="mb-0 text-center text-md-start">
+                    <p className="mb-0 text-center text-md-start para">
                       {item.description}
                     </p>
                   </div>
                   <div className="d-none d-md-block col-4 text-center">
-                    <strong>
+                    <strong className="para-bold">
                       <small>
                         {item.price}
                         {' '}
@@ -533,26 +533,26 @@ export default function UserPage({ myContract, user }) {
                 <div className="col-12 col-sm-6 col-md-8">
                   <div className="row">
                     <div className="col-12">
-                      <h6 className="card-title text-center d-lg-none">{item.name}</h6>
-                      <h5 className="card-title text-center d-none d-lg-block">{item.name}</h5>
+                      <h6 className="card-title text-center d-lg-none para-bold">{item.name}</h6>
+                      <h5 className="card-title text-center d-none d-lg-block para-bold">{item.name}</h5>
                     </div>
                   </div>
                   <hr />
                   <div className="row">
                     <div className="col-12">
                       <p className="text-center d-lg-none">
-                        <small>
+                        <small className="para">
                           {item.description}
                         </small>
                       </p>
-                      <p className="text-center d-none d-lg-block">
+                      <p className="text-center d-none d-lg-block para">
                         {item.description}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="col-12 col-sm-3 col-md-2">
-                  <strong className="d-block text-center">
+                  <strong className="d-block text-center para-bold-default">
                     {item.price}
                     {' '}
                     Goodwill
@@ -579,7 +579,7 @@ export default function UserPage({ myContract, user }) {
 
     return (
       <>
-        <h3 className="text-center">{headerText}</h3>
+        <h3 className="text-center header-bold">{headerText}</h3>
         <div className="row">
           {
             (interfaceType.length > 0)
@@ -623,7 +623,6 @@ export default function UserPage({ myContract, user }) {
     <div className="container-fluid ps-vertical-nav d-flex">
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
-          <h2 className="pt-1 text-center mb-3">User Page</h2>
           <div className="pb-5">
             <UserProfileSection
               userPageId={userPageId}

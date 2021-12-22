@@ -123,7 +123,7 @@ function UnfulfilledWish({
                     disabled={buttonLoading}
                     onClick={handleButtonClick}
                   >
-                    <small className="para-bold">Grant</small>
+                    <small className="para-bold-default">Grant</small>
                   </button>
                 </div>
               )
@@ -132,7 +132,7 @@ function UnfulfilledWish({
           </div>
           <div className="row pt-3">
             <div className="col-12 col-md-8">
-              <p className="mb-0 text-center text-md-start">
+              <p className="mb-0 text-center text-md-start para">
                 {wish.description}
               </p>
             </div>

@@ -123,7 +123,7 @@ export default function SearchUsersPage({ user }) {
           <div className="row">
             <h2 className="pt-1 text-center mb-0 header-bold">Search Users</h2>
             <div className="col-12 pt-3">
-              <input type="text" className="form-control w-100 para-bold" placeholder="Type in a username..." value={userInput} onChange={handleSetUserInput} />
+              <input type="text" className="form-control w-100 para-bold-default" placeholder="Type in a username..." value={userInput} onChange={handleSetUserInput} />
               <hr />
             </div>
           </div>

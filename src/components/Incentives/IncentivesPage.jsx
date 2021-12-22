@@ -74,12 +74,12 @@ function UnredeemedIncentive({
             <div className="col-12 col-sm-3 col-md-2">
               <div className="d-flex justify-content-center">
                 <button type="button" className="btn btn-primary" disabled={buttonLoading || !canRedeem} onClick={handleButtonClick}>
-                  <small className="para-bold">
+                  <small className="para-bold-default">
                     Redeem
                   </small>
                 </button>
               </div>
-              <small className="d-block text-center para-bold">
+              <small className="d-block text-center para-bold-default">
                 {incentive.price}
                 {' '}
                 Goodwill
@@ -113,7 +113,7 @@ function UnredeemedIncentives({
 
   return (
     <div className="col-12">
-      <p className="text-center">There are no badges to be redeemed now. Please check back later!</p>
+      <p className="text-center para">There are no badges to be redeemed now. Please check back later!</p>
     </div>
   );
 }

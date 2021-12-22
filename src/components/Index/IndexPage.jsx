@@ -36,7 +36,7 @@ function MetamaskAlert({ networkActive }) {
             <svg className="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:">
               <use xlinkHref="#exclamation-triangle-fill" />
             </svg>
-            <div>
+            <div className="para">
               <p>Before entering, please ensure that you have:</p>
               <ul>
                 <li>
@@ -76,7 +76,7 @@ function MetamaskAlert({ networkActive }) {
           <svg className="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
             <use xlinkHref="#info-fill" />
           </svg>
-          <div>
+          <div className="para">
             <p className="mb-1">
               It looks like you are properly connected to MetaMask!
             </p>
@@ -141,7 +141,7 @@ function EnterButton({ networkActive, account }) {
       <div className="col-12 col-md-6 ms-auto me-auto">
         <button
           type="button"
-          className="btn w-100 btn-primary"
+          className="btn w-100 btn-primary para-bold"
           disabled={!networkActive}
           onClick={handleActiveEnterClick}
         >
@@ -197,7 +197,7 @@ export default function Home() {
                   <img src={bannerImage} alt="" className="img-fluid" />
                 </div>
               </div>
-              <p className="text-center">
+              <p className="text-center para">
                 Make wishes on the blockchain. Grant wishes for NFT badges.
               </p>
               <MetamaskAlert networkActive={networkActive} />

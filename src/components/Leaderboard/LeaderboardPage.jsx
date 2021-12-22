@@ -156,7 +156,7 @@ function LeaderboardTopUser({ leaderboardTopUser, index }) {
           <Link
             to={`/users/${leaderboardTopUser.userId}`}
           >
-            <small className="para-bold ">
+            <small className="para-bold-default ">
               {leaderboardTopUser.totalPoints}
               {' '}
               Goodwill
