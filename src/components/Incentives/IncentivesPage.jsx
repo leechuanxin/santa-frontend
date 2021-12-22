@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-import useImage from './useImage.js';
+import setImage from './setImage.js';
+// import useImage from './useImage.js';
 
 function UnredeemedIncentive({
   user, incentive, myContract, points, unredeemedIncentives, setUnredeemedIncentives, setPoints,
 }) {
-  const { image } = useImage(incentive.imgURL);
+  const image = setImage(incentive.imgURL);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [canRedeem] = useState((points >= Number(incentive.price)));
   const handleButtonClick = (e) => {
