@@ -37,14 +37,14 @@ function UsersSection({ users, userInput }) {
 
   if (users.length <= 0) {
     return (
-      <p className="text-center para-bold">
+      <p className="text-center para">
         There are no users found.
       </p>
     );
   }
 
   return (
-    <p className="text-center para-bold">
+    <p className="text-center para">
       Type in the search field to find a user!
     </p>
   );

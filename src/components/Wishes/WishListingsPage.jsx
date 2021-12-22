@@ -194,7 +194,7 @@ function UnfulfilledWishes({
   if (isLoaded) {
     return (
       <div className="col-12">
-        <p className="text-center para-bold">There are no unfulfilled wishes. Start making a wish!</p>
+        <p className="text-center para">There are no unfulfilled wishes. Start making a wish!</p>
       </div>
     );
   }

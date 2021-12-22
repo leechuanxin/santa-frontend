@@ -173,7 +173,7 @@ export default function UpdateProfilePage({
                       className={
                     `form-control${
                       usernameInvalidMessage.trim() !== '' ? ' is-invalid' : ''
-                    } para-bold`
+                    } para`
                   }
                       id="userName"
                       name="username"
