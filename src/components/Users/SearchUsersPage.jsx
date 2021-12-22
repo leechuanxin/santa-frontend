@@ -5,37 +5,33 @@ import { Link } from 'react-router-dom';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
-import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 function UsersSection({ users }) {
   return users.map((user) => (
-    <Link to={`/users/${user.id}`} className="card mb-3 d-block">
-      <div className="card-body">
-        <div className="row">
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="col-1 me-3">
-              <div className="card">
-                <div className="card-img-top bg-gray-300 border-b border-gray-600">
-                  <img
-                    className="img-fluid"
-                    src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.id}-${getHash((user.id + 23), user.walletAddress)}`}.svg`}
-                    alt="This is you!"
-                  />
-                </div>
+    <div className="col-12 col-md-4">
+      <Link to={`/users/${user.id}`} className="card mb-3 d-block">
+        <div className="card-body">
+          <div className="row">
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="col-1 col-md-3 col-lg-2 me-3">
+                <img
+                  className="img-fluid"
+                  src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.id}-${getHash((user.id + 23), user.walletAddress)}`}.svg`}
+                  alt="This is you!"
+                />
+              </div>
+              <div>
+                <p className="mb-0 text-truncated-parent">
+                  {user.displayName}
+                </p>
               </div>
             </div>
-            <div>
-              <p className="mb-0">
-                <strong>
-                  {user.displayName}
-                </strong>
-              </p>
-            </div>
-          </div>
 
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
+
   ));
 }
 
@@ -102,19 +98,25 @@ export default function SearchUsersPage({ user }) {
   }
 
   return (
-    <div className="container-fluid ps-vertical-nav">
-      <div className="row w-100 pt-3 page-panel">
-        <div className="col-12 pt-1 py-3">
-          <h2 className="pt-1 text-center mb-0">Search Users</h2>
-          <TestCryptoWalletAddress />
-          <input type="text" className="form-control w-100" placeholder="Type in a username..." value={userInput} onChange={handleSetUserInput} />
-          <hr />
+    <div className="container-fluid ps-vertical-nav d-flex">
+      <div className="row w-100 pt-4 pb-4">
+        <div className="col-12 page-panel">
+          <div className="row">
+            <h2 className="pt-1 text-center mb-0">Search Users</h2>
+            <div className="col-12 pt-3">
+              <input type="text" className="form-control w-100" placeholder="Type in a username..." value={userInput} onChange={handleSetUserInput} />
+              <hr />
+            </div>
+          </div>
+          <div className="col-12 pt-3">
+            <div className="row">
+              <UsersSection
+                users={filteredUsers}
+              />
+            </div>
+          </div>
         </div>
-        <div className="col-12 pt-3">
-          <UsersSection
-            users={filteredUsers}
-          />
-        </div>
+
       </div>
     </div>
   );
