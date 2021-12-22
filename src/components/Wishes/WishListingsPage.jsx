@@ -112,7 +112,7 @@ function UnfulfilledWish({
                 </small>
               </strong>
             </div>
-            <div className="col-12 col-md-4 pt-2 pt-md-0">
+            <div className="col-12 d-none d-md-block col-md-4 pt-2 pt-md-0">
               {
               !wish.isCurrentWisher
               && (
@@ -144,6 +144,23 @@ function UnfulfilledWish({
                   <FontAwesomeIcon icon={faEthereum} />
                 </small>
               </strong>
+            </div>
+            <div className="d-block col-12 d-md-none col-md-4 pt-2 pt-md-0">
+              {
+              !wish.isCurrentWisher
+              && (
+                <div className="d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className="btn btn-xmas-green w-100"
+                    disabled={buttonLoading}
+                    onClick={handleButtonClick}
+                  >
+                    <small className="para-bold-default">Grant</small>
+                  </button>
+                </div>
+              )
+            }
             </div>
           </div>
         </div>
