@@ -29,11 +29,19 @@ body {
 
 body {
   min-height: 100%;
-  background: #1a237e;
 }
 
 #root {
   height: 100%;
+}
+
+#root > div {
+  background: rgb(26, 35, 126);
+  background: linear-gradient(
+    0deg,
+    rgba(26, 35, 126, 1) 0%,
+    rgba(8, 14, 77, 1) 100%
+  );
 }
 
 .index-bg {

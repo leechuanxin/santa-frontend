@@ -17,7 +17,7 @@ function MetamaskAlert({ networkActive }) {
   if (!networkActive) {
     return (
       <div className="row pt-3">
-        <div className="col-12 col-lg-10 col-xl-8 ms-auto me-auto">
+        <div className="col-12 col-lg-10 col-xl-12 ms-auto me-auto">
           <div className="alert alert-warning d-flex align-items-center justify-content-center" role="alert">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@ function MetamaskAlert({ networkActive }) {
 
   return (
     <div className="row pt-3">
-      <div className="col-12 col-lg-8 col-xl-7 ms-auto me-auto">
+      <div className="col-12 col-lg-10 col-xl-12 ms-auto me-auto">
         <div className="alert alert-info d-flex align-items-center justify-content-center" role="alert">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -187,23 +187,25 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="d-flex w-100 index-bg">
-      <div className="container align-self-center">
-        <div className="row pt-4 pb-4">
-          <div className="col-10 page-panel index-page-panel ms-auto me-auto">
-            <div className="row">
-              <div className="col-sm-8 col-md-5 ms-auto me-auto">
-                <img src={bannerImage} alt="" className="img-fluid" />
+    <div className="d-flex w-100 snowfall-layer">
+      <div className="d-flex w-100 index-bg">
+        <div className="container align-self-center">
+          <div className="row pt-4 pb-4">
+            <div className="col-10 col-lg-8 col-xl-6 col-xxl-5 page-panel index-page-panel ms-auto me-auto">
+              <div className="row">
+                <div className="col-sm-8 col-md-5 col-xxl-7 ms-auto me-auto">
+                  <img src={bannerImage} alt="" className="img-fluid" />
+                </div>
               </div>
+              <p className="text-center">
+                Make wishes on the blockchain. Grant wishes for NFT badges.
+              </p>
+              <MetamaskAlert networkActive={networkActive} />
+              <EnterButton
+                networkActive={networkActive}
+                account={account}
+              />
             </div>
-            <p className="text-center">
-              Make wishes on the blockchain. Grant wishes for NFT badges.
-            </p>
-            <MetamaskAlert networkActive={networkActive} />
-            <EnterButton
-              networkActive={networkActive}
-              account={account}
-            />
           </div>
         </div>
       </div>
