@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
+import useImage from './useImage.js';
 
 function UnredeemedIncentive({
   user, incentive, myContract, points, unredeemedIncentives, setUnredeemedIncentives, setPoints,
 }) {
+  const { image } = useImage(incentive.imgURL);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [canRedeem] = useState((points >= Number(incentive.price)));
   const handleButtonClick = (e) => {
@@ -37,7 +39,7 @@ function UnredeemedIncentive({
                 <div className="col-12 col-lg-8">
                   <img
                     className="img-fluid"
-                    src={incentive.imgURL}
+                    src={image}
                     alt=""
                   />
                 </div>
@@ -46,7 +48,7 @@ function UnredeemedIncentive({
             <div className="col-6 ms-auto me-auto d-sm-none pb-3">
               <img
                 className="img-fluid"
-                src={incentive.imgURL}
+                src={image}
                 alt=""
               />
             </div>
@@ -58,18 +60,6 @@ function UnredeemedIncentive({
                 </div>
               </div>
               <hr />
-              <div className="row">
-                <div className="col-12">
-                  <p className="text-center d-lg-none">
-                    <small>
-                      {incentive.description}
-                    </small>
-                  </p>
-                  <p className="text-center d-none d-lg-block para">
-                    {incentive.description}
-                  </p>
-                </div>
-              </div>
             </div>
             <div className="col-12 col-sm-3 col-md-2">
               <div className="d-flex justify-content-center">

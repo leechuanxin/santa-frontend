@@ -46,7 +46,7 @@ import JustinTest from './JustinTestPage.jsx';
 
 // make sure that axios always sends the cookies to the backend server
 axios.defaults.withCredentials = true;
-const contractAddress = '0xC8a66Ba1eBd10b5f8c1130cD8BAbeFE90Bab2106';
+const contractAddress = '0xa17321966C7B76049Ab5458003c0b3A03c0d429B';
 
 function getLibrary(provider) {
   return new Web3(provider);
