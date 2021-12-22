@@ -10,6 +10,10 @@ import {
   useHistory,
 } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEthereum,
+} from '@fortawesome/free-brands-svg-icons';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
@@ -381,7 +385,7 @@ export default function UserPage({ myContract, user }) {
                     <small>
                       {item.price}
                       {' '}
-                      ETH
+                      <FontAwesomeIcon icon={faEthereum} />
                     </small>
                   </strong>
                 </div>
@@ -398,7 +402,7 @@ export default function UserPage({ myContract, user }) {
                     <small>
                       {item.price}
                       {' '}
-                      ETH
+                      <FontAwesomeIcon icon={faEthereum} />
                     </small>
                   </strong>
                 </div>
@@ -472,7 +476,7 @@ export default function UserPage({ myContract, user }) {
                       <small>
                         {item.price}
                         {' '}
-                        ETH
+                        <FontAwesomeIcon icon={faEthereum} />
                       </small>
                     </strong>
                   </div>
@@ -489,7 +493,7 @@ export default function UserPage({ myContract, user }) {
                       <small>
                         {item.price}
                         {' '}
-                        ETH
+                        <FontAwesomeIcon icon={faEthereum} />
                       </small>
                     </strong>
                   </div>

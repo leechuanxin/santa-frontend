@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEthereum,
+} from '@fortawesome/free-brands-svg-icons';
 // CUSTOM IMPORTS
 import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
@@ -130,7 +134,7 @@ export default function MakeWishPage({ myContract, user }) {
                       {' '}
                       {currentOption.price}
                       {' '}
-                      ETH
+                      <FontAwesomeIcon icon={faEthereum} />
                     </p>
                   </div>
                 </div>

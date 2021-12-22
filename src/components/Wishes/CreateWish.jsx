@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEthereum,
+} from '@fortawesome/free-brands-svg-icons';
 // CUSTOM IMPORTS
 import giftbox1 from '../../images/1.png';
 import giftbox2 from '../../images/2.png';
@@ -266,7 +270,7 @@ export default function CreateWish({
                         {' '}
                         {currentBase.price}
                         {' '}
-                        ETH
+                        <FontAwesomeIcon icon={faEthereum} />
                       </p>
                     </div>
                   </div>
