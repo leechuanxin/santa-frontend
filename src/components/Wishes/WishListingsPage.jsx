@@ -112,14 +112,14 @@ function UnfulfilledWish({
                 </small>
               </strong>
             </div>
-            <div className="col-12 col-md-4 pt-2 pt-md-0">
+            <div className="col-12 d-none d-md-block col-md-4 pt-2 pt-md-0">
               {
               !wish.isCurrentWisher
               && (
                 <div className="d-flex justify-content-center">
                   <button
                     type="button"
-                    className="btn btn-primary w-100"
+                    className="btn btn-xmas-green w-100"
                     disabled={buttonLoading}
                     onClick={handleButtonClick}
                   >
@@ -144,6 +144,23 @@ function UnfulfilledWish({
                   <FontAwesomeIcon icon={faEthereum} />
                 </small>
               </strong>
+            </div>
+            <div className="d-block col-12 d-md-none col-md-4 pt-2 pt-md-0">
+              {
+              !wish.isCurrentWisher
+              && (
+                <div className="d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className="btn btn-xmas-green w-100"
+                    disabled={buttonLoading}
+                    onClick={handleButtonClick}
+                  >
+                    <small className="para-bold-default">Grant</small>
+                  </button>
+                </div>
+              )
+            }
             </div>
           </div>
         </div>
@@ -273,7 +290,7 @@ export default function WishListingsPage({
           <div className="row w-100 pt-3">
             <div className="col-12 col-md-8 pb-3 ms-auto me-auto">
               <Link
-                className="btn btn-primary w-100 para-bold"
+                className="btn btn-xmas-red w-100 para-bold"
                 to="/createwish"
                 role="button"
               >

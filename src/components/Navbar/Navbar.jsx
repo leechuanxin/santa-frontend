@@ -9,6 +9,8 @@ import {
   faUsers,
   faPowerOff,
   faCog,
+  faPause,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 // CUSTOM IMPORTS
 import localStorageService from '../../modules/localStorageService.mjs';
@@ -93,6 +95,8 @@ export default function Navbar({
   hasNavbar,
   user,
   pageState,
+  isAudioPlaying,
+  handleSetAudioPlay,
 }) {
   const history = useHistory();
   const [, dispatch] = useReducer(userReducer, initialState);
@@ -108,14 +112,39 @@ export default function Navbar({
 
   if (hasNavbar) {
     return (
-      <div className="d-flex flex-column flex-shrink-0 bg-dark vertical-nav">
+      <div className="d-flex flex-column flex-shrink-0 vertical-nav bg-dark">
         <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
           <NavbarTopLinks pageState={pageState} user={user} />
         </ul>
-        <div className="border-top nav-pills">
+        <div className="nav-pills">
+          <div
+            className="
+              nav-link
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+            "
+          >
+            <button
+              className="btn btn-xmas-red play-button"
+              type="button"
+              onClick={handleSetAudioPlay}
+            >
+              {(
+                  (isAudioPlaying)
+                    ? (
+                      <FontAwesomeIcon icon={faPause} color="white" />
+                    ) : (
+                      <FontAwesomeIcon icon={faPlay} color="white" />
+                    )
+                )}
+            </button>
+          </div>
           <Link
             to="/updateprofile"
             className={`nav-link
+              border-top
               py-3
               border-bottom
               d-flex

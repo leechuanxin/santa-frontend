@@ -21,6 +21,9 @@ import {
 } from './reducers/UserReducer.js';
 import Navbar from './components/Navbar/Navbar.jsx';
 // CUSTOM IMPORTS
+// MUSIC!
+import jingleBell from './music/jinglebell.mp3';
+// Contract
 import contract from './abi/santa.json';
 // Providers
 import MetamaskProvider from './components/Provider/MetamaskProvider.jsx';
@@ -87,6 +90,9 @@ export default function App() {
   const [web3Instance, setWeb3Instance] = useState(null);
   const [pageState, setPageState] = useState('');
 
+  const [audio] = useState(new Audio(jingleBell));
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
   const handleSetNavbar = () => {
     setHasNavbar(true);
   };
@@ -146,6 +152,20 @@ export default function App() {
     }
   }, []);
 
+  const handleSetAudioPlay = () => {
+    setIsAudioPlaying((audioPlaying) => !audioPlaying);
+  };
+
+  useEffect(() => {
+    if (isAudioPlaying) {
+      audio.volume = 0.125;
+      audio.loop = true;
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }, [isAudioPlaying]);
+
   return (
     <UserContext.Provider value={dispatch}>
       <Web3ReactProvider getLibrary={getLibrary}>
@@ -155,6 +175,8 @@ export default function App() {
               hasNavbar={hasNavbar}
               user={user}
               pageState={pageState}
+              isAudioPlaying={isAudioPlaying}
+              handleSetAudioPlay={handleSetAudioPlay}
             />
             {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
@@ -176,6 +198,8 @@ export default function App() {
                       contractAddress={contractAddress}
                       myContract={myContract}
                       web3Instance={web3Instance}
+                      isAudioPlaying={isAudioPlaying}
+                      handleSetAudioPlay={handleSetAudioPlay}
                     />
                   </NoNavbarWrapper>
                 )}
