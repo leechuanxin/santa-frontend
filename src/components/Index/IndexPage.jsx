@@ -187,22 +187,24 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container align-self-center">
-      <div className="row pt-4 pb-4">
-        <div className="col-10 page-panel index-page-panel ms-auto me-auto">
-          <div className="row">
-            <div className="col-sm-8 col-md-5 ms-auto me-auto">
-              <img src={bannerImage} alt="" className="img-fluid" />
+    <div className="d-flex w-100 index-bg">
+      <div className="container align-self-center">
+        <div className="row pt-4 pb-4">
+          <div className="col-10 page-panel index-page-panel ms-auto me-auto">
+            <div className="row">
+              <div className="col-sm-8 col-md-5 ms-auto me-auto">
+                <img src={bannerImage} alt="" className="img-fluid" />
+              </div>
             </div>
+            <p className="text-center">
+              Make wishes on the blockchain. Grant wishes for NFT badges.
+            </p>
+            <MetamaskAlert networkActive={networkActive} />
+            <EnterButton
+              networkActive={networkActive}
+              account={account}
+            />
           </div>
-          <p className="text-center">
-            Make wishes on the blockchain. Grant wishes for NFT badges.
-          </p>
-          <MetamaskAlert networkActive={networkActive} />
-          <EnterButton
-            networkActive={networkActive}
-            account={account}
-          />
         </div>
       </div>
     </div>
