@@ -10,6 +10,10 @@ import {
   useHistory,
 } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEthereum,
+} from '@fortawesome/free-brands-svg-icons';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
@@ -381,7 +385,7 @@ export default function UserPage({ myContract, user }) {
                     <small>
                       {item.price}
                       {' '}
-                      ETH
+                      <FontAwesomeIcon icon={faEthereum} />
                     </small>
                   </strong>
                 </div>
@@ -389,10 +393,7 @@ export default function UserPage({ myContract, user }) {
               </div>
               <div className="row pt-3">
                 <div className="col-12 col-md-8">
-                  <p className="mb-1">
-                    <strong>{item.name}</strong>
-                  </p>
-                  <p className="mb-0">
+                  <p className="mb-0 text-center text-md-start">
                     {item.description}
                   </p>
                 </div>
@@ -401,7 +402,7 @@ export default function UserPage({ myContract, user }) {
                     <small>
                       {item.price}
                       {' '}
-                      ETH
+                      <FontAwesomeIcon icon={faEthereum} />
                     </small>
                   </strong>
                 </div>
@@ -475,7 +476,7 @@ export default function UserPage({ myContract, user }) {
                       <small>
                         {item.price}
                         {' '}
-                        ETH
+                        <FontAwesomeIcon icon={faEthereum} />
                       </small>
                     </strong>
                   </div>
@@ -483,10 +484,7 @@ export default function UserPage({ myContract, user }) {
                 </div>
                 <div className="row pt-3">
                   <div className="col-12 col-md-8">
-                    <p className="mb-1">
-                      <strong>{item.name}</strong>
-                    </p>
-                    <p className="mb-0">
+                    <p className="mb-0 text-center text-md-start">
                       {item.description}
                     </p>
                   </div>
@@ -495,7 +493,7 @@ export default function UserPage({ myContract, user }) {
                       <small>
                         {item.price}
                         {' '}
-                        ETH
+                        <FontAwesomeIcon icon={faEthereum} />
                       </small>
                     </strong>
                   </div>

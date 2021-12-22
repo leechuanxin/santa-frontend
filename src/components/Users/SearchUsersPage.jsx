@@ -96,15 +96,19 @@ export default function SearchUsersPage({ user }) {
 
   if (!isLoaded) {
     return (
-      <div className="container ps-5 pt-5 pb-5">
-        <div className="row w-100 pt-3">
-          <div className="col-12 pt-1 d-flex justify-content-center">
-            <div
-              className="spinner-border mt-5"
-              style={{ width: '5rem', height: '5rem' }}
-              role="status"
-            >
-              <span className="sr-only"><span className="d-none">Loading...</span></span>
+      <div className="container-fluid ps-vertical-nav d-flex">
+        <div className="row w-100 pt-4 pb-4">
+          <div className="col-12 page-panel">
+            <div className="row w-100 pt-3">
+              <div className="col-12 pt-1 d-flex justify-content-center">
+                <div
+                  className="spinner-border mt-5"
+                  style={{ width: '5rem', height: '5rem' }}
+                  role="status"
+                >
+                  <span className="sr-only"><span className="d-none">Loading...</span></span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

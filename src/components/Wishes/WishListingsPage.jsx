@@ -4,6 +4,10 @@ import {
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEthereum,
+} from '@fortawesome/free-brands-svg-icons';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
@@ -104,7 +108,7 @@ function UnfulfilledWish({
                 <small>
                   {wish.price}
                   {' '}
-                  ETH
+                  <FontAwesomeIcon icon={faEthereum} />
                 </small>
               </strong>
             </div>
@@ -128,10 +132,7 @@ function UnfulfilledWish({
           </div>
           <div className="row pt-3">
             <div className="col-12 col-md-8">
-              <p className="mb-1">
-                <strong>{wish.name}</strong>
-              </p>
-              <p className="mb-0 para">
+              <p className="mb-0 text-center text-md-start">
                 {wish.description}
               </p>
             </div>
@@ -140,7 +141,7 @@ function UnfulfilledWish({
                 <small>
                   {wish.price}
                   {' '}
-                  ETH
+                  <FontAwesomeIcon icon={faEthereum} />
                 </small>
               </strong>
             </div>
