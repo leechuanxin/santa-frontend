@@ -258,7 +258,7 @@ export default function App() {
               />
               <Route
                 exact
-                path="/incentives"
+                path="/redeem"
                 render={() => (
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}

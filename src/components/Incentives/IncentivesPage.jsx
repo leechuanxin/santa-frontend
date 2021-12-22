@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
-// CUSTOM IMPORTS
-import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 function UnredeemedIncentive({
-  user, incentive, myContract, unredeemedIncentives, setUnredeemedIncentives, setPoints,
+  user, incentive, myContract, points, unredeemedIncentives, setUnredeemedIncentives, setPoints,
 }) {
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [canRedeem] = useState((points >= Number(incentive.price)));
   const handleButtonClick = (e) => {
     e.preventDefault();
     setButtonLoading(true);
@@ -29,26 +28,64 @@ function UnredeemedIncentive({
   };
 
   return (
-    <div className="col-12 col-sm-6 col-md-3 d-flex" key={`wish${incentive.id}`}>
-      <div className="unfulfilled-wish-card card w-100 mb-3">
-        <img
-          className="card-img-top img-fluid"
-          src={incentive.imgURL}
-          alt=""
-        />
+    <div className="unredeemed-incentive col-12 d-flex" key={`wish${incentive.id}`}>
+      <div className="card w-100 mb-3">
         <div className="card-body">
-          <h5 className="card-title text-center">{incentive.name}</h5>
+          <div className="row d-flex align-items-center">
+            <div className="d-none d-sm-block col-3 col-md-2">
+              <div className="row d-flex justify-content-center">
+                <div className="col-12 col-lg-8">
+                  <img
+                    className="img-fluid"
+                    src={incentive.imgURL}
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-6 ms-auto me-auto d-sm-none pb-3">
+              <img
+                className="img-fluid"
+                src={incentive.imgURL}
+                alt=""
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-md-8">
+              <div className="row">
+                <div className="col-12">
+                  <h6 className="card-title text-center d-lg-none">{incentive.name}</h6>
+                  <h5 className="card-title text-center d-none d-lg-block">{incentive.name}</h5>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-12">
+                  <p className="text-center d-lg-none">
+                    <small>
+                      {incentive.description}
+                    </small>
+                  </p>
+                  <p className="text-center d-none d-lg-block">
+                    {incentive.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-12 col-sm-3 col-md-2">
+              <div className="d-flex justify-content-center">
+                <button type="button" className="btn btn-primary" disabled={buttonLoading || !canRedeem} onClick={handleButtonClick}>
+                  <small>
+                    Redeem
+                  </small>
+                </button>
+              </div>
+              <small className="d-block text-center">
+                {incentive.price}
+                {' '}
+                Goodwill
+              </small>
+            </div>
 
-          <p className="card-text text-center">
-            {incentive.description}
-          </p>
-          <h4 className="text-center">
-            {incentive.price}
-            {' '}
-            Goodwill
-          </h4>
-          <div className="d-flex justify-content-center">
-            <button type="button" className="btn btn-primary" disabled={buttonLoading} onClick={handleButtonClick}>Redeem</button>
           </div>
         </div>
       </div>
@@ -57,7 +94,7 @@ function UnredeemedIncentive({
 }
 
 function UnredeemedIncentives({
-  user, myContract, unredeemedIncentives, setUnredeemedIncentives, setPoints,
+  user, myContract, unredeemedIncentives, points, setUnredeemedIncentives, setPoints,
 }) {
   if (unredeemedIncentives.length > 0) {
     return unredeemedIncentives.map((incentive) => (
@@ -66,6 +103,7 @@ function UnredeemedIncentives({
         myContract={myContract}
         key={`incentive${incentive.id}`}
         incentive={incentive}
+        points={points}
         unredeemedIncentives={unredeemedIncentives}
         setUnredeemedIncentives={setUnredeemedIncentives}
         setPoints={setPoints}
@@ -75,7 +113,7 @@ function UnredeemedIncentives({
 
   return (
     <div className="col-12">
-      <p className="text-center">There are no incentives to be redeemed now. Please check back later!</p>
+      <p className="text-center">There are no badges to be redeemed now. Please check back later!</p>
     </div>
   );
 }
@@ -123,21 +161,20 @@ export default function IncentivesPage({ myContract, user }) {
   }, []);
 
   return (
-    <div className="container ps-5">
-      <div className="row w-100 pt-3 page-panel">
-        <h2 className="pt-1 text-center mb-3">Incentives</h2>
-        <h4 className="text-center">
-          Goodwill Points:
-          {' '}
-          {points}
-        </h4>
-        <TestCryptoWalletAddress />
-        <hr />
-        <div className="col-12 pt-3" />
-        <div className="row w-100 pt-3">
+    <div className="container-fluid ps-vertical-nav d-flex">
+      <div className="row w-100 pt-4 pb-4">
+        <div className="col-12 page-panel">
+          <h2 className="pt-1 text-center mb-3">Redeem a Badge!</h2>
+          <h4 className="text-center pb-3">
+            Goodwill Balance:
+            {' '}
+            {points}
+          </h4>
+          <hr />
           <UnredeemedIncentives
             user={user}
             myContract={myContract}
+            points={Number(points)}
             unredeemedIncentives={unredeemedIncentives}
             setUnredeemedIncentives={setUnredeemedIncentives}
             setPoints={setPoints}

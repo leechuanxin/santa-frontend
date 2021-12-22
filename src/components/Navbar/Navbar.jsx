@@ -39,7 +39,7 @@ function NavbarTopLinks({ user, pageState }) {
         </li>
         <li>
           <Link
-            to="/incentives"
+            to="/redeem"
             className={`nav-link
               py-3
               border-bottom

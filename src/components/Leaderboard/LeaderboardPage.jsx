@@ -123,13 +123,13 @@ function LeaderboardTopUser({ leaderboardTopUser, index }) {
       <div
         className="leaderboard-top-user d-block col-4 col-sm-3 ps-1 pe-1 pb-2"
       >
-        <p className="text-center">
+        <h4 className="text-center">
           <Link
             to={`/users/${leaderboardTopUser.userId}`}
           >
             <strong>{index + 1}</strong>
           </Link>
-        </p>
+        </h4>
         <div className="row d-flex justify-content-center">
           <div className="col-12 col-md-10 col-lg-8 col-xl-6">
             <Link

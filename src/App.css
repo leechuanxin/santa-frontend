@@ -206,3 +206,7 @@ a.badge {
   text-decoration: none;
   color: inherit;
 }
+
+.unredeemed-incentive .img-fluid {
+  width: 100%;
+}
