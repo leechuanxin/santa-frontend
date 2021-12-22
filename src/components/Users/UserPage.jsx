@@ -118,7 +118,7 @@ function UserNavSection({
               replace
               onClick={() => { handleQueryChange('achievements'); }}
             >
-              Achievements
+              Badges
             </Link>
           </li>
         </ul>
@@ -507,28 +507,62 @@ export default function UserPage({ myContract, user }) {
         );
       };
     } else if (isAchievements) {
-      headerText = 'Achievements';
-      emptyText = 'This user has not redeemed any achievements.';
+      headerText = 'Badges';
+      emptyText = 'This user has not redeemed any badges.';
       interfaceType = [...userPageIncentives];
       interfaceMapCallback = (item) => (
-        <div className="col-12 col-sm-6 col-md-3 d-flex" key={`incentive${item.id}`}>
-          <div className="unfulfilled-wish-card card w-100 mb-3">
-            <img
-              className="card-img-top img-fluid"
-              src={item.imgURL}
-              alt=""
-            />
+        <div className="unredeemed-incentive col-12 d-flex" key={`wish${item.id}`}>
+          <div className="card w-100 mb-3">
             <div className="card-body">
-              <h5 className="card-title text-center">{item.name}</h5>
+              <div className="row d-flex align-items-center">
+                <div className="d-none d-sm-block col-3 col-md-2">
+                  <div className="row d-flex justify-content-center">
+                    <div className="col-12 col-lg-8">
+                      <img
+                        className="img-fluid"
+                        src={item.imgURL}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 ms-auto me-auto d-sm-none pb-3">
+                  <img
+                    className="img-fluid"
+                    src={item.imgURL}
+                    alt=""
+                  />
+                </div>
+                <div className="col-12 col-sm-6 col-md-8">
+                  <div className="row">
+                    <div className="col-12">
+                      <h6 className="card-title text-center d-lg-none">{item.name}</h6>
+                      <h5 className="card-title text-center d-none d-lg-block">{item.name}</h5>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="row">
+                    <div className="col-12">
+                      <p className="text-center d-lg-none">
+                        <small>
+                          {item.description}
+                        </small>
+                      </p>
+                      <p className="text-center d-none d-lg-block">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-sm-3 col-md-2">
+                  <strong className="d-block text-center">
+                    {item.price}
+                    {' '}
+                    Goodwill
+                  </strong>
+                </div>
 
-              <p className="card-text text-center">
-                {item.description}
-              </p>
-              <h4 className="text-center">
-                {item.price}
-                {' '}
-                Goodwill
-              </h4>
+              </div>
             </div>
           </div>
         </div>
@@ -589,9 +623,9 @@ export default function UserPage({ myContract, user }) {
   }
 
   return (
-    <div className="container ps-5">
-      <div className="row w-100 pt-3">
-        <div className="col-12 pt-1 py-3">
+    <div className="container-fluid ps-vertical-nav d-flex">
+      <div className="row w-100 pt-4 pb-4">
+        <div className="col-12 page-panel">
           <h2 className="pt-1 text-center mb-3">User Page</h2>
           <UserProfileSection
             userPageId={userPageId}
