@@ -9,32 +9,12 @@ import {
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
-import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 
 function LeaderboardUser({ leaderboardUser, index }) {
-  console.log(leaderboardUser);
-  console.log(index);
   return (
     <>
-      <div className=" d-flex justify-content-center text-center">
-        {index === 0 && (
-        <h2>
-          1st
-        </h2>
-        )}
-        {index === 1 && (
-        <h4>
-          2nd
-        </h4>
-        )}
-        {index === 2 && (
-        <h5>
-          3rd
-        </h5>
-        )}
-      </div>
       {
-        (index === 4)
+        (index === 0)
           ? (
             <div className="col-12">
               <div className="row">
@@ -46,18 +26,32 @@ function LeaderboardUser({ leaderboardUser, index }) {
           )
           : null
       }
-      <div className={`col-12 pb-2${(index === 4) ? ' pt-2' : ''}`}>
+      <div className={`col-12 pb-2${(index === 0) ? ' pt-2' : ''}`}>
         <Link
           to={`/users/${leaderboardUser.userId}`}
-          className={
-            `card w-100${(index === 0) ? ' bg-warning' : ''}${(index === 1) ? ' bg-light' : ''}${(index === 2) ? ' bg-secondary' : ''}`
-          }
+          className="card w-100"
         >
           <div className="card-body w-100 ">
             <div className="row d-flex align-items-center">
-              <div className="col-1">
-                <div className="card w-100">
-                  <div className="card-img-top bg-gray-300 border-b border-gray-600">
+              <div className="col-2 col-sm-1">
+                {index + 4}
+              </div>
+              <div className="d-none d-sm-block col-2 col-md-1">
+                <img
+                  className="img-fluid"
+                  src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardUser.userId}-${getHash((leaderboardUser.userId + 23), leaderboardUser.userAddress)}`}.svg`}
+                  alt="This is you!"
+                />
+              </div>
+              <div className="d-none d-md-block col-md-1" />
+              <div className="col-6 d-none d-sm-block text-center">
+                <strong>
+                  {leaderboardUser.displayName}
+                </strong>
+              </div>
+              <div className="col-8 d-block d-sm-none text-center">
+                <div className="row">
+                  <div className="col-5 ms-auto me-auto">
                     <img
                       className="img-fluid"
                       src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardUser.userId}-${getHash((leaderboardUser.userId + 23), leaderboardUser.userAddress)}`}.svg`}
@@ -65,33 +59,16 @@ function LeaderboardUser({ leaderboardUser, index }) {
                     />
                   </div>
                 </div>
+                <p className="mb-0">
+                  <strong>
+                    <small>
+                      {leaderboardUser.displayName}
+                    </small>
+                  </strong>
+                </p>
               </div>
-              <div className="col-2">
-                {/* {index === 0 && (
-                <h2>
-                  1st
-                </h2>
-                )}
-                {index === 1 && (
-                  <h4>
-                    2nd
-                  </h4>
-                )}
-                {index === 2 && (
-                <h5>
-                  3rd
-                </h5>
-                )} */}
-              </div>
-              <div className="col-6 text-center">
-                <strong>
-                  {leaderboardUser.displayName}
-                </strong>
-              </div>
-              <div className="col-3 text-end">
+              <div className="col-2 col-sm-3 text-end">
                 {leaderboardUser.totalPoints}
-                {' '}
-                {leaderboardUser.totalPoints > 1 ? 'wishes granted' : 'wish granted'}
               </div>
             </div>
           </div>
@@ -104,14 +81,111 @@ function LeaderboardUser({ leaderboardUser, index }) {
 function LeaderboardUsers({
   leaderboardUsers,
 }) {
-  return (leaderboardUsers.map(
-    (leaderboardUser, index) => <LeaderboardUser leaderboardUser={leaderboardUser} index={index} />,
-  ));
+  if (leaderboardUsers.length > 0) {
+    return (
+      <>
+        <div className="col-12 d-none d-sm-block">
+          <div className="row pb-1">
+            <div className="col-3" />
+            <div className="col-6 text-center">
+              <strong>
+                <small>Username</small>
+              </strong>
+            </div>
+            <div className="col-3 text-end">
+              <strong>
+                <small>
+                  Goodwill
+                </small>
+              </strong>
+            </div>
+          </div>
+        </div>
+        {
+          leaderboardUsers.map(
+            (leaderboardUser, index) => (
+              <LeaderboardUser
+                leaderboardUser={leaderboardUser}
+                index={index}
+              />
+            ),
+          )
+        }
+      </>
+    );
+  }
+  return null;
+}
+
+function LeaderboardTopUser({ leaderboardTopUser, index }) {
+  return (
+    <>
+      <div
+        className="leaderboard-top-user d-block col-4 col-sm-3 ps-1 pe-1 pb-2"
+      >
+        <p className="text-center">
+          <Link
+            to={`/users/${leaderboardTopUser.userId}`}
+          >
+            <strong>{index + 1}</strong>
+          </Link>
+        </p>
+        <div className="row d-flex justify-content-center">
+          <div className="col-12 col-md-10 col-lg-8 col-xl-6">
+            <Link
+              to={`/users/${leaderboardTopUser.userId}`}
+            >
+              <img
+                className="img-fluid"
+                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardTopUser.userId}-${getHash((leaderboardTopUser.userId + 23), leaderboardTopUser.userAddress)}`}.svg`}
+                alt="This is you!"
+              />
+            </Link>
+          </div>
+        </div>
+        <p className="text-center mb-0">
+          <Link
+            to={`/users/${leaderboardTopUser.userId}`}
+          >
+            <strong>{leaderboardTopUser.displayName}</strong>
+          </Link>
+        </p>
+        <p className="text-center">
+          <Link
+            to={`/users/${leaderboardTopUser.userId}`}
+          >
+            <small>
+              {leaderboardTopUser.totalPoints}
+              {' '}
+              Goodwill
+            </small>
+          </Link>
+        </p>
+      </div>
+    </>
+  );
+}
+
+function LeaderboardTopUsers({
+  leaderboardTopUsers,
+}) {
+  return (
+    <div className="row d-flex justify-content-center pb-4">
+      {
+        leaderboardTopUsers.map(
+          (leaderboardTopUser, index) => (
+            <LeaderboardTopUser leaderboardTopUser={leaderboardTopUser} index={index} />
+          ),
+        )
+      }
+    </div>
+  );
 }
 
 export default function LeaderboardPage({ user, myContract }) {
-  const [allUsers, setAllUsers] = useState([]);
+  const [, setAllUsers] = useState([]);
   const [leaderboardUsers, setLeaderboardUsers] = useState([]);
+  const [leaderboardTopUsers, setLeaderboardTopUsers] = useState([]);
   useEffect(() => {
     if (user.user_id && user.address) {
       axios
@@ -158,7 +232,8 @@ export default function LeaderboardPage({ user, myContract }) {
                         );
                       },
                     );
-                  setLeaderboardUsers([...filteredAllUsers]);
+                  setLeaderboardTopUsers(filteredAllUsers.slice(0, 3));
+                  setLeaderboardUsers(filteredAllUsers.slice(3));
                 })
                 .catch((error) => {
                   console.log(error);
@@ -176,29 +251,28 @@ export default function LeaderboardPage({ user, myContract }) {
     }
   }, []);
 
-  console.log('allUsers:');
-  console.log(allUsers);
-
-  console.log('leaderboardUsers:');
-  console.log(leaderboardUsers);
-
   return (
-    <div className="container-fluid ps-vertical-nav">
-      <div className="row w-100 pt-3 page-panel">
-        <h2 className="pt-1 text-center mb-3">Leaderboard</h2>
-        <TestCryptoWalletAddress />
-        <hr />
-        <div className="col-12">
-          <div className="row pt-3">
-            <div className="col-12">
-              <div className="row pb-3">
-                <div className="col-9" />
-                <div className="col-3 text-end">
-                  <strong>Lifetime Goodwill</strong>
-                </div>
+    <div className="container-fluid ps-vertical-nav d-flex">
+      <div className="row w-100 pt-4 pb-4">
+        <div className="col-12 page-panel">
+          <h2 className="pt-1 text-center mb-3">Leaderboard</h2>
+          <hr />
+          {
+            (leaderboardTopUsers.length <= 0 && leaderboardUsers.length <= 0)
+              ? (
+                <p className="text-center">
+                  There are no users on the leaderboard.
+                  Start granting some wishes to be the first on the leaderboard!
+                </p>
+              ) : null
+          }
+          <div className="col-12">
+            <div className="row pt-3">
+              <div className="col-12">
+                <LeaderboardTopUsers leaderboardTopUsers={leaderboardTopUsers} />
               </div>
+              <LeaderboardUsers leaderboardUsers={leaderboardUsers} />
             </div>
-            <LeaderboardUsers leaderboardUsers={leaderboardUsers} />
           </div>
         </div>
       </div>

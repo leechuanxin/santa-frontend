@@ -201,3 +201,8 @@ a.badge {
   color: #fff;
   border-radius: 8px;
 }
+
+.leaderboard-top-user a {
+  text-decoration: none;
+  color: inherit;
+}
