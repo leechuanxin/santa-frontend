@@ -28,7 +28,7 @@ export default function CreateWish({
   };
 
   const history = useHistory();
-  const [wishName, setWishName] = useState('');
+  const [wishName] = useState('');
   const [wishDescription, setWishDescription] = useState('');
   const [wishBox, setWishBox] = useState(1);
   const [transactionLoading, setTransactionLoading] = useState(false);
@@ -65,7 +65,6 @@ export default function CreateWish({
   useEffect(() => {
     if (
       singleSelections.length > 0
-      && wishName.length > 0
       && wishDescription.length > 0
       && !Number.isNaN(Number(wishBox)) && wishBox > 0 && wishBox <= 12
     ) {
@@ -184,36 +183,21 @@ export default function CreateWish({
                       labelKey="name"
                       onChange={handleBaseChange}
                       options={baseNames}
-                      placeholder="Type in your wish"
+                      placeholder="eg. Pet dragon"
                       selected={singleSelections}
                       disabled={transactionLoading}
                     />
                   </div>
                   <div className="col-12 mb-3">
-                    <label htmlFor="namewish">
-                      <strong>Name your wish!</strong>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="namewish"
-                      name="namewish"
-                      placeholder="Name this wish"
-                      value={wishName}
-                      onChange={(e) => setWishName(e.target.value)}
-                      disabled={transactionLoading}
-                    />
-                  </div>
-                  <div className="col-12 mb-3">
                     <label htmlFor="describewish">
-                      <strong>Describe your wish!</strong>
+                      <strong>Tell us why you wish for this!</strong>
                     </label>
                     <textarea
                       type="text"
                       className="form-control"
                       id="describewish"
                       name="describewish"
-                      placeholder="Describe this wish"
+                      placeholder="eg. I wish for a pet dragon because ..."
                       rows="3"
                       onChange={(e) => setWishDescription(e.target.value)}
                       disabled={transactionLoading}
