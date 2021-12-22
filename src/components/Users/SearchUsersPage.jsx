@@ -85,7 +85,7 @@ export default function SearchUsersPage({ user }) {
 
   useEffect(() => {
     const newUsers = users.filter(
-      (filteredUser) => filteredUser.displayName.indexOf(userInput) >= 0,
+      (filteredUser) => filteredUser.displayName.indexOf(userInput.toLowerCase()) >= 0,
     );
     setFilteredUsers([...newUsers]);
   }, [userInput]);
