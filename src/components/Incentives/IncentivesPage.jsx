@@ -5,11 +5,7 @@ import useImage from './useImage.js';
 function UnredeemedIncentive({
   user, incentive, myContract, points, unredeemedIncentives, setUnredeemedIncentives, setPoints,
 }) {
-  let image = '';
-  if (incentive && incentive.imgURL && incentive.imgURL.trim() !== '') {
-    image = useImage(incentive.imgURL);
-  }
-
+  const { image } = useImage(incentive.imgURL);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [canRedeem] = useState((points >= Number(incentive.price)));
   const handleButtonClick = (e) => {
