@@ -106,43 +106,55 @@ function MetamaskAlert({ checkedAccount }) {
 function EnterButton({ checkedAccount }) {
   const dispatch = useContext(UserContext);
   const history = useHistory();
+  const [enterButtonLoading, setEnterButtonLoading] = useState(false);
+
+  useEffect(() => {
+    if (enterButtonLoading) {
+      if (
+        typeof checkedAccount === 'string'
+        && checkedAccount.trim() !== ''
+      ) {
+        axios
+          .post(`${REACT_APP_BACKEND_URL}/user/onboard`, { address: checkedAccount })
+          .then(async (response) => {
+            if (!response.data.error) {
+              if (
+                response.data.message.indexOf('New user added') === 0
+                || response.data.message.indexOf('not yet onboarded') > -1
+              ) {
+                localStorageService.setItem('user_id', response.data.id);
+                localStorageService.setItem('address', response.data.address);
+                dispatch(addUser({
+                  user_id: Number(response.data.id),
+                  address: response.data.address,
+                }));
+                history.push('/updateprofile?onboard=true');
+              } else {
+                localStorageService.setItem('user_id', response.data.id);
+                localStorageService.setItem('address', response.data.address);
+                localStorageService.setItem('username', response.data.displayName);
+                dispatch(addUser({
+                  user_id: Number(response.data.id),
+                  address: response.data.address,
+                  username: response.data.displayName,
+                }));
+                history.push('/wishes');
+              }
+            }
+            setEnterButtonLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setEnterButtonLoading(false);
+          });
+      }
+    }
+  }, [enterButtonLoading]);
+
   const handleActiveEnterClick = (e) => {
     e.preventDefault();
-    if (
-      typeof checkedAccount === 'string'
-      && checkedAccount.trim() !== ''
-    ) {
-      axios
-        .post(`${REACT_APP_BACKEND_URL}/user/onboard`, { address: checkedAccount })
-        .then(async (response) => {
-          if (!response.data.error) {
-            if (
-              response.data.message.indexOf('New user added') === 0
-              || response.data.message.indexOf('not yet onboarded') > -1
-            ) {
-              localStorageService.setItem('user_id', response.data.id);
-              localStorageService.setItem('address', response.data.address);
-              dispatch(addUser({
-                user_id: Number(response.data.id),
-                address: response.data.address,
-              }));
-              history.push('/updateprofile?onboard=true');
-            } else {
-              localStorageService.setItem('user_id', response.data.id);
-              localStorageService.setItem('address', response.data.address);
-              localStorageService.setItem('username', response.data.displayName);
-              dispatch(addUser({
-                user_id: Number(response.data.id),
-                address: response.data.address,
-                username: response.data.displayName,
-              }));
-              history.push('/wishes');
-            }
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (!enterButtonLoading) {
+      setEnterButtonLoading(true);
     }
   };
 
@@ -153,11 +165,11 @@ function EnterButton({ checkedAccount }) {
           type="button"
           className="btn w-100 btn-xmas-green para-bold"
           disabled={
-            (typeof checkedAccount !== 'string' || checkedAccount.trim() === '')
+            (typeof checkedAccount !== 'string' || checkedAccount.trim() === '' || enterButtonLoading)
           }
           onClick={handleActiveEnterClick}
         >
-          Play Santa!
+          {((enterButtonLoading) ? 'Loading...' : 'Play Santa!')}
         </button>
       </div>
     </div>
