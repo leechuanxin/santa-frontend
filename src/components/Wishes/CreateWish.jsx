@@ -159,12 +159,12 @@ export default function CreateWish({
         <div className="col-12 page-panel">
           <div className="row">
             <div className="col-7 d-none d-sm-block">
-              <h2 className="pt-1 mb-0 header">Make A Wish!</h2>
+              <h2 className="pt-1 mb-0 header-bold">Make A Wish!</h2>
             </div>
             <div className="col-12 d-flex col-sm-5 justify-content-end">
               <button
                 type="button"
-                className="btn btn-primary para-bold"
+                className="btn btn-xmas-red para-bold"
                 disabled={!fullyValidated || transactionLoading}
                 onClick={(e) => { setTransactionLoading(true); handleButtonClick(e); }}
               >
@@ -177,14 +177,15 @@ export default function CreateWish({
             <div className="row">
               <div className="col-12 col-md-9 mb-3 d-flex align-items-center">
                 <div className="row w-100">
-                  <div className="col-12 mb-3 para-bold">
+                  <div className="col-12 mb-3">
                     <Form.Label>
-                      <strong>
+                      <strong className="para-bold">
                         What do you wish for?
                       </strong>
                     </Form.Label>
                     <Typeahead
                       labelKey="name"
+                      className="para"
                       onChange={handleBaseChange}
                       options={baseNames}
                       placeholder="eg. Pet dragon"
@@ -194,11 +195,11 @@ export default function CreateWish({
                   </div>
                   <div className="col-12 mb-3">
                     <label htmlFor="describewish">
-                      <strong>Tell us why you wish for this!</strong>
+                      <strong className="para-bold">Tell us why you wish for this!</strong>
                     </label>
                     <textarea
                       type="text"
-                      className="form-control"
+                      className="form-control para"
                       id="describewish"
                       name="describewish"
                       placeholder="eg. I wish for a pet dragon because ..."
@@ -260,13 +261,13 @@ export default function CreateWish({
                     <div>
                       {' '}
                       <h5 className="card-title para-bold">{wishName}</h5>
-                      <p className="card-text para-bold">
-                        <strong>{currentBase.name}</strong>
+                      <p className="card-text">
+                        <strong className="para-bold">{currentBase.name}</strong>
                         <br />
-                        {wishDescription}
+                        <span className="para">{wishDescription}</span>
                       </p>
-                      <p className="card-text mb-0 para-bold">
-                        <strong>Price:</strong>
+                      <p className="card-text mb-0">
+                        <strong className="para-bold-default">Price for Granting Wish:</strong>
                         {' '}
                         {currentBase.price}
                         {' '}
@@ -282,7 +283,7 @@ export default function CreateWish({
                   <div className="col-12 d-flex justify-content-end">
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="btn btn-xmas-red para-bold"
                       disabled={!fullyValidated || transactionLoading}
                       onClick={(e) => { setTransactionLoading(true); handleButtonClick(e); }}
                     >
