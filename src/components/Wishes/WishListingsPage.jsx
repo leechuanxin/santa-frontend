@@ -64,6 +64,15 @@ function UnfulfilledWish({
                   src={wish.imgURL}
                   alt=""
                 />
+                <div className="wish-card-overlay d-flex align-items-center justify-content-center flex-column">
+                  <p className="mb-0">
+                    <small>
+                      <strong className="text-center">
+                        {wish.baseName}
+                      </strong>
+                    </small>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -119,10 +128,7 @@ function UnfulfilledWish({
           </div>
           <div className="row pt-3">
             <div className="col-12 col-md-8">
-              <p className="mb-1">
-                <strong>{wish.baseName}</strong>
-              </p>
-              <p className="mb-0">
+              <p className="mb-0 text-center text-md-start">
                 {wish.description}
               </p>
             </div>
