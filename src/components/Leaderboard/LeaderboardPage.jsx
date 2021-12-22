@@ -34,7 +34,9 @@ function LeaderboardUser({ leaderboardUser, index }) {
           <div className="card-body w-100 ">
             <div className="row d-flex align-items-center">
               <div className="col-2 col-sm-1">
-                {index + 4}
+                <strong>
+                  {index + 4}
+                </strong>
               </div>
               <div className="d-none d-sm-block col-2 col-md-1">
                 <img
