@@ -13,6 +13,13 @@ import {
 import UserContext from '../../contexts/UserContext.js';
 import bannerImage from '../../images/banner_image.png';
 
+function Snowfall() {
+  const snowfallArr = [...Array(50).keys()];
+  return snowfallArr.map((snowfall) => (
+    <div className="snowflake" key={`snowflake${snowfall}`} />
+  ));
+}
+
 function MetamaskAlert({ networkActive }) {
   if (!networkActive) {
     return (
@@ -187,7 +194,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="d-flex w-100 snowfall-layer">
+    <div className="d-flex w-100 snowfall-wrapper">
+      <div className="snowfall-layer">
+        <Snowfall />
+      </div>
       <div className="d-flex w-100 index-bg">
         <div className="container align-self-center">
           <div className="row pt-4 pb-4">
