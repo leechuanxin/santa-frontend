@@ -13,7 +13,6 @@ import axios from 'axios';
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import getHash from '../../modules/hashing.mjs';
-import TestCryptoWalletAddress from '../Test/TestCryptoWalletAddress.jsx';
 import Error404Page from '../Error/Error404Page.jsx';
 
 // A custom hook that builds on useLocation to parse
@@ -89,7 +88,7 @@ function UserNavSection({
 }) {
   return (
     <div className="row d-flex align-items-center">
-      <div className={`col-12${(isGranted || isAchievements) ? '' : ' col-md-6'}`}>
+      <div className={`col-12${(isGranted || isAchievements) ? '' : ' col-md-6 pb-3'}`}>
         <ul className="nav nav-pills">
           <li className="nav-item">
             <Link
@@ -414,7 +413,7 @@ export default function UserPage({ myContract, user }) {
     };
     if (isGranted) {
       headerText = 'Wishes Granted';
-      emptyText = 'This user has not granted any wishes.';
+      emptyText = `${userPageName} has not granted any wishes.`;
       interfaceType = [...userPageGrantedWishes];
       interfaceMapCallback = (item) => {
         const wisher = [...allUsers]
@@ -508,7 +507,7 @@ export default function UserPage({ myContract, user }) {
       };
     } else if (isAchievements) {
       headerText = 'Badges';
-      emptyText = 'This user has not redeemed any badges.';
+      emptyText = `${userPageName} has not redeemed any badges.`;
       interfaceType = [...userPageIncentives];
       interfaceMapCallback = (item) => (
         <div className="unredeemed-incentive col-12 d-flex" key={`wish${item.id}`}>
@@ -569,15 +568,15 @@ export default function UserPage({ myContract, user }) {
       );
     } else if (!isGranted && !isAchievements && wishType === 'unfulfilledwishes') {
       headerText = 'Unfulfilled Wishes';
-      emptyText = 'This user does not have any of their wishes unfulfilled currently.';
+      emptyText = `${userPageName} does not have any of their wishes unfulfilled currently.`;
       interfaceType = [...userPageUnfulfilledCreatedWishes];
     } else if (!isGranted && !isAchievements && wishType === 'fulfilledwishes') {
       headerText = 'Fulfilled Wishes';
-      emptyText = 'This user does not have any of their wishes fulfilled.';
+      emptyText = `${userPageName} does not have any of their wishes fulfilled.`;
       interfaceType = [...userPageFulfilledCreatedWishes];
     } else {
       headerText = 'All Wishes';
-      emptyText = 'This user has not made any wishes yet.';
+      emptyText = `${userPageName} has not made any wishes yet.`;
     }
 
     return (
@@ -627,12 +626,13 @@ export default function UserPage({ myContract, user }) {
       <div className="row w-100 pt-4 pb-4">
         <div className="col-12 page-panel">
           <h2 className="pt-1 text-center mb-3">User Page</h2>
-          <UserProfileSection
-            userPageId={userPageId}
-            userPageName={userPageName}
-            userPageAddress={userPageAddress}
-          />
-          <TestCryptoWalletAddress />
+          <div className="pb-5">
+            <UserProfileSection
+              userPageId={userPageId}
+              userPageName={userPageName}
+              userPageAddress={userPageAddress}
+            />
+          </div>
           <UserNavSection
             isGranted={isGranted}
             isAchievements={isAchievements}
