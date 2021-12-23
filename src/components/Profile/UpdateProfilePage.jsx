@@ -80,7 +80,12 @@ export default function UpdateProfilePage({
   const [usernameInvalidMessage, setUsernameInvalidMessage] = useState('');
 
   const [username, setUsername] = useState(
-    (user && user.username && typeof user.username === 'string')
+    (
+      user
+      && user.username
+      && typeof user.username === 'string'
+      && query.get('onboard') !== 'true'
+    )
       ? user.username : '',
   );
 
