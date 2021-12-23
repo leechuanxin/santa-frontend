@@ -180,7 +180,7 @@ export default function CreateWish({
                   <div className="col-12 mb-3">
                     <Form.Label>
                       <strong className="para-bold">
-                        What do you wish for?
+                        What item do you wish for?
                       </strong>
                     </Form.Label>
                     <Typeahead
@@ -267,7 +267,7 @@ export default function CreateWish({
                         <span className="para">{wishDescription}</span>
                       </p>
                       <p className="card-text mb-0">
-                        <strong className="para-bold-default">Price for Granting Wish:</strong>
+                        <strong className="para-bold-default">Price of Item:</strong>
                         {' '}
                         {currentBase.price}
                         {' '}
