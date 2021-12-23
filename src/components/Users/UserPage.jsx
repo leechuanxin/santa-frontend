@@ -434,7 +434,8 @@ export default function UserPage({ myContract, user }) {
           )[0];
         const wisherName = (wisher && wisher.displayName ? wisher.displayName : '');
         const wisherId = (wisher && wisher.id ? wisher.id : 0);
-        const wisherAddress = (wisher && wisher.walletAddress ? wisher.iwalletAddress : '');
+        const wisherAddress = (wisher && wisher.walletAddress ? wisher.walletAddress : '');
+
         return (
           <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex" key={`wish${item.id}`}>
             <div className="unfulfilled-wish-card card w-100 mb-3">

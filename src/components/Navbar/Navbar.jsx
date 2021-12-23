@@ -13,6 +13,7 @@ import {
   faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 // CUSTOM IMPORTS
+import getHash from '../../modules/hashing.mjs';
 import localStorageService from '../../modules/localStorageService.mjs';
 import {
   initialState,
@@ -82,6 +83,24 @@ function NavbarTopLinks({ user, pageState }) {
             `}
           >
             <FontAwesomeIcon icon={faUsers} color="white" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            to={`/users/${user.user_id}`}
+            className={`nav-link
+              py-3
+              border-bottom
+              d-flex
+              align-items-center
+              justify-content-center
+            `}
+          >
+            <img
+              className="img-fluid"
+              src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.user_id}-${getHash((user.user_id + 23), user.address)}`}.svg`}
+              alt="This is you!"
+            />
           </Link>
         </li>
       </>
