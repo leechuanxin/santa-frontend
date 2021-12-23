@@ -4,11 +4,24 @@ const ADD = 'ADD';
 const DELETE = 'DELETE';
 
 export function userReducer(state, action) {
+  let obj = {
+    ...state,
+  };
+
+  if (action && action.payload && action.payload.user) {
+    obj = {
+      ...obj,
+      ...action.payload.user,
+    };
+  }
+
   switch (action.type) {
     case ADD:
+      if (action.payload.user && !action.payload.user.username) {
+        delete obj.username;
+      }
       return {
-        ...state,
-        ...action.payload.user,
+        ...obj,
       };
     case DELETE:
       return {};

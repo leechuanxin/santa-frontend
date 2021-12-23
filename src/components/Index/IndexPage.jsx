@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types, jsx-a11y/label-has-associated-control */
-import React, { useEffect, useContext, useState } from 'react';
+import React, {
+  useEffect, useContext, useState,
+} from 'react';
 import { useWeb3React } from '@web3-react/core';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -11,10 +13,11 @@ import {
 // CUSTOM IMPORTS
 import REACT_APP_BACKEND_URL from '../../modules/urls.mjs';
 import injected from '../Wallet/Connectors.jsx';
-import localStorageService from '../../modules/localStorageService.mjs';
 import {
   addUser,
 } from '../../reducers/UserReducer.js';
+import localStorageService from '../../modules/localStorageService.mjs';
+
 import UserContext from '../../contexts/UserContext.js';
 import bannerImage from '../../images/banner_image.png';
 
@@ -103,7 +106,7 @@ function MetamaskAlert({ checkedAccount }) {
   );
 }
 
-function EnterButton({ checkedAccount }) {
+function EnterButton({ checkedAccount, user }) {
   const dispatch = useContext(UserContext);
   const history = useHistory();
   const [enterButtonLoading, setEnterButtonLoading] = useState(false);
@@ -117,6 +120,7 @@ function EnterButton({ checkedAccount }) {
         axios
           .post(`${REACT_APP_BACKEND_URL}/user/onboard`, { address: checkedAccount })
           .then(async (response) => {
+            let currentUser = { ...user };
             if (!response.data.error) {
               if (
                 response.data.message.indexOf('New user added') === 0
@@ -124,19 +128,28 @@ function EnterButton({ checkedAccount }) {
               ) {
                 localStorageService.setItem('user_id', response.data.id);
                 localStorageService.setItem('address', response.data.address);
-                dispatch(addUser({
+                currentUser = {
+                  ...currentUser,
                   user_id: Number(response.data.id),
                   address: response.data.address,
+                };
+                delete currentUser.username;
+                dispatch(addUser({
+                  ...currentUser,
                 }));
                 history.push('/updateprofile?onboard=true');
               } else {
                 localStorageService.setItem('user_id', response.data.id);
                 localStorageService.setItem('address', response.data.address);
                 localStorageService.setItem('username', response.data.displayName);
-                dispatch(addUser({
+                currentUser = {
+                  ...currentUser,
                   user_id: Number(response.data.id),
                   address: response.data.address,
                   username: response.data.displayName,
+                };
+                dispatch(addUser({
+                  ...currentUser,
                 }));
                 history.push('/wishes');
               }
@@ -180,6 +193,7 @@ export default function Home({
   web3Instance,
   isAudioPlaying,
   handleSetAudioPlay,
+  user,
 }) {
   const {
     active: networkActive,
@@ -258,6 +272,7 @@ export default function Home({
               <MetamaskAlert checkedAccount={checkedAccount} />
               <EnterButton
                 checkedAccount={checkedAccount}
+                user={user}
               />
             </div>
           </div>
