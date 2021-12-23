@@ -350,8 +350,8 @@ export default function UserPage({ myContract, user }) {
       const fulfillerId = (fulfiller && fulfiller.id ? fulfiller.id : 0);
       return (
         <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex" key={`wish${item.id}`}>
-          <div className="unfulfilled-wish-card card w-100 mb-3">
-            <div className="card-body p-2">
+          <div className="unfulfilled-wish-card card box-shadow6 w-100 mb-3">
+            <div className="card-body p-3">
               <div className="row">
                 <div className="col-12">
                   <div className="position-relative">
@@ -438,8 +438,8 @@ export default function UserPage({ myContract, user }) {
 
         return (
           <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex" key={`wish${item.id}`}>
-            <div className="unfulfilled-wish-card card w-100 mb-3">
-              <div className="card-body p-2">
+            <div className="unfulfilled-wish-card card box-shadow6 w-100 mb-3">
+              <div className="card-body p-3">
                 <div className="row">
                   <div className="col-12">
                     <div className="position-relative">

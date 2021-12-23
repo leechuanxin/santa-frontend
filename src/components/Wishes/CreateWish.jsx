@@ -216,8 +216,8 @@ export default function CreateWish({
                     </label>
                     <div className="row">
                       { boxArray.map((boxType) => (
-                        <div className="col-12 mt-2 col-sm-6 col-md-3" key={`giftBox${boxType}`}>
-                          <div className="card w-100">
+                        <div className="col-12 mt-4 col-sm-6 col-md-3" key={`giftBox${boxType}`}>
+                          <div className="card w-100 box-shadow6">
                             <div className="card-body">
                               <label className="cursor-pointer form-check-label w-100" htmlFor={`giftBox${boxType}`}>
                                 <div className="row d-flex align-items-center">
