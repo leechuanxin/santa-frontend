@@ -523,7 +523,7 @@ export default function UserPage({ myContract, user }) {
         const image = setImage(item.imgURL);
         return (
           <div className="unredeemed-incentive col-12 d-flex" key={`wish${item.id}`}>
-            <div className="card w-100 mb-3">
+            <div className="card w-100 mb-4 box-shadow6">
               <div className="card-body">
                 <div className="row d-flex align-items-center">
                   <div className="d-none d-sm-block col-3 col-md-2">
@@ -581,7 +581,7 @@ export default function UserPage({ myContract, user }) {
 
     return (
       <>
-        <h3 className="text-center header-bold">{headerText}</h3>
+        <h3 className="text-center header-bold mb-4">{headerText}</h3>
         <div className="row">
           {
             (interfaceType.length > 0)

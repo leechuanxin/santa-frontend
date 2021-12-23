@@ -30,7 +30,7 @@ function UnredeemedIncentive({
 
   return (
     <div className="unredeemed-incentive col-12 d-flex" key={`wish${incentive.id}`}>
-      <div className="card w-100 mb-3">
+      <div className="card w-100 mb-4 box-shadow6">
         <div className="card-body">
           <div className="row d-flex align-items-center">
             <div className="d-none d-sm-block col-3 col-md-2">
@@ -153,14 +153,16 @@ export default function IncentivesPage({ myContract, user }) {
             {points}
           </h4>
           <hr />
-          <UnredeemedIncentives
-            user={user}
-            myContract={myContract}
-            points={Number(points)}
-            unredeemedIncentives={unredeemedIncentives}
-            setUnredeemedIncentives={setUnredeemedIncentives}
-            setPoints={setPoints}
-          />
+          <div className="pt-2">
+            <UnredeemedIncentives
+              user={user}
+              myContract={myContract}
+              points={Number(points)}
+              unredeemedIncentives={unredeemedIncentives}
+              setUnredeemedIncentives={setUnredeemedIncentives}
+              setPoints={setPoints}
+            />
+          </div>
         </div>
       </div>
     </div>
