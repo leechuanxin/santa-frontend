@@ -9,7 +9,7 @@ import getHash from '../../modules/hashing.mjs';
 function UsersSection({ users, userInput }) {
   if (userInput.trim() !== '' && users.length > 0) {
     return users.map((user) => (
-      <div className="col-12 col-md-4">
+      <div className="col-12 col-md-4" key={`user${user.id}`}>
         <Link to={`/users/${user.id}`} className="card mb-3 d-block">
           <div className="card-body">
             <div className="row">
@@ -85,7 +85,12 @@ export default function SearchUsersPage({ user }) {
 
   useEffect(() => {
     const newUsers = users.filter(
-      (filteredUser) => filteredUser.displayName.indexOf(userInput.toLowerCase()) >= 0,
+      (filteredUser) => {
+        if (typeof filteredUser.displayName === 'string') {
+          return (filteredUser.displayName.indexOf(userInput.toLowerCase()) >= 0);
+        }
+        return false;
+      },
     );
     setFilteredUsers([...newUsers]);
   }, [userInput]);
