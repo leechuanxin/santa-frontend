@@ -337,7 +337,7 @@ export default function App() {
                   <NavbarWrapper
                     handleSetNavbar={handleSetNavbar}
                     setPageState={setPageState}
-                    pageState="users"
+                    pageState=""
                     key="usersNavbarWrapper"
                   >
                     <MetamaskProvider user={user} web3Instance={web3Instance}>
