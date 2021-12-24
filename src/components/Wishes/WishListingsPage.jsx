@@ -232,7 +232,9 @@ export default function WishListingsPage({
                         ...option,
                         id: Number(option.id),
                         price: (Number(option.price) / (10 ** 18)),
-                        isCurrentWisher: (option.wisher === user.address),
+                        isCurrentWisher: (
+                          option.wisher.toLowerCase() === user.address.toLowerCase()
+                        ),
                       };
                       for (let i = 0; i < users.length; i += 1) {
                         if (
@@ -244,7 +246,7 @@ export default function WishListingsPage({
                             wisherId: users[i].id,
                             wisherAddress: users[i].walletAddress,
                             wisherName:
-                              (modifiedOption.wisher === user.address)
+                              (modifiedOption.wisher.toLowerCase() === user.address.toLowerCase())
                                 ? 'You!'
                                 : users[i].displayName,
                           };
