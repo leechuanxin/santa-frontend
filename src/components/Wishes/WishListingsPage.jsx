@@ -85,7 +85,7 @@ function UnfulfilledWish({
                   <Link className="d-block" to={`/users/${wish.wisherId}`}>
                     <img
                       className="img-fluid"
-                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wish.wisherId}-${getHash((wish.wisherId + 23), wish.wisherAddress)}`}.svg`}
+                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wish.wisherId}-${getHash((wish.wisherId + 23), wish.wisherAddress.toLowerCase())}`}.svg`}
                       alt=""
                     />
                   </Link>

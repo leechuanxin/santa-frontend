@@ -41,7 +41,7 @@ function LeaderboardUser({ leaderboardUser, index }) {
               <div className="d-none d-sm-block col-2 col-md-1">
                 <img
                   className="img-fluid"
-                  src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardUser.userId}-${getHash((leaderboardUser.userId + 23), leaderboardUser.userAddress)}`}.svg`}
+                  src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardUser.userId}-${getHash((leaderboardUser.userId + 23), leaderboardUser.userAddress.toLowerCase())}`}.svg`}
                   alt="This is you!"
                 />
               </div>
@@ -56,7 +56,7 @@ function LeaderboardUser({ leaderboardUser, index }) {
                   <div className="col-5 ms-auto me-auto">
                     <img
                       className="img-fluid"
-                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardUser.userId}-${getHash((leaderboardUser.userId + 23), leaderboardUser.userAddress)}`}.svg`}
+                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardUser.userId}-${getHash((leaderboardUser.userId + 23), leaderboardUser.userAddress.toLowerCase())}`}.svg`}
                       alt="This is you!"
                     />
                   </div>
@@ -147,7 +147,7 @@ function LeaderboardTopUser({ leaderboardTopUser, index }) {
           >
             <img
               className="img-fluid"
-              src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardTopUser.userId}-${getHash((leaderboardTopUser.userId + 23), leaderboardTopUser.userAddress)}`}.svg`}
+              src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${leaderboardTopUser.userId}-${getHash((leaderboardTopUser.userId + 23), leaderboardTopUser.userAddress.toLowerCase())}`}.svg`}
               alt="This is you!"
             />
           </Link>

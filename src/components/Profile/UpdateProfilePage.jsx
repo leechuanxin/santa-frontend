@@ -162,7 +162,7 @@ export default function UpdateProfilePage({
                     <div className="card-img-top bg-gray-300 border-b border-gray-600">
                       <img
                         className="img-fluid"
-                        src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.user_id}-${getHash((user.user_id + 23), user.address)}`}.svg`}
+                        src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.user_id}-${getHash((user.user_id + 23), user.address.toLowerCase())}`}.svg`}
                         alt="This is you!"
                       />
                     </div>

@@ -17,7 +17,7 @@ function UsersSection({ users, userInput }) {
                 <div className="col-1 col-md-3 col-lg-2 me-3">
                   <img
                     className="img-fluid"
-                    src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.id}-${getHash((user.id + 23), user.walletAddress)}`}.svg`}
+                    src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.id}-${getHash((user.id + 23), user.walletAddress.toLowerCase())}`}.svg`}
                     alt="This is you!"
                   />
                 </div>

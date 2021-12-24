@@ -37,7 +37,7 @@ function UserProfileSection({ userPageId, userPageName, userPageAddress }) {
             <div className="card-img-top bg-gray-300 border-b border-gray-600">
               <img
                 className="img-fluid"
-                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${userPageId}-${getHash((userPageId + 23), userPageAddress)}`}.svg`}
+                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${userPageId}-${getHash((userPageId + 23), userPageAddress.toLowerCase())}`}.svg`}
                 alt="This is you!"
               />
             </div>
@@ -472,7 +472,7 @@ export default function UserPage({ myContract, user }) {
                         <Link className="d-block" to={`/users/${wisherId}`}>
                           <img
                             className="img-fluid"
-                            src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wisherId}-${getHash((wisherId + 23), wisherAddress)}`}.svg`}
+                            src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wisherId}-${getHash((wisherId + 23), wisherAddress.toLowerCase())}`}.svg`}
                             alt=""
                           />
                         </Link>
