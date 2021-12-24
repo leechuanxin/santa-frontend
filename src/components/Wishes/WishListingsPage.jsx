@@ -235,7 +235,10 @@ export default function WishListingsPage({
                         isCurrentWisher: (option.wisher === user.address),
                       };
                       for (let i = 0; i < users.length; i += 1) {
-                        if (users[i].walletAddress === modifiedOption.wisher) {
+                        if (
+                          users[i].walletAddress.toLowerCase()
+                          === modifiedOption.wisher.toLowerCase()
+                        ) {
                           modifiedOption = {
                             ...modifiedOption,
                             wisherId: users[i].id,

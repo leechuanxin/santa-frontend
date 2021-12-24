@@ -242,7 +242,10 @@ export default function UserPage({ myContract, user }) {
               price: (Number(option.price) / (10 ** 18)),
             };
             for (let i = 0; i < allUsers.length; i += 1) {
-              if (allUsers[i].walletAddress === modifiedOption.wisher) {
+              if (
+                allUsers[i].walletAddress.toLowerCase()
+                === modifiedOption.wisher.toLowerCase()
+              ) {
                 modifiedOption = {
                   ...modifiedOption,
                   wisherId: allUsers[i].id,
@@ -430,7 +433,8 @@ export default function UserPage({ myContract, user }) {
       interfaceMapCallback = (item) => {
         const wisher = [...allUsers]
           .filter(
-            (filteredUser) => filteredUser.walletAddress === item.wisher,
+            (filteredUser) => filteredUser.walletAddress.toLowerCase()
+            === item.wisher.toLowerCase(),
           )[0];
         const wisherName = (wisher && wisher.displayName ? wisher.displayName : '');
         const wisherId = (wisher && wisher.id ? wisher.id : 0);
