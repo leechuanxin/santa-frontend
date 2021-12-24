@@ -98,7 +98,7 @@ function NavbarTopLinks({ user, pageState }) {
           >
             <img
               className="img-fluid"
-              src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.user_id}-${getHash((user.user_id + 23), user.address.toLowerCase())}`}.svg`}
+              src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${user.user_id}-${getHash((user.user_id + 23), (typeof user.address === 'string' ? user.address.toLowerCase() : ''))}`}.svg`}
               alt="This is you!"
             />
           </Link>

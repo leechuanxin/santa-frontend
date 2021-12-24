@@ -85,7 +85,7 @@ function UnfulfilledWish({
                   <Link className="d-block" to={`/users/${wish.wisherId}`}>
                     <img
                       className="img-fluid"
-                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wish.wisherId}-${getHash((wish.wisherId + 23), wish.wisherAddress.toLowerCase())}`}.svg`}
+                      src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wish.wisherId}-${getHash((wish.wisherId + 23), (typeof wish.wisherAddress === 'string' ? wish.wisherAddress.toLowerCase() : ''))}`}.svg`}
                       alt=""
                     />
                   </Link>
@@ -233,12 +233,16 @@ export default function WishListingsPage({
                         id: Number(option.id),
                         price: (Number(option.price) / (10 ** 18)),
                         isCurrentWisher: (
-                          option.wisher.toLowerCase() === user.address.toLowerCase()
+                          (typeof option.wisher === 'string'
+                          && typeof user.address === 'string')
+                            ? option.wisher.toLowerCase() === user.address.toLowerCase() : false
                         ),
                       };
                       for (let i = 0; i < users.length; i += 1) {
                         if (
-                          users[i].walletAddress.toLowerCase()
+                          typeof users[i].walletAddress === 'string'
+                          && typeof modifiedOption.wisher === 'string'
+                          && users[i].walletAddress.toLowerCase()
                           === modifiedOption.wisher.toLowerCase()
                         ) {
                           modifiedOption = {

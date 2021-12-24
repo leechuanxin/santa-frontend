@@ -37,7 +37,7 @@ function UserProfileSection({ userPageId, userPageName, userPageAddress }) {
             <div className="card-img-top bg-gray-300 border-b border-gray-600">
               <img
                 className="img-fluid"
-                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${userPageId}-${getHash((userPageId + 23), userPageAddress.toLowerCase())}`}.svg`}
+                src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${userPageId}-${getHash((userPageId + 23), (typeof userPageAddress === 'string' ? userPageAddress.toLowerCase() : ''))}`}.svg`}
                 alt="This is you!"
               />
             </div>
@@ -243,7 +243,9 @@ export default function UserPage({ myContract, user }) {
             };
             for (let i = 0; i < allUsers.length; i += 1) {
               if (
-                allUsers[i].walletAddress.toLowerCase()
+                typeof allUsers[i].walletAddress === 'string'
+                && typeof modifiedOption.wisher === 'string'
+                && allUsers[i].walletAddress.toLowerCase()
                 === modifiedOption.wisher.toLowerCase()
               ) {
                 modifiedOption = {
@@ -266,6 +268,8 @@ export default function UserPage({ myContract, user }) {
             (option) => (
               option.wishCreated
                 && option.isSold
+                && typeof option.gifter === 'string'
+                && typeof userPageAddress === 'string'
                 && option.gifter.toLowerCase() === userPageAddress.toLowerCase()
             ),
           );
@@ -273,6 +277,8 @@ export default function UserPage({ myContract, user }) {
           .filter(
             (option) => (
               option.wishCreated
+                && typeof option.wisher === 'string'
+                && typeof userPageAddress === 'string'
                 && option.wisher.toLowerCase() === userPageAddress.toLowerCase()
             ),
           );
@@ -303,6 +309,8 @@ export default function UserPage({ myContract, user }) {
           .filter(
             (option) => (
               option.isClaimed
+                && typeof option.owner === 'string'
+                && typeof userPageAddress === 'string'
                 && option.owner.toLowerCase() === userPageAddress.toLowerCase()
             ),
           );
@@ -347,8 +355,13 @@ export default function UserPage({ myContract, user }) {
     let interfaceMapCallback = (item) => {
       const fulfiller = [...allUsers]
         .filter(
-          (filteredUser) => filteredUser.walletAddress.toLowerCase()
-          === item.gifter.toLowerCase(),
+          (filteredUser) => (
+            typeof filteredUser.walletAddress === 'string'
+            && typeof item.gifter === 'string'
+            && (
+              filteredUser.walletAddress.toLowerCase() === item.gifter.toLowerCase()
+            )
+          ),
         )[0];
       const fulfillerName = (fulfiller && fulfiller.displayName ? fulfiller.displayName : '');
       const fulfillerId = (fulfiller && fulfiller.id ? fulfiller.id : 0);
@@ -434,8 +447,13 @@ export default function UserPage({ myContract, user }) {
       interfaceMapCallback = (item) => {
         const wisher = [...allUsers]
           .filter(
-            (filteredUser) => filteredUser.walletAddress.toLowerCase()
-            === item.wisher.toLowerCase(),
+            (filteredUser) => (
+              typeof filteredUser.walletAddress === 'string'
+              && typeof item.wisher === 'string'
+              && (
+                filteredUser.walletAddress.toLowerCase() === item.wisher.toLowerCase()
+              )
+            ),
           )[0];
         const wisherName = (wisher && wisher.displayName ? wisher.displayName : '');
         const wisherId = (wisher && wisher.id ? wisher.id : 0);
@@ -472,7 +490,7 @@ export default function UserPage({ myContract, user }) {
                         <Link className="d-block" to={`/users/${wisherId}`}>
                           <img
                             className="img-fluid"
-                            src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wisherId}-${getHash((wisherId + 23), wisherAddress.toLowerCase())}`}.svg`}
+                            src={`https://avatars.dicebear.com/api/adventurer-neutral/${`${wisherId}-${getHash((wisherId + 23), (typeof wisherAddress === 'string' ? wisherAddress.toLowerCase() : ''))}`}.svg`}
                             alt=""
                           />
                         </Link>
