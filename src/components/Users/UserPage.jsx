@@ -303,7 +303,7 @@ export default function UserPage({ myContract, user }) {
           .filter(
             (option) => (
               option.isClaimed
-                && option.owner === userPageAddress
+                && option.owner.toLowerCase() === userPageAddress.toLowerCase()
             ),
           );
         setUserPageIncentives([...incentives]);
