@@ -211,7 +211,8 @@ export default function LeaderboardPage({ user, myContract }) {
                       let userId = 0;
                       for (let i = 0; i < response.data.users.length; i += 1) {
                         if (
-                          filteredUser.userAddress === response.data.users[i].walletAddress
+                          filteredUser.userAddress.toLowerCase()
+                          === response.data.users[i].walletAddress.toLowerCase()
                         ) {
                           displayName = response.data.users[i].displayName;
                           userId = response.data.users[i].id;
