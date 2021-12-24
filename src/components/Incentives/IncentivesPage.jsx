@@ -8,7 +8,7 @@ function UnredeemedIncentive({
 }) {
   const image = setImage(incentive.imgURL);
   const [buttonLoading, setButtonLoading] = useState(false);
-  const [canRedeem] = useState((points >= Number(incentive.price)));
+  const [canRedeem] = useState(points >= Number(incentive.price));
   const handleButtonClick = (e) => {
     e.preventDefault();
     setButtonLoading(true);
