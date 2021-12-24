@@ -266,14 +266,14 @@ export default function UserPage({ myContract, user }) {
             (option) => (
               option.wishCreated
                 && option.isSold
-                && option.gifter === userPageAddress
+                && option.gifter.toLowerCase() === userPageAddress.toLowerCase()
             ),
           );
         const allCreatedWishes = modifiedArr
           .filter(
             (option) => (
               option.wishCreated
-                && option.wisher === userPageAddress
+                && option.wisher.toLowerCase() === userPageAddress.toLowerCase()
             ),
           );
         const fulfilledCreatedWishes = allCreatedWishes
@@ -343,11 +343,12 @@ export default function UserPage({ myContract, user }) {
     let headerText = '';
     let emptyText = '';
     let interfaceType = [...userPageAllCreatedWishes];
-    // const allUsersArr = [...allUsers];
+
     let interfaceMapCallback = (item) => {
       const fulfiller = [...allUsers]
         .filter(
-          (filteredUser) => filteredUser.walletAddress === item.gifter,
+          (filteredUser) => filteredUser.walletAddress.toLowerCase()
+          === item.gifter.toLowerCase(),
         )[0];
       const fulfillerName = (fulfiller && fulfiller.displayName ? fulfiller.displayName : '');
       const fulfillerId = (fulfiller && fulfiller.id ? fulfiller.id : 0);
