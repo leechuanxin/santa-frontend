@@ -11,7 +11,7 @@ Granting a wish works like purchasing an item from an online store to gift to so
 
 To incentivise users to get into the spirit of gifting, the dApp rewards *Goodwill* points to users who have granted wishes. *Goodwill* points can be used to claim NFT badges that can be displayed on one's profile. The dApp also has a leaderboard to feature the top wish granters.
 
-Here are the links to our [frontend](https://github.com/leechuanxin/santa-frontend), [Express backend](https://github.com/leechuanxin/santa-express), and [smart contract](https://github.com/JustinWong98/santa-blockchain).
+Here are the links to our [frontend](https://github.com/leechuanxin/santa-frontend), [Express backend](https://github.com/leechuanxin/santa-express), and [smart contract](https://github.com/JustinWong98/santa-blockchain) repositories.
 
 ## Features
 
