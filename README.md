@@ -5,7 +5,7 @@ Wish upon a Santa is an online Christmas-themed wishing well that allows users t
 
 This decentralised application (dApp) is deployed on the Rinkeby testnet instead of the Ethereum mainnet, so that anyone can come and use the site without spending actual Ether (ETH) to make and grant wishes.
 
-Similar to an online store, we have a tongue-in-cheek catalogue and users can wish for items on the catalogue. Just like tossing a coin into a wishing well, only a small [gas fee](https://www.investopedia.com/terms/g/gas-ethereum.asp#:~:text=Gas%20fees%20are%20payments%20made,spend%20on%20a%20particular%20transaction.)) in ETH has to be paid for making a wish.
+Similar to an online store, we have a tongue-in-cheek catalogue and users can wish for items on the catalogue. Just like tossing a coin into a wishing well, only a small [gas fee](https://www.investopedia.com/terms/g/gas-ethereum.asp#:~:text=Gas%20fees%20are%20payments%20made,spend%20on%20a%20particular%20transaction.) in ETH has to be paid for making a wish.
 
 Every item in our catalogue has a preset price. When granting a wish, a user has to pay the price of the item another user has wished for. Just like purchasing an item from an online store to gift to someone else, the price in ETH paid for granting a wish goes to the smart contract (ie. our "online store", or us).
 
