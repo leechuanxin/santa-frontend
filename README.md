@@ -56,6 +56,12 @@ You will need to install [Metamask](https://metamask.io) to use this app.
 
 ![](https://user-images.githubusercontent.com/84217227/148347248-52055b38-fd9c-418a-b65a-0d844ab1b8e7.png)
 
+# Challenges Faced
+
+- Putting stuff on the blockchain is expensive. Therefore, we needed to optimize our code and take up as little space as possible.
+- For loops and using arrays were something we would try to avoid in our functions due to the code size quickly increasing. We had to keep our code under 24576 bytes (see https://soliditydeveloper.com/max-contract-size)
+- We wanted to follow ERC-20 standard when implementing NFTs. However, as the ownership flow of the NFT is different from a 1-1 basis (User mints wish as an NFT, the smart contract owns the NFT, and someone has to buy on behalf of the wisher), we could not use ERC-20 inbuilt functions like safeTransfer. We ended up using just the base transfer function in ERC-20 that functions like safeTransfer call upon.
+
 ## License
 
 MIT
