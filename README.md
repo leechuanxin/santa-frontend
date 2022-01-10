@@ -60,7 +60,8 @@ You will need to install [Metamask](https://metamask.io) to use this app.
 
 - Data storage: it can be potentially expensive storing unessential information on our smart contracts. Code optimisation is important to reduce code space, but this also means having different data modelled on the smart contracts and our Express backend. Working off 2 databases can be tricky in authentication and mapping the data together accurately.
 - We have to avoid using redundant loops and arrays in our functions due to the code size quickly increasing. We had to keep our code under 24576 bytes (see https://soliditydeveloper.com/max-contract-size). With JavaScript as our first programming language, this means we had to avoid re-creating some of our beloved array methods in Solidity - instead we do a lot of data filtering and cleaning on the front-end.
-- We wanted to follow ERC-20 standard when implementing NFTs. However, as the ownership flow of the NFT is different from a 1-1 basis (User mints wish as an NFT, the smart contract owns the NFT, and someone has to buy on behalf of the wisher), we could not use ERC-20 inbuilt functions like safeTransfer. We ended up using just the base transfer function in ERC-20 that functions like safeTransfer call upon.
+- We wanted to follow ERC-721 standard when implementing NFTs. It was difficult to plan the ownership of wishes, when implemented as NFTs. When involving ownership transfers, we could not use ERC-721's in-built methods like `safeTransfer` because of the original complicated workflow: initially, we plan to have the user mint a wish as an NFT, but have the smart contract own the NFT instead. Only when the wish is granted does the ownership transfer to the wisher. In the end, we simplified wishes to be minted only by the wisher themselves, and not involve any ownership transfers.
+
 
 ## License
 
