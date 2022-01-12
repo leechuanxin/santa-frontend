@@ -1,7 +1,37 @@
+<div id="top"></div>
+
 # Wish Upon A Santa
 ## Get into the spirit of gifting with Blockchain and NFTs!
 
 Wish upon a Santa is an online Christmas-themed wishing well that allows users to make wishes, as well as grant wishes made by other users.
+
+<!-- TABLE OF CONTENTS -->
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+  	<li>
+      <a href="#introduction">Introduction</a>
+    </li>
+    <li>
+      <a href="#features">Features</a>
+    </li>
+    <li>
+      <a href="#tech">Tech</a>
+    </li>
+    <li>
+      <a href="#usage">Usage</a>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#retrospective">Retrospective</a></li>
+	 <li><a href="#retrospective">Contact</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+
+<!-- INTRODUCTION -->
+
+## Introduction
 
 This decentralised application (dApp) is deployed on the Rinkeby testnet instead of the Ethereum mainnet, so that anyone can come and use the site without spending actual Ether (ETH) to make and grant wishes.
 
@@ -13,6 +43,10 @@ To incentivise users to get into the spirit of gifting, the dApp rewards Goodwil
 
 Here are the links to our [frontend](https://github.com/leechuanxin/santa-frontend), [Express backend](https://github.com/leechuanxin/santa-express), and [smart contract](https://github.com/JustinWong98/santa-blockchain) repositories.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- FEATURES -->
+
 ## Features
 
 - Allows users to make their own wishes (in the form of minting them as NFT tokens)
@@ -20,6 +54,10 @@ Here are the links to our [frontend](https://github.com/leechuanxin/santa-fronte
 - Compete for the top positions in the leaderboard through granting wishes
 - Redeem NFT badges as a reward for granting wishes
 - See all the wishes a user has made or granted, and the badges they have claimed
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- TECH -->
 
 ## Tech
 
@@ -30,7 +68,12 @@ We use:
 - [web3.js](https://web3js.readthedocs.io/en/v1.5.2/) - To interact with our smart contract, as well as offer cryptocurrency transactions for making wishes (by paying a [gas fee](https://www.investopedia.com/terms/g/gas-ethereum.asp#:~:text=Gas%20fees%20are%20payments%20made,spend%20on%20a%20particular%20transaction.)) and granting wishes (by paying the price of the item wished to the smart contract, ie. us).
 - [React] - Front-end development, with Bootstrap as our key UI library.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- USAGE -->
+
 ## Usage
+
 You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com)
 You will need to install [Metamask](https://metamask.io) to use this app.
 
@@ -56,16 +99,45 @@ You will need to install [Metamask](https://metamask.io) to use this app.
 
 ![](https://user-images.githubusercontent.com/84217227/148347248-52055b38-fd9c-418a-b65a-0d844ab1b8e7.png)
 
-# Challenges Faced
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+WIP
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- RETROSPECTIVE -->
+
+## Retrospective
 
 - Data storage: it can be potentially expensive storing unessential information on our smart contracts. Code optimisation is important to reduce code space, but this also means having different data modelled on the smart contracts and our Express backend. Working off 2 databases can be tricky in authentication and mapping the data together accurately.
 - We have to avoid using redundant loops and arrays in our functions due to the code size quickly increasing. We had to keep our code under 24576 bytes (see https://soliditydeveloper.com/max-contract-size). With JavaScript as our first programming language, this means we had to avoid re-creating some of our beloved array methods in Solidity - instead we do a lot of data filtering and cleaning on the front-end.
 - We wanted to follow ERC-721 standard when implementing NFTs. It was difficult to plan the ownership of wishes, when implemented as NFTs. When involving ownership transfers, we could not use ERC-721's in-built methods like `safeTransfer` because of the original complicated workflow: initially, we plan to have the user mint a wish as an NFT, but have the smart contract own the NFT instead. Only when the wish is granted does the ownership transfer to the wisher. In the end, we simplified wishes to be minted only by the wisher themselves, and not involve any ownership transfers.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CONTACT -->
+
+## Contact
+
+[Justin Wong](https://github.com/JustinWong98) - justinwong8991@gmail.com
+
+[Chuan Xin](https://github.com/leechuanxin) - chuanxin.lee@gmail.com
+
+Project Link: [https://github.com/Ennnm/recluse-centre](https://github.com/Ennnm/recluse-centre)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- LICENSE -->
 
 ## License
 
 MIT
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
    [frontend]: <https://github.com/leechuanxin/santa-frontend>
    [smart-contract]: <https://github.com/JustinWong98/santa-blockchain>
