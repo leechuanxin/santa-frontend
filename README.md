@@ -24,7 +24,7 @@ Wish upon a Santa is an online Christmas-themed wishing well that allows users t
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#retrospective">Retrospective</a></li>
-	 <li><a href="#retrospective">Contact</a></li>
+	 <li><a href="#contact">Contact</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
