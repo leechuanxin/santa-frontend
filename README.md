@@ -127,8 +127,6 @@ WIP
 
 [Chuan Xin](https://github.com/leechuanxin) - chuanxin.lee@gmail.com
 
-Project Link: [https://github.com/Ennnm/recluse-centre](https://github.com/Ennnm/recluse-centre)
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- LICENSE -->
