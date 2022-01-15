@@ -1,6 +1,11 @@
 <div id="top"></div>
 
 # Wish Upon A Santa
+
+<img width="1440" alt="Screenshot 2022-01-16 at 2 05 27 AM" src="https://user-images.githubusercontent.com/7672836/149632852-3e6921da-4708-42c1-93b4-7dfb88fc0b79.png">
+
+<img width="1440" alt="Screenshot 2022-01-16 at 2 06 42 AM" src="https://user-images.githubusercontent.com/7672836/149632854-c6273081-8b80-4781-ac26-5d2b6cdb3cd3.png">
+
 ## Get into the spirit of gifting with Blockchain and NFTs!
 
 Wish upon a Santa is an online Christmas-themed wishing well that allows users to make wishes, as well as grant wishes made by other users.
