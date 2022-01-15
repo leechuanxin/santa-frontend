@@ -79,7 +79,6 @@ We use:
 
 ## Usage
 
-
 You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 
 1. Go to [MetaMask's site](https://metamask.io/). Download the Chrome extension and register for an account.
@@ -88,25 +87,33 @@ You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 
 2. Once you have the Chrome extension and account, go to our [landing page](https://damp-bayou-29307.herokuapp.com). Ensure that your MetaMask wallet account is connected to the site, and the Rinkeby testnet.
 
-3. For your first-time logging in, we will request for a username which you will be identified when using the application.
+<img width="1440" alt="Screenshot 2022-01-16 at 3 08 51 AM" src="https://user-images.githubusercontent.com/7672836/149634907-e817e47e-2c93-4e9a-892a-d3fb1282c598.png">
 
-- Create your username
-
-- Make a wish, or grant someone a wish
-
-![](https://user-images.githubusercontent.com/84217227/148346183-08366e59-0111-4158-8c32-7a99354718dc.png)
+3. For your first-time logging in, we will request for a username for which you will be identified when using the application.
 
 ![](https://user-images.githubusercontent.com/84217227/148346688-6ce47b2e-6ec7-40ea-91bc-b4ceb66bcd59.gif)
 
-- Redeem NFT Badges
+4. On logging in, you will be brought to the main page where you can see a list of Wishes you can grant, or make your own Wish. Click on the green 'Grant' button on any of the Wishes to grant a Wish.
 
-![](https://user-images.githubusercontent.com/84217227/148347160-8db83507-5e0a-49e2-8501-57ab7589d595.png)
+<img width="1440" alt="Screenshot 2022-01-16 at 3 18 01 AM" src="https://user-images.githubusercontent.com/7672836/149635017-f84ea257-d92c-4af4-9c09-0f20346f364a.png">
 
-- Admire your position on the leaderboard and the unique badges you've claimed!
+5. Click on the red 'Make a Wish!' button on the same page, and you will be redirected to a form to make a Wish. Type and select an item to wish for, fill in the rest of the information, then click on the red 'Make Wish' button to finish making your Wish.
 
-![](https://user-images.githubusercontent.com/84217227/148347151-a5bbc0a4-e0c2-46f2-8f9d-b45300f9866d.png)
+<img width="1440" alt="Screenshot 2022-01-16 at 3 19 31 AM" src="https://user-images.githubusercontent.com/7672836/149635107-f766480d-2243-4611-bde5-19e7a2cfd579.png">
 
-![](https://user-images.githubusercontent.com/84217227/148347248-52055b38-fd9c-418a-b65a-0d844ab1b8e7.png)
+6. If you have granted a couple of Wishes per step (4), you would have accumulated a number of Goodwill points. Click on the Badge icon on the left navigation bar to visit a list of Badges. Click on the green Redeem button on any of the Badges to redeem them with your Goodwill points.
+
+<img width="1440" alt="Screenshot 2022-01-16 at 3 21 51 AM" src="https://user-images.githubusercontent.com/7672836/149635155-98c6aaad-e40f-456b-bb3d-e4f6c565fa97.png">
+
+7. Click on the Users icon on the left navigation bar to search for the users on the platform. Click on any of their profile usernames to view their profile pages.
+
+<img width="1436" alt="Screenshot 2022-01-16 at 3 22 00 AM" src="https://user-images.githubusercontent.com/7672836/149635180-b61df541-3598-45a2-a88f-494259f08b47.png">
+
+8. To view your own profile, simply click on your own avatar image on the left navigation bar. You will be brought to your own profile page to view your Wishes, Granted Wishes and Badges.
+
+<img width="1440" alt="Screenshot 2022-01-16 at 3 25 54 AM" src="https://user-images.githubusercontent.com/7672836/149635242-26798ffc-1ed7-4028-af78-5891847f5ee7.png">
+
+9. Click on the Trophy icon on the left navigation bar to view the leaderboard. The leaderboard ranks users based on their lifetime accumulated Goodwill points, which is determined the number of Wishes they have granted.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
