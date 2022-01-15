@@ -79,12 +79,16 @@ We use:
 
 ## Usage
 
-You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com)
-You will need to install [Metamask](https://metamask.io) to use this app.
 
-- Make sure your Metamask account is connected to the Rinkeby Test Network, and connect Metamask to the website
+You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
+
+1. Go to [MetaMask's site](https://metamask.io/). Download the Chrome extension and register for an account.
 
 ![](https://user-images.githubusercontent.com/84217227/148346096-2c66414c-3b53-4728-8a5f-9ea67f0c5d1c.gif)
+
+2. Once you have the Chrome extension and account, go to our [landing page](https://damp-bayou-29307.herokuapp.com). Ensure that your MetaMask wallet account is connected to the site, and the Rinkeby testnet.
+
+3. For your first-time logging in, we will request for a username which you will be identified when using the application.
 
 - Create your username
 
