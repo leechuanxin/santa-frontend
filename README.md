@@ -81,6 +81,8 @@ We use:
 
 You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 
+<img width="1440" alt="Screenshot 2022-01-16 at 3 29 18 AM" src="https://user-images.githubusercontent.com/7672836/149635329-1d3e45a3-e370-4717-ba92-2554dc43401a.png">
+
 1. Go to [MetaMask's site](https://metamask.io/). Download the Chrome extension and register for an account.
 
 ![](https://user-images.githubusercontent.com/84217227/148346096-2c66414c-3b53-4728-8a5f-9ea67f0c5d1c.gif)
