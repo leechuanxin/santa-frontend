@@ -123,10 +123,10 @@ You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 
 ## Roadmap
 
-[ ] ERC-721 methods on Badge redemption
-[ ] ERC-1155 methods on Wish making
-[ ] Goodwill points earned weighted against prices for granting individual Wishes
-[ ] Rarity of Badges, and associated Goodwill points to redeem based on rarity
+- [ ] ERC-721 methods on Badge redemption
+- [ ] ERC-1155 methods on Wish making
+- [ ] Goodwill points earned weighted against prices for granting individual Wishes
+- [ ] Rarity of Badges, and corresponding Goodwill points for redeeming Badges based on rarity
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
