@@ -123,7 +123,10 @@ You can visit our deployed app [here](https://damp-bayou-29307.herokuapp.com).
 
 ## Roadmap
 
-WIP
+[ ] ERC-721 methods on Badge redemption
+[ ] ERC-1155 methods on Wish making
+[ ] Goodwill points earned weighted against prices for granting individual Wishes
+[ ] Rarity of Badges, and associated Goodwill points to redeem based on rarity
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -131,9 +134,57 @@ WIP
 
 ## Retrospective
 
-- Data storage: it can be potentially expensive storing unessential information on our smart contracts. Code optimisation is important to reduce code space, but this also means having different data modelled on the smart contracts and our Express backend. Working off 2 databases can be tricky in authentication and mapping the data together accurately.
-- We have to avoid using redundant loops and arrays in our functions due to the code size quickly increasing. We had to keep our code under 24576 bytes (see https://soliditydeveloper.com/max-contract-size). With JavaScript as our first programming language, this means we had to avoid re-creating some of our beloved array methods in Solidity - instead we do a lot of data filtering and cleaning on the front-end.
-- We wanted to follow ERC-721 standard when implementing NFTs. It was difficult to plan the ownership of wishes, when implemented as NFTs. When involving ownership transfers, we could not use ERC-721's in-built methods like `safeTransfer` because of the original complicated workflow: initially, we plan to have the user mint a wish as an NFT, but have the smart contract own the NFT instead. Only when the wish is granted does the ownership transfer to the wisher. In the end, we simplified wishes to be minted only by the wisher themselves, and not involve any ownership transfers.
+#### Testing and Circumventing Lack of Print Statements
+
+There are no `print` nor `console.log` statements in Solidity. Unfortunately, we only attempted to set up tests using Truffle, Mocha and Chai right before the MVP deadline. Since we still had some features due before the deadline, we could not afford to be blocked by setting up tests in that timeframe. We had to scrap tests.
+
+We worked around that by being very careful with our commits. This means manually testing our contracts nearly line-by-line using the Remix IDE, and ensuring that our commits are small. Without logging, a large, multi-line commit becomes harder to test for, since we have to take code out and put them back together.
+
+Looking back, given our lack of prior contextual knowledge on blockchain development, Web3, NFTs, and cryptocurrency, we could have played it a lot safer setting up tests right at the project's start. Perhaps, even a test-driven development (TDD) approach would have worked for the project's context.
+
+We only knew about [Hardhat](https://hardhat.org/) days before our presentation. Given our native JavaScript backgrounds, debugging with the Hardhat network and [their console.logs methods from their Console contracts](https://hardhat.org/tutorial/debugging-with-hardhat-network.html) would have made our lives a lot easier.
+
+#### Smart Contract Size Limit and Array Methods
+
+[EIP-170](https://eips.ethereum.org/EIPS/eip-170) proposes a smart contract size limit of approximately 24kb. This made the deployment of our smart contract trickier in the later stages of development, as more and more features were added. 
+
+On the days leading up to our project presentation, our [Remix IDE](https://remix.ethereum.org/) kept throwing the following warning: *Warning: Contract code size exceeds 24576 bytes (a limit introduced in Spurious Dragon). This contract may not be deployable on mainnet. Consider enabling the optimizer (with a low "runs" value!), turning off revert strings, or using libraries.* (see https://soliditydeveloper.com/max-contract-size)
+
+Without any automated tests (e.g. with [truffle-contract-size](https://www.npmjs.com/package/truffle-contract-size)) to guide us, we did not have a way to get the bytecode size of our contracts in advance.
+
+Resorting to manual testing, we realised that we triggered this warning the most frequently by having functions that:
+
+* Have loops
+* Return an array of Solidity `struct`s
+* Usually a combination of both
+
+With the exception of [a function for retrieving user information given their IDs and addresses](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Wishlist.sol#L88-L94), most of the functions that require any form of filtering and sorting similar to JavaScript Array methods are moved to be executed on the front-end instead.
+
+#### Dual Database Approach and Data Persistence
+
+Our Express backend only serves 1 cosmetic purpose: attach a username to a connected wallet address. However, our Solidity contract stores data about almost everything else in the dApp: wish and badge information, token ownership information, and user information about wishes granted.
+
+[Wishlist.sol in our santa-blockchain repo](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Wishlist.sol) is the only contract we compile and deploy. Through multi-level inheritance, [it inherits all other contracts we developed and libraries implementing ERC-721 standards](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Wishlist.sol#L1-L7).
+
+When we make changes and deploy the changes on the smart contract, we will use the address and the ABI of the newly deployed contract on the front-end.
+
+Using a multi-level inheritance approach to development and deployment on a single smart contract storing our data, every new deployment has a problem of behaving like a new migration or re-seeding of data. Previous data that is now stored in the old contracts will not be present in the newly deployed contracts.
+
+Thus, we have had issues with data persistence. We had to manually re-seed all prior interactions with the dApp using our multiple wallet test accounts. 
+
+#### Token Standards and Contract Deployment
+
+Elaborating on the sub-section above, using proper token standards and contract deployment procedures may have mitigated our data persistence problem.
+
+Instead of taking this multi-level inheritance approach, we could have kept the data and the controller separate. This means we deploy "data" contracts storing data and mappings separately from the "controller" ones defining the methods that interact with said data. For these contracts to interact, the addresses of the "data" contracts will be provided to the "controller" contracts to call their methods.
+
+In fact, this approach can be used in our handling of ERC-721 tokens, as suggested by [this QuickNode guide on deploying ERC-721 NFTs](https://www.quicknode.com/guides/solidity/how-to-create-and-deploy-an-erc-721-nft). This guide suggests deploying every ERC-721 token individually as a smart contract. This approach will be handy for defining the Badges users can redeem on granting Wishes and their ownership, [which unfortunately does not yet utilise any ERC-721 methods](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Incentive.sol).
+
+[Making a Wish involve employing ERC-721 methods](https://github.com/JustinWong98/santa-blockchain/blob/master/contracts/Token.sol#L76-L108) like `_safeMint`, because a Wish is a token minted by the user making it. A Wish does not involve any ERC-721 ownership transfer methods currently.
+
+Originally, it was difficult to plan the ownership of Wishes, when implemented as NFTs. When involving ownership transfers, we could not use ERC-721's in-built methods like `safeTransfer` because of our initial complicated workflow. We planned to have the user mint a Wish as an NFT, but have the smart contract own the NFT instead. Only when the Wish is granted does the ownership transfer to the wisher. In the end, we simplified Wishes to be minted only by the wisher themselves, and not involve any ownership transfers.
+
+Reading further about ERC-1155 standards, it's worth exploring implementing Wishes using ERC-1155 methods instead of ERC-721. Given that users mint their own Wishes and Wishes are not pre-minted on a smart contract, we can develop a single contract (as a collective) for tokens associated with Wishes while keeping transaction gas fees for interacting with Wishes lower.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
